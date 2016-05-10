@@ -11,7 +11,7 @@ source:
   md5: 65a840e1a0b13a558ff19eeb2c4f0cbe
 
 build:
-  number: 1
+  number: 2
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
@@ -37,6 +37,11 @@ test:
     - test -f $PREFIX/lib/libboost_system.a                   # [unix]
     - test -f $PREFIX/lib/libboost_test_exec_monitor.a        # [unix]
     - test -f $PREFIX/lib/libboost_timer.a                    # [unix]
+    - test -f $PREFIX/lib/libboost_filesystem.a               # [unix]
+    - test -f $PREFIX/lib/libboost_thread.a                   # [unix]
+    - test -f $PREFIX/lib/libboost_unit_test_framework.a      # [unix]
+    - test -f $PREFIX/lib/libboost_date_time.a                # [unix]
+    - test -f $PREFIX/lib/libboost_atomic.a                   # [unix]
 
     # Verify dynamic libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}

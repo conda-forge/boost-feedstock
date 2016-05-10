@@ -26,7 +26,7 @@ if errorlevel 1 exit 1
     address-model=%ARCH% ^
     variant=release ^
     threading=multi ^
-    link=shared ^
+    link=static,shared ^
     -j%CPU_COUNT% ^
     -s ZLIB_INCLUDE="%LIBRARY_INC%" ^
     -s ZLIB_LIBPATH="%LIBRARY_LIB%"
