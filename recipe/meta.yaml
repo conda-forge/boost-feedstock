@@ -11,7 +11,7 @@ source:
   md5: 65a840e1a0b13a558ff19eeb2c4f0cbe
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
@@ -20,14 +20,14 @@ build:
 requirements:
   build:
     - python
-    - icu               # [unix]
+    - icu 56.*               # [unix]
     - bzip2             # [unix]
-    - zlib
+    - zlib 1.2*
 
   run:
     - python
-    - icu               # [unix]
-    - zlib
+    - icu 56.*               # [unix]
+    - zlib 1.2*
 
 test:
   commands:
@@ -100,3 +100,4 @@ extra:
     - ccordoba12
     - jakirkham
     - msarahan
+    - ocefpaf
