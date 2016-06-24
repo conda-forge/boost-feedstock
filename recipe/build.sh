@@ -45,7 +45,10 @@ fi
 
 if [ "$(uname)" == "Linux" ]; then
     CXXFLAGS="${CXXFLAGS} -std=c++11"
-    LINKFLAGS="${LINKFLAGS} -std=c++11 -L${LIBRARY_PATH}"
+
+    # static link libstdc++ so that the built libraries can be linked in
+    # environments with other gcc toolchains
+    LINKFLAGS="${LINKFLAGS} -static-libstdc++ -std=c++11 -L${LIBRARY_PATH}"
 
     ./bootstrap.sh \
         --prefix="${PREFIX}" \
