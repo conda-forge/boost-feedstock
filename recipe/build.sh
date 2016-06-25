@@ -13,6 +13,9 @@ set -x -e
 INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
 
+# Always build PIC code for enable static linking into other shared libraries
+CXXFLAGS="${CXXFLAGS} -fPIC"
+
 if [ "$(uname)" == "Darwin" ]; then
     MACOSX_VERSION_MIN=10.7
     CXXFLAGS="-mmacosx-version-min=${MACOSX_VERSION_MIN}"
