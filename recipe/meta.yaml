@@ -1,5 +1,6 @@
 {% set version = "1.61.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
+{% set build_number = "0" %}
 
 package:
   name: boost
@@ -11,23 +12,24 @@ source:
   md5: 6095876341956f65f9d35939ccea1a9f
 
 build:
-  number: 2
+  number: {{ build_number }}
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
     - vc14              # [win and py35]
+  string: icu54py{{ CONDA_PY }}_{{ build_number }}
 
 requirements:
   build:
     - python
-    - icu 56.*               # [unix]
-    - bzip2 1.0.*             # [unix]
-    - zlib 1.2.*
+    - icu 54.*               # [unix]
+    - bzip2             # [unix]
+    - zlib 1.2*
 
   run:
     - python
-    - icu 56.*               # [unix]
-    - zlib 1.2.*
+    - icu 54.*               # [unix]
+    - zlib 1.2*
 
 test:
   commands:
@@ -101,3 +103,4 @@ extra:
     - jakirkham
     - msarahan
     - ocefpaf
+    - 183amir
