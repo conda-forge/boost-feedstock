@@ -24,12 +24,12 @@ requirements:
     - python
     - icu 54.*               # [unix]
     - bzip2             # [unix]
-    - zlib 1.2*
+    - zlib 1.2.*
 
   run:
     - python
     - icu 54.*               # [unix]
-    - zlib 1.2*
+    - zlib 1.2.*
 
 test:
   commands:
