@@ -27,9 +27,7 @@ if errorlevel 1 exit 1
     variant=release ^
     threading=multi ^
     link=static,shared ^
-    -j%CPU_COUNT% ^
-    -s ZLIB_INCLUDE="%LIBRARY_INC%" ^
-    -s ZLIB_LIBPATH="%LIBRARY_LIB%"
+    -j%CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: Get the major minor version info (e.g. `1_61`)
