@@ -1,4 +1,4 @@
-{% set version = "1.61.0" %}
+{% set version = "1.62.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -8,10 +8,10 @@ package:
 source:
   fn:  {{ filename }}
   url: http://sourceforge.net/projects/boost/files/boost/{{ version }}/{{ filename }}
-  md5: 6095876341956f65f9d35939ccea1a9f
+  sha256: 36c96b0f6155c98404091d8ceb48319a28279ca0333fba1ad8611eb90afb2ca0
 
 build:
-  number: 2
+  number: 0
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
@@ -31,19 +31,11 @@ requirements:
 
 test:
   commands:
-    # Verify static libraries.
-    - test -f $PREFIX/lib/libboost_chrono.a                   # [unix]
-    - test -f $PREFIX/lib/libboost_exception.a                # [unix]
-    - test -f $PREFIX/lib/libboost_system.a                   # [unix]
-    - test -f $PREFIX/lib/libboost_test_exec_monitor.a        # [unix]
-    - test -f $PREFIX/lib/libboost_timer.a                    # [unix]
-    - test -f $PREFIX/lib/libboost_filesystem.a               # [unix]
-    - test -f $PREFIX/lib/libboost_thread.a                   # [unix]
-    - test -f $PREFIX/lib/libboost_unit_test_framework.a      # [unix]
-    - test -f $PREFIX/lib/libboost_date_time.a                # [unix]
-    - test -f $PREFIX/lib/libboost_atomic.a                   # [unix]
+    # Verify static-only libraries.
+    - test -f $PREFIX/lib/libboost_exception.a                   # [unix]
+    - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
 
-    # Verify dynamic libraries.
+    # Verify libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}
     {% set boost_libs = [
             "atomic",
@@ -80,6 +72,7 @@ test:
             "wserialization"
     ] %}
     {% for each_boost_lib in boost_libs %}
+    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-{{ win_vstr }}.dll exit 1   # [win and py27]
