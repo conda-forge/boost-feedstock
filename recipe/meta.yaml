@@ -15,7 +15,7 @@ build:
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
-    - vc14              # [win and py35]
+    - vc14              # [win and py >= 35]
 
 requirements:
   build:
@@ -26,7 +26,7 @@ requirements:
     - zlib 1.2.*
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
-    - vc 14             # [win and py35]
+    - vc 14             # [win and py >= 35]
 
   run:
     - python
@@ -35,7 +35,7 @@ requirements:
     - zlib 1.2.*
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
-    - vc 14             # [win and py35]
+    - vc 14             # [win and py >= 35]
 
 test:
   commands:
@@ -85,10 +85,10 @@ test:
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-{{ win_vstr }}.dll exit 1   # [win and py27]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc100-mt-{{ win_vstr }}.dll exit 1  # [win and py34]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.dll exit 1  # [win and py35]
+    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.dll exit 1  # [win and py >= 35]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc90-mt-{{ win_vstr }}.lib exit 1   # [win and py27]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc100-mt-{{ win_vstr }}.lib exit 1  # [win and py34]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.lib exit 1  # [win and py35]
+    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.lib exit 1  # [win and py >= 35]
     {% endfor %}
 
 about:
@@ -103,3 +103,4 @@ extra:
     - msarahan
     - ocefpaf
     - jschueller
+    - scopatz
