@@ -45,6 +45,7 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
+    --with-python \
     -j"${CPU_COUNT}" \
     install | tee b2.log 2>&1
 
