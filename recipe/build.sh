@@ -10,7 +10,6 @@
 
 set -x -e
 
-INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
 
 # Always build PIC code for enable static linking into other shared libraries
