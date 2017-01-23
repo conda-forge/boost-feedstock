@@ -46,3 +46,6 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     -j"${CPU_COUNT}" \
     install | tee b2.log 2>&1
 
+# Remove Python headers as we don't build Boost.Python.
+rm "${PREFIX}/include/boost/python.hpp"
+rm -r "${PREFIX}/include/boost/python"

@@ -11,7 +11,7 @@ source:
   sha256: beae2529f759f6b3bf3f4969a19c2e9d6f0c503edcb2de4a61d1428519fcb3b0
 
 build:
-  number: 0
+  number: 1
   skip: true            # [win and py>35]
   features:
     - vc9               # [win and py27]
@@ -39,6 +39,12 @@ requirements:
 
 test:
   commands:
+    # Verify Python headers are removed.
+    - "! test -f $PREFIX/lib/python.hpp"                         # [unix]
+    - "! test -d $PREFIX/lib/python"                             # [unix]
+    - if exist %PREFIX%\\Library\\include\\python.hpp exit 1     # [win]
+    - if exist %PREFIX%\\Library\\include\\python exit 1         # [win]
+
     # Verify static-only libraries.
     - test -f $PREFIX/lib/libboost_exception.a                   # [unix]
     - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
