@@ -10,7 +10,6 @@
 
 set -x -e
 
-INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
 
 # Always build PIC code for enable static linking into other shared libraries
@@ -41,7 +40,6 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     link=static,shared \
     toolset=${TOOLSET} \
     python="${PY_VER}" \
-    include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \

@@ -19,8 +19,9 @@ if errorlevel 1 exit 1
 python -c "import os; print('_'.join(os.environ['PKG_VERSION'].split('.')[:2]))" > temp.txt
 set /p MAJ_MIN_VER=<temp.txt
 
-:: Remove non version-specific boost headers
-rm %LIBRARY_INC%\boost-%MAJ_MIN_VER%\boost
+:: Install fix-up for a non version-specific boost include
+xcopy /E/Y %LIBRARY_INC%\boost-%MAJ_MIN_VER%\boost\* %LIBRARY_INC%\boost\
+rmdir /s /q %LIBRARY_INC%\boost-%MAJ_MIN_VER%\boost
 
 :: Move dll's to LIBRARY_BIN
 move %LIBRARY_LIB%\*vc%VS_MAJOR%0-mt-%MAJ_MIN_VER%.dll "%LIBRARY_BIN%"
