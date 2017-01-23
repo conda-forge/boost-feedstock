@@ -41,6 +41,11 @@ requirements:
 
 test:
   commands:
+    # Verify Python headers are installed.
+    - test -f $PREFIX/lib/python.hpp                                 # [unix]
+    - test -d $PREFIX/lib/python                                     # [unix]
+    - if not exist %PREFIX%\\Library\\include\\python.hpp exit 1     # [win]
+    - if not exist %PREFIX%\\Library\\include\\python exit 1         # [win]
 
     # Verify libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}
