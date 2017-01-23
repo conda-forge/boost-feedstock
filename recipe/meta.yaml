@@ -21,6 +21,7 @@ requirements:
   build:
     - toolchain
     - python
+    - numpy x.x
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
@@ -28,6 +29,7 @@ requirements:
 
   run:
     - python
+    - numpy x.x
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
