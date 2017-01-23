@@ -41,7 +41,6 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     link=static,shared \
     toolset=${TOOLSET} \
     python="${PY_VER}" \
-    include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
