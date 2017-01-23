@@ -42,10 +42,10 @@ requirements:
 test:
   commands:
     # Verify Python headers are installed.
-    - test -f $PREFIX/lib/python.hpp                                 # [unix]
-    - test -d $PREFIX/lib/python                                     # [unix]
-    - if not exist %PREFIX%\\Library\\include\\python.hpp exit 1     # [win]
-    - if not exist %PREFIX%\\Library\\include\\python exit 1         # [win]
+    - test -f $PREFIX/include/boost/python.hpp                 # [unix]
+    - test -d $PREFIX/include/boost/python                     # [unix]
+    - if not exist %LIBRARY_INC%\\boost\\python.hpp exit 1     # [win]
+    - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
     # Verify libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}
