@@ -95,6 +95,8 @@ test:
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc100-mt-{{ win_vstr }}.lib exit 1  # [win and py34]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.lib exit 1  # [win and py35]
     {% endfor %}
+    - conda inspect linkages -p $PREFIX boost-cpp  # [not win]
+    - conda inspect objects -p $PREFIX boost-cpp  # [osx]
 
 about:
   home: http://www.boost.org/
