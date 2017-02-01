@@ -58,6 +58,8 @@ test:
     - if not exist %PREFIX%\\Library\\lib\\boost_python-vc90-mt-{{ win_vstr }}.lib exit 1   # [win and py27]
     - if not exist %PREFIX%\\Library\\lib\\boost_python-vc100-mt-{{ win_vstr }}.lib exit 1  # [win and py34]
     - if not exist %PREFIX%\\Library\\lib\\boost_python-vc140-mt-{{ win_vstr }}.lib exit 1  # [win and py >= 35]
+    - conda inspect linkages -p $PREFIX boost  # [not win]
+    - conda inspect objects -p $PREFIX boost  # [osx]
 
 about:
   home: http://www.boost.org/
