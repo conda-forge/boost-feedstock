@@ -15,28 +15,22 @@ build:
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
-    - vc14              # [win and py >= 35]
+    - vc14              # [win and py>=35]
 
 requirements:
   build:
     - toolchain
     - python
-    - icu 58.*          # [unix]
-    - bzip2 1.0.*       # [unix]
-    - zlib 1.2.*
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
-    - vc 14             # [win and py >= 35]
+    - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
   run:
     - python
-    - icu 58.*          # [unix]
-    - bzip2 1.0.*       # [unix]
-    - zlib 1.2.*
     - vc 9              # [win and py27]
     - vc 10             # [win and py34]
-    - vc 14             # [win and py >= 35]
+    - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
 test:
