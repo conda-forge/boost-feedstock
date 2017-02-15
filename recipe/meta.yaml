@@ -9,6 +9,8 @@ source:
   fn:  {{ filename }}
   url: http://sourceforge.net/projects/boost/files/boost/{{ version }}/{{ filename }}
   sha256: beae2529f759f6b3bf3f4969a19c2e9d6f0c503edcb2de4a61d1428519fcb3b0
+  patches:
+    - boost_python_pr110.patch
 
 build:
   number: 5
