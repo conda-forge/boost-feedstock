@@ -28,7 +28,7 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     --with-icu="${PREFIX}" \
     --with-python="${PYTHON}" \
     --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m ${PREFIX}/include/python${PY_VER}" \
-    | tee bootstrap.log 2>&1
+    2>&1 | tee bootstrap.log
 
 ./b2 -q \
     variant=release \
@@ -45,5 +45,4 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     --layout=system \
     --with-python \
     -j"${CPU_COUNT}" \
-    install | tee b2.log 2>&1
-
+    install 2>&1 | tee b2.log
