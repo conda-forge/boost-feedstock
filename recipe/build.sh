@@ -9,6 +9,7 @@
 # http://stackoverflow.com/questions/20108407/how-do-i-compile-boost-for-os-x-64b-platforms-with-stdlibc
 
 set -x -e
+set -o pipefail
 
 LIBRARY_PATH="${PREFIX}/lib"
 
@@ -28,7 +29,7 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     --with-icu="${PREFIX}" \
     --with-python="${PYTHON}" \
     --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m ${PREFIX}/include/python${PY_VER}" \
-    | tee bootstrap.log 2>&1
+    2>&1 | tee bootstrap.log
 
 ./b2 -q \
     variant=release \
@@ -45,5 +46,4 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     --layout=system \
     --with-python \
     -j"${CPU_COUNT}" \
-    install | tee b2.log 2>&1
-
+    install 2>&1 | tee b2.log
