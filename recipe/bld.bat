@@ -8,7 +8,7 @@ if errorlevel 1 exit 1
     --prefix=%LIBRARY_PREFIX% ^
     toolset=msvc-%VS_MAJOR%.0 ^
     address-model=%ARCH% ^
-    variant=release ^
+    variant=release,debug ^
     threading=multi ^
     link=static,shared ^
     --with-python ^

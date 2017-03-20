@@ -14,7 +14,7 @@ source:
     - boost_python_pr110.patch
 
 build:
-  number: 6
+  number: 7
   features:
     - vc9               # [win and py27]
     - vc10              # [win and py34]
