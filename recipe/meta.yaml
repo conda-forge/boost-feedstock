@@ -15,7 +15,6 @@ build:
   skip: true            # [win and py>35]
   features:
     - vc9               # [win and py27]
-    - vc10              # [win and py34]
     - vc14              # [win and py35]
 
 requirements:
@@ -26,7 +25,6 @@ requirements:
     - bzip2 1.0.*       # [unix]
     - zlib 1.2.*
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py35]
 
   run:
@@ -34,7 +32,6 @@ requirements:
     - bzip2 1.0.*       # [unix]
     - zlib 1.2.*
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py35]
 
 test:
