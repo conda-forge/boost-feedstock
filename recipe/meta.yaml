@@ -14,7 +14,6 @@ build:
   number: 0
   features:
     - vc9               # [win and py27]
-    - vc10              # [win and py34]
     - vc14              # [win and py>=35]
 
 requirements:
@@ -23,7 +22,6 @@ requirements:
     - python
     - numpy x.x
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
@@ -31,7 +29,6 @@ requirements:
     - python
     - numpy x.x
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
