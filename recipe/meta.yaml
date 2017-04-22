@@ -42,9 +42,10 @@ test:
 
     # Verify libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}
+    {% set py3k_suffix = "3" if py3k else "" %}
     {% set boost_libs = [
-            "python",
-            "numpy"
+            "python%s" % py3k_suffix,
+            "numpy%s" % py3k_suffix
     ] %}
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
