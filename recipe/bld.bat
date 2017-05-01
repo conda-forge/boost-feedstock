@@ -1,3 +1,7 @@
+:: Use Jamfile@bd7b8ec
+:: see https://github.com/boostorg/build/issues/194
+xcopy /Y %RECIPE_DIR%\Jamfile libs\python\build\Jamfile
+
 :: Start with bootstrap
 call bootstrap.bat
 if errorlevel 1 exit 1
