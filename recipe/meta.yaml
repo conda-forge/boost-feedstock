@@ -1,4 +1,4 @@
-{% set version = "1.63.0" %}
+{% set version = "1.64.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -7,17 +7,13 @@ package:
 
 source:
   fn:  {{ filename }}
-  #url: http://sourceforge.net/projects/boost/files/boost/{{ version }}/{{ filename }}
-  url: https://github.com/conda-forge/boost-feedstock/releases/download/sources/{{ filename }}
-  sha256: beae2529f759f6b3bf3f4969a19c2e9d6f0c503edcb2de4a61d1428519fcb3b0
-  patches:
-    - boost_python_pr110.patch
+  url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
+  sha256: 7bcc5caace97baa948931d712ea5f37038dbb1c5d89b43ad4def4ed7cb683332
 
 build:
-  number: 6
+  number: 0
   features:
     - vc9               # [win and py27]
-    - vc10              # [win and py34]
     - vc14              # [win and py>=35]
 
 requirements:
@@ -26,7 +22,6 @@ requirements:
     - python
     - numpy x.x
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
@@ -34,7 +29,6 @@ requirements:
     - python
     - numpy x.x
     - vc 9              # [win and py27]
-    - vc 10             # [win and py34]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
@@ -48,9 +42,10 @@ test:
 
     # Verify libraries.
     {% set win_vstr = "_".join(version.split(".")[:2]) %}
+    {% set py3k_suffix = "3" if py3k else "" %}
     {% set boost_libs = [
-            "python",
-            "numpy"
+            "python%s" % py3k_suffix,
+            "numpy%s" % py3k_suffix
     ] %}
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
