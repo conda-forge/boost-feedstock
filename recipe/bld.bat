@@ -1,6 +1,11 @@
-:: Use Jamfile@bd7b8ec
-:: see https://github.com/boostorg/build/issues/194
-xcopy /Y %RECIPE_DIR%\Jamfile libs\python\build\Jamfile
+:: Write python configuration, see https://github.com/boostorg/build/issues/194
+@echo using python > user-config.jam
+@echo : %PY_VER% >> user-config.jam
+@echo : %PYTHON:\=\\% >> user-config.jam
+@echo : %PREFIX:\=\\%\\include >> user-config.jam
+@echo : %PREFIX:\=\\%\\libs >> user-config.jam
+@echo ; >> user-config.jam
+xcopy user-config.jam C:\Users\appveyor
 
 :: Start with bootstrap
 call bootstrap.bat
