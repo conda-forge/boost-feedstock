@@ -11,7 +11,7 @@ source:
   sha256: 7bcc5caace97baa948931d712ea5f37038dbb1c5d89b43ad4def4ed7cb683332
 
 build:
-  number: 0
+  number: 1
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
@@ -52,10 +52,8 @@ test:
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-{{ win_vstr }}.dll exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc100-mt-{{ win_vstr }}.dll exit 1  # [win and py34]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.dll exit 1  # [win and py >= 35]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc90-mt-{{ win_vstr }}.lib exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc100-mt-{{ win_vstr }}.lib exit 1  # [win and py34]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-{{ win_vstr }}.lib exit 1  # [win and py >= 35]
     {% endfor %}
     - conda inspect linkages -p $PREFIX boost  # [not win]
