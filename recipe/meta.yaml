@@ -9,9 +9,11 @@ source:
   fn:  {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
   sha256: 7bcc5caace97baa948931d712ea5f37038dbb1c5d89b43ad4def4ed7cb683332
+  patches:
+    - boost-serialization-1.64.patch
 
 build:
-  number: 1
+  number: 2
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
