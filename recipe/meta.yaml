@@ -9,6 +9,12 @@ source:
   fn:  {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
   sha256: 7bcc5caace97baa948931d712ea5f37038dbb1c5d89b43ad4def4ed7cb683332
+  patches:
+    # Applies a patch to correct `BOOST_LIB_NAME` on Python 3.
+    #
+    # xref: https://github.com/boostorg/python/pull/135
+    #
+    - PR_135.diff
 
 build:
   number: 1
