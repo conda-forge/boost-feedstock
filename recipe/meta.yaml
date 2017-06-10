@@ -17,7 +17,7 @@ source:
     - PR_135.diff
 
 build:
-  number: 1
+  number: 2
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
