@@ -17,7 +17,7 @@ source:
     - PR_135.diff
 
 build:
-  number: 2
+  number: 3
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
@@ -26,14 +26,18 @@ requirements:
   build:
     - toolchain
     - python
-    - numpy x.x
+    - numpy 1.7.*  # [py27]
+    - numpy 1.9.*  # [py35]
+    - numpy 1.11.*  # [py36]
     - vc 9              # [win and py27]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
 
   run:
     - python
-    - numpy x.x
+    - numpy 1.7.*  # [py27]
+    - numpy 1.9.*  # [py35]
+    - numpy 1.11.*  # [py36]
     - vc 9              # [win and py27]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
