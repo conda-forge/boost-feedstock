@@ -35,9 +35,9 @@ requirements:
 
   run:
     - python
-    - numpy 1.7.*  # [py27]
-    - numpy 1.9.*  # [py35]
-    - numpy 1.11.*  # [py36]
+    - numpy >=1.7  # [py27]
+    - numpy >=1.9  # [py35]
+    - numpy >=1.11  # [py36]
     - vc 9              # [win and py27]
     - vc 14             # [win and py>=35]
     - boost-cpp {{ version }}
