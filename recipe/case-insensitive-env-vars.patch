@@ -1,0 +1,41 @@
+From 9821622630035c0d7c3f4d7c196f847a335da2b6 Mon Sep 17 00:00:00 2001
+From: Rene Rivera <grafikrobot@gmail.com>
+Date: Tue, 5 Sep 2017 12:48:55 -0500
+Subject: [PATCH] Partiallly address case-insentive assumptions for env vars.
+
+There are some programs on some operating system that assume env vars
+can be freely dealt with in a case-insensite manner. For example Python
+on Windows will upper-case env vars when importing them. And transmit
+that upper-case down the process chain. Which causes problems when b2 is
+called from such programs in that b2 assumes the environment is not
+going to mutate variable names. This partially addresses the issue by
+also checking if an env variable is defined as lower or upper case. But
+only if access through the os.environ rule.
+---
+ src/util/os.jam | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/util/os.jam b/src/util/os.jam
+index 1700c83585..0db764fdfe 100644
+--- a/tools/build/src/util/os.jam
++++ b/tools/build/src/util/os.jam
+@@ -12,7 +12,18 @@ import string ;
+ # invoked.
+ rule environ ( variable-names + )
+ {
+-    return [ modules.peek .ENVIRON : $(variable-names) ] ;
++    local result ;
++    for local var-name in $(variable-names)
++    {
++        # We check the various cases of the var name for a value to account
++        # for programs that change the casing of env vars. One such program
++        # is Python that upper-cases env var names on import, and resports
++        # them as upper-case instead of keeping the original case.
++        local value = [ modules.peek .ENVIRON :
++            $(var-name) $(var-name:U) $(var-name:L) ] ;
++        result += $(value[1]) ;
++    }
++    return $(result) ;
+ }
+ 
+ .name = [ modules.peek : OS ] ;

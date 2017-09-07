@@ -1,0 +1,41 @@
+From ba9c0996573ea5b505ec6512b89aa32664aa2bce Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ion=20Gazta=C3=B1aga?= <igaztanaga@gmail.com>
+Date: Sat, 12 Aug 2017 22:14:07 +0200
+Subject: [PATCH] Fix non-C90 compatible lines
+
+MSVC compilers fail to compile as they don't support declarations after statements
+---
+ src/engine/strings.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/engine/strings.c b/src/engine/strings.c
+index 19f03c984d..32f00728dd 100644
+--- a/tools/build/src/engine/strings.c
++++ b/tools/build/src/engine/strings.c
+@@ -191,8 +191,9 @@ char string_back( string * self )
+ 
+ void string_rtrim( string * self )
+ {
++    char *p;
+     assert_invariants( self );
+-    char * p = self->value + self->size - 1;
++    p = self->value + self->size - 1;
+     for ( p; p >= self->value && ( *p == '\0' || isspace( *p ) ); *p-- = 0 );
+ }
+ 
+@@ -228,6 +229,7 @@ void string_unit_test()
+ 
+     {
+         char * const foo = "Foo    ";
++        char * const bar = "Bar\0\0\0";
+         string foo_copy[ 1 ];
+         string_copy( foo_copy, foo );
+         string_rtrim( foo_copy );
+@@ -236,7 +238,6 @@ void string_unit_test()
+         string_rtrim( foo_copy );
+         assert( !strcmp( foo_copy->value, "Foo" ) );
+ 
+-        char * const bar = "Bar\0\0\0";
+         string bar_copy[ 1 ];
+         string_copy( bar_copy, bar );
+         string_rtrim( bar_copy );
