@@ -1,0 +1,104 @@
+From 8f64110d1d37f379eeafdb840bdd1e6bdffb3c59 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ion=20Gazta=C3=B1aga?= <igaztanaga@gmail.com>
+Date: Mon, 14 Aug 2017 01:08:18 +0200
+Subject: [PATCH] More fixes for MSVC 7.1:
+
+- Add missing WINVER=0x0501 and _WIN32_WINNT=0x0501 to config_toolset.bat
+- Add needed -D_WIN32_WINNT=0x0501 for vc7 to fix unresolved symbols
+- Added alternatives to va_copy and vsnprintf in debugger.c
+- Add missing fix from previous patch in strings.c
+---
+ src/engine/build.jam          |  2 +-
+ src/engine/config_toolset.bat |  2 +-
+ src/engine/debugger.c         | 19 +++++++++++++++----
+ src/engine/strings.c          |  5 +++--
+ 4 files changed, 20 insertions(+), 8 deletions(-)
+
+diff --git a/src/engine/build.jam b/src/engine/build.jam
+index e711c08149..f5183fa6ff 100644
+--- a/tools/build/src/engine/build.jam
++++ b/tools/build/src/engine/build.jam
+@@ -357,7 +357,7 @@ toolset vc7 cl : /Fe /Fe /Fd /Fo : -D
+     : /nologo
+     [ opt --release : /ML /O2 /Ob2 /Gy /GF /GA /GB ]
+     [ opt --debug : /MLd /DEBUG /Z7 /Od /Ob0 ]
+-    -I$(--python-include) -I$(--extra-include)
++    -I$(--python-include) -I$(--extra-include) -D_WIN32_WINNT=0x0501
+     : kernel32.lib advapi32.lib user32.lib $(--python-lib[1]) ;
+ ## Microsoft Visual C++ 2005
+ toolset vc8 cl : /Fe /Fe /Fd /Fo : -D
+diff --git a/src/engine/config_toolset.bat b/src/engine/config_toolset.bat
+index fd59f94d99..291459e65d 100644
+--- a/tools/build/src/engine/config_toolset.bat
++++ b/tools/build/src/engine/config_toolset.bat
+@@ -55,7 +55,7 @@ if NOT "_%BOOST_JAM_TOOLSET_ROOT%_" == "__" (
+     if "_%VCINSTALLDIR%_" == "__" (
+         set "PATH=%BOOST_JAM_TOOLSET_ROOT%bin;%PATH%"
+         ) )
+-set "BOOST_JAM_CC=cl /nologo /GZ /Zi /MLd /Fobootstrap/ /Fdbootstrap/ -DNT -DYYDEBUG kernel32.lib advapi32.lib user32.lib"
++set "BOOST_JAM_CC=cl /nologo /GZ /Zi /MLd /Fobootstrap/ /Fdbootstrap/ -DWINVER=0x0501 -D_WIN32_WINNT=0x0501 -DNT -DYYDEBUG kernel32.lib advapi32.lib user32.lib "
+ set "BOOST_JAM_OPT_JAM=/Febootstrap\jam0"
+ set "BOOST_JAM_OPT_MKJAMBASE=/Febootstrap\mkjambase0"
+ set "BOOST_JAM_OPT_YYACC=/Febootstrap\yyacc0"
+diff --git a/src/engine/debugger.c b/src/engine/debugger.c
+index 802f262879..b32eb89273 100644
+--- a/tools/build/src/engine/debugger.c
++++ b/tools/build/src/engine/debugger.c
+@@ -833,8 +833,16 @@ static const char * debug_format_message( const char * format, va_list vargs )
+         buf = malloc( sz );
+         if ( !buf )
+             return 0;
++        #ifndef va_copy
++        args = vargs;
++        #else
+         va_copy( args, vargs );
++        #endif
++        #if defined(_MSC_VER) && (_MSC_VER <= 1310)
++        result = _vsnprintf( buf, sz, format, args );
++        #else
+         result = vsnprintf( buf, sz, format, args );
++        #endif
+         va_end( args );
+         if ( result < 0 )
+             return 0;
+@@ -1125,10 +1133,13 @@ static void debug_start_child( int argc, const char * * argv )
+     sprintf( buf, "%p", pipe2[ 1 ] );
+     string_append( command_line, buf );
+     /* Pass the rest of the command line. */
+-    for ( int i = 1; i < argc; ++i )
+-    {
+-        string_push_back( command_line, ' ' );
+-        string_append( command_line, argv[ i ] );
++	{
++        int i;
++        for ( i = 1; i < argc; ++i )
++        {
++            string_push_back( command_line, ' ' );
++            string_append( command_line, argv[ i ] );
++        }
+     }
+     SetHandleInformation( pipe1[ 1 ], HANDLE_FLAG_INHERIT, 0 );
+     SetHandleInformation( pipe2[ 0 ], HANDLE_FLAG_INHERIT, 0 );
+diff --git a/src/engine/strings.c b/src/engine/strings.c
+index 32f00728dd..8f504897fa 100644
+--- a/tools/build/src/engine/strings.c
++++ b/tools/build/src/engine/strings.c
+@@ -229,7 +229,6 @@ void string_unit_test()
+ 
+     {
+         char * const foo = "Foo    ";
+-        char * const bar = "Bar\0\0\0";
+         string foo_copy[ 1 ];
+         string_copy( foo_copy, foo );
+         string_rtrim( foo_copy );
+@@ -237,7 +236,9 @@ void string_unit_test()
+ 
+         string_rtrim( foo_copy );
+         assert( !strcmp( foo_copy->value, "Foo" ) );
+-
++    }
++    {
++        char * const bar = "Bar\0\0\0";
+         string bar_copy[ 1 ];
+         string_copy( bar_copy, bar );
+         string_rtrim( bar_copy );
