@@ -1,4 +1,4 @@
-{% set version = "1.64.0" %}
+{% set version = "1.65.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -8,16 +8,17 @@ package:
 source:
   fn:  {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: 7bcc5caace97baa948931d712ea5f37038dbb1c5d89b43ad4def4ed7cb683332
+  sha256: ea26712742e2fb079c2a566a31f3266973b76e38222b9f88b387e3c8b2f9902c
   patches:
-    # Applies a patch to correct `BOOST_LIB_NAME` on Python 3.
-    #
-    # xref: https://github.com/boostorg/python/pull/135
-    #
-    - PR_135.diff
+    # https://github.com/boostorg/build/issues/230
+    - case-insensitive-env-vars.patch
+    # https://github.com/boostorg/build/pull/226
+    - fix-non-c90-lines.patch
+    # https://github.com/boostorg/build/pull/227
+    - more-msvc-fixes.patch
 
 build:
-  number: 4
+  number: 0
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
