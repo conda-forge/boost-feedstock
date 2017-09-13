@@ -1,4 +1,4 @@
-{% set version = "1.65.0" %}
+{% set version = "1.65.1" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -8,7 +8,7 @@ package:
 source:
   fn:  {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: ea26712742e2fb079c2a566a31f3266973b76e38222b9f88b387e3c8b2f9902c
+  sha256: 9807a5d16566c57fd74fb522764e0b134a8bbe6b6e8967b83afefd30dcd3be81
   patches:
     # https://github.com/boostorg/build/issues/230
     - case-insensitive-env-vars.patch
@@ -54,7 +54,7 @@ test:
     - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
 
     # Verify libraries.
-    {% set win_vstr = "_".join(version.split(".")[:2]) %}
+    {% set win_vstr = "_".join(version.split(".")[:3]) %}
     {% set boost_libs = [
             "atomic",
             "chrono",
