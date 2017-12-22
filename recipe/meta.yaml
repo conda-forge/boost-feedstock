@@ -53,8 +53,7 @@ test:
     ] %}
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
-    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
-    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
+    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}${SHLIB_EXT}                                       # [unix]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.dll exit 1   # [win and py27]
     - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-x%ARCH%-{{ win_vstr }}.dll exit 1  # [win and py >= 35]
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.lib exit 1   # [win and py27]
