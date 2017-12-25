@@ -12,6 +12,7 @@ if errorlevel 1 exit 1
     threading=multi ^
     link=static,shared ^
     -j%CPU_COUNT% ^
+    --layout=system ^
     --without-python
 if errorlevel 1 exit 1
 
@@ -28,5 +29,9 @@ del %LIBRARY_INC%\boost\python.hpp
 rmdir /s /q %LIBRARY_INC%\boost\python
 
 :: Move dll's to LIBRARY_BIN
-move %LIBRARY_LIB%\*vc%VS_MAJOR%0-mt-x%ARCH%-%MAJ_MIN_VER%.dll "%LIBRARY_BIN%"
+move %LIBRARY_LIB%\boost*.dll "%LIBRARY_BIN%"
 if errorlevel 1 exit 1
+
+echo &echo.                           >> %LIBRARY_INC%\boost\config\user.hpp
+echo #define BOOST_AUTO_LINK_NOMANGLE >> %LIBRARY_INC%\boost\config\user.hpp
+
