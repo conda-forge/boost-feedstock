@@ -11,7 +11,7 @@ source:
   sha256: 5721818253e6a0989583192f96782c4a98eb6204965316df9f5ad75819225ca9
 
 build:
-  number: 0
+  number: 1
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
@@ -45,7 +45,6 @@ test:
     - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
     # Verify libraries.
-    {% set win_vstr = "_".join(version.split(".")[:2]) %}
     {% set py3k_suffix = "3" if py3k else "" %}
     {% set boost_libs = [
             "python%s" % py3k_suffix,
@@ -54,10 +53,9 @@ test:
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}${SHLIB_EXT}                                       # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.dll exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-x%ARCH%-{{ win_vstr }}.dll exit 1  # [win and py >= 35]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.lib exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-x%ARCH%-{{ win_vstr }}.lib exit 1  # [win and py >= 35]
+    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
+    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
+    - if not exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
     {% endfor %}
     - conda inspect linkages -p $PREFIX boost  # [not win]
     - conda inspect objects -p $PREFIX boost  # [osx]
