@@ -10,7 +10,7 @@ source:
   sha256: 5721818253e6a0989583192f96782c4a98eb6204965316df9f5ad75819225ca9
 
 build:
-  number: 0
+  number: 1
   skip: true            # [win and py36]
   features:
     - vc9               # [win and py27]
@@ -48,7 +48,6 @@ test:
     - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
 
     # Verify libraries.
-    {% set win_vstr = "_".join(version.split(".")[:2]) %}
     {% set boost_libs = [
             "atomic",
             "chrono",
@@ -86,10 +85,9 @@ test:
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.dll exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc140-mt-x%ARCH%-{{ win_vstr }}.dll exit 1  # [win and py35]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc90-mt-x%ARCH%-{{ win_vstr }}.lib exit 1   # [win and py27]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc140-mt-x%ARCH%-{{ win_vstr }}.lib exit 1  # [win and py35]
+    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
+    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
+    - if not exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
     {% endfor %}
     - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
     - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
