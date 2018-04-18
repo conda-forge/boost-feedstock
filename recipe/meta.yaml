@@ -45,10 +45,9 @@ test:
     - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
     # Verify libraries.
-    {% set py3k_suffix = "3" if py3k else "" %}
     {% set boost_libs = [
-            "python%s" % py3k_suffix,
-            "numpy%s" % py3k_suffix
+            "python%s" % py,
+            "numpy%s" % py
     ] %}
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
