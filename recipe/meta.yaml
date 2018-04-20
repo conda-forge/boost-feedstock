@@ -1,4 +1,4 @@
-{% set version = "1.66.0" %}
+{% set version = "1.67.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -8,10 +8,10 @@ package:
 source:
   fn:  {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: 5721818253e6a0989583192f96782c4a98eb6204965316df9f5ad75819225ca9
+  sha256: 2684c972994ee57fc5632e03bf044746f6eb45d4920c343937a465fd67a5adba
 
 build:
-  number: 1
+  number: 0
   features:
     - vc9               # [win and py27]
     - vc14              # [win and py>=35]
@@ -45,10 +45,9 @@ test:
     - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
     # Verify libraries.
-    {% set py3k_suffix = "3" if py3k else "" %}
     {% set boost_libs = [
-            "python%s" % py3k_suffix,
-            "numpy%s" % py3k_suffix
+            "python%s" % py,
+            "numpy%s" % py
     ] %}
     {% for each_boost_lib in boost_libs %}
     - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
@@ -63,6 +62,7 @@ test:
 about:
   home: http://www.boost.org/
   license: Boost-1.0
+  license_file: LICENSE_1_0.txt
   summary: Free peer-reviewed portable C++ source libraries.
 
 extra:
