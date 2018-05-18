@@ -14,7 +14,7 @@ set -o pipefail
 LIBRARY_PATH="${PREFIX}/lib"
 
 # Always build PIC code for enable static linking into other shared libraries
-CXXFLAGS="${CXXFLAGS} -fPIC"
+CXXFLAGS="${CXXFLAGS} -fPIC -std=c++14"
 
 if [ "$(uname)" == "Darwin" ]; then
     TOOLSET=clang
