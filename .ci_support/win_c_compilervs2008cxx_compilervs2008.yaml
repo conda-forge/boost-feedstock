@@ -1,0 +1,26 @@
+bzip2:
+- '1'
+c_compiler:
+- vs2008
+cxx_compiler:
+- vs2008
+fortran_compiler:
+- gfortran
+icu:
+- '58'
+pin_run_as_build:
+  bzip2:
+    max_pin: x
+  icu:
+    max_pin: x
+  xz:
+    max_pin: x.x
+  zlib:
+    max_pin: x.x
+xz:
+- '5.2'
+zip_keys:
+- - c_compiler
+  - cxx_compiler
+zlib:
+- '1.2'
