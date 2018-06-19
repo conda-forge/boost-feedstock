@@ -1,9 +1,5 @@
-c_compiler:
-- vs2015
 cxx_compiler:
 - vs2015
-fortran_compiler:
-- gfortran
 numpy:
 - '1.11'
 pin_run_as_build:
@@ -14,5 +10,4 @@ python:
 - '3.5'
 zip_keys:
 - - python
-  - c_compiler
   - cxx_compiler
