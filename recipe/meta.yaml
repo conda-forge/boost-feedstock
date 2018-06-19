@@ -15,22 +15,17 @@ build:
 
 requirements:
   build:
-    - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+
   host:
     - python
-    - numpy        # [not (win and (py35 or py36))]
-    - numpy        # [win and py35]
-    - numpy         # [win and py36]
-    - boost-cpp    version }}
+    - numpy
+    - boost-cpp  {{ version }}
 
   run:
     - python
-    - {{ pin_compatible('numpy') }}   # [not (win and (py35 or py36))]
-    - {{ pin_compatible('numpy') }}   # [win and py35]
-    - {{ pin_compatible('numpy') }}   # [win and py36]
-    - boost-cpp    version }}
+    - {{ pin_compatible('numpy') }}
+    - boost-cpp  {{ version }}
 
 test:
   commands:
