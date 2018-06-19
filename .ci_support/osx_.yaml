@@ -2,12 +2,8 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 bzip2:
 - '1'
-c_compiler:
-- toolchain_c
 cxx_compiler:
 - toolchain_cxx
-fortran_compiler:
-- toolchain_fort
 icu:
 - '58'
 macos_machine:
