@@ -29,7 +29,7 @@ requirements:
 
 test:
   commands:
-    # Verify Python headers are installed
+    # Verify Python headers are installed.
     - test -f $PREFIX/include/boost/python.hpp                 # [unix]
     - test -d $PREFIX/include/boost/python                     # [unix]
     - if not exist %LIBRARY_INC%\\boost\\python.hpp exit 1     # [win]
