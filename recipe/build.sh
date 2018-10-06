@@ -54,7 +54,7 @@ sed -i.bak "s,cc,${TOOLSET},g" ${SRC_DIR}/project-config.jam
     linkflags="${LINKFLAGS}" \
     --layout=system \
     -j"${CPU_COUNT}" \
-    install | tee b2.log 2>&1
+    install | sed -e "s|${PREFIX}|<PREFIX>|g" | tee b2.log 2>&1
 
 # Remove Python headers as we don't build Boost.Python.
 rm "${PREFIX}/include/boost/python.hpp"
