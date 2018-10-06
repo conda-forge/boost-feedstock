@@ -22,13 +22,23 @@ elif [ "$(uname)" == "Linux" ]; then
     TOOLSET=gcc
 fi
 
+# http://www.boost.org/build/doc/html/bbv2/tasks/crosscompile.html
+cat <<EOF > ${SRC_DIR}/tools/build/src/site-config.jam
+using ${TOOLSET} : custom : ${CXX} ;
+EOF
+
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
 ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --without-libraries=python \
+    --with-toolset=cc \
     --with-icu="${PREFIX}" \
     | tee bootstrap.log 2>&1
+
+# https://svn.boost.org/trac10/ticket/5917
+# https://stackoverflow.com/a/5244844/1005215
+sed -i.bak "s,cc,${TOOLSET},g" ${SRC_DIR}/project-config.jam
 
 ./b2 -q \
     variant=release \
@@ -38,13 +48,13 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     threading=multi \
     runtime-link=shared \
     link=static,shared \
-    toolset=${TOOLSET} \
+    toolset=${TOOLSET}-custom \
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
     -j"${CPU_COUNT}" \
-    install | tee b2.log 2>&1
+    install | sed -e "s|${PREFIX}|<PREFIX>|g" | tee b2.log 2>&1
 
 # Remove Python headers as we don't build Boost.Python.
 rm "${PREFIX}/include/boost/python.hpp"
