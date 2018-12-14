@@ -16,10 +16,12 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+
   host:
     - python
     - numpy
     - boost-cpp  {{ version }}
+
   run:
     - python
     - {{ pin_compatible('numpy') }}
