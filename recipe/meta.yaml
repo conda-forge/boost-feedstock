@@ -10,7 +10,7 @@ source:
   sha256: 8f32d4617390d1c2d16f26a27ab60d97807b35440d45891fa340fc2648b04406
 
 build:
-  number: 1000
+  number: 1001
 
 requirements:
   build:
@@ -27,6 +27,9 @@ requirements:
     - bzip2             # [unix]
     - xz                # [unix]
     - zlib
+
+  run_constrained:
+    - libboost <0
 
 test:
   commands:
