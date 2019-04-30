@@ -24,7 +24,7 @@ fi
 
 # http://www.boost.org/build/doc/html/bbv2/tasks/crosscompile.html
 cat <<EOF > ${SRC_DIR}/tools/build/src/site-config.jam
-using ${TOOLSET} : custom : ${CXX} ;
+using ${TOOLSET} : : ${CXX} ;
 EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
@@ -48,7 +48,7 @@ sed -i.bak "s,cc,${TOOLSET},g" ${SRC_DIR}/project-config.jam
     threading=multi \
     runtime-link=shared \
     link=static,shared \
-    toolset=${TOOLSET}-custom \
+    toolset=${TOOLSET} \
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
