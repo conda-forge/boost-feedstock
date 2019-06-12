@@ -16,6 +16,13 @@ Current build status
 
 
 <table><tr>
+    <td>Travis</td>
+    <td>
+      <a href="https://travis-ci.org/conda-forge/boost-cpp-feedstock">
+        <img alt="macOS" src="https://img.shields.io/travis/conda-forge/boost-cpp-feedstock/master.svg?label=macOS">
+      </a>
+    </td>
+  </tr><tr>
     <td>Appveyor</td>
     <td>
       <a href="https://ci.appveyor.com/project/conda-forge/boost-cpp-feedstock/branch/master">
@@ -40,6 +47,20 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=108&branchName=master">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-cpp-feedstock?branchName=master&jobName=linux&configuration=linux_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=108&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-cpp-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=108&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-cpp-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -69,7 +90,6 @@ Current build status
       </details>
     </td>
   </tr>
-![ppc64le disabled](https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg)
 </table>
 
 Current release info
