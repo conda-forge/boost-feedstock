@@ -40,9 +40,16 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 # https://stackoverflow.com/a/5244844/1005215
 sed -i.bak "s,cc,${TOOLSET},g" ${SRC_DIR}/project-config.jam
 
+ADDRESS_MODEL="${ARCH}"
+if [ "${ADDRESS_MODEL}" == "aarch64" ]; then
+    ADDRESS_MODEL=64
+elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
+    ADDRESS_MODEL=64
+fi
+
 ./b2 -q \
     variant=release \
-    address-model="${ARCH}" \
+    address-model="${ADDRESS_MODEL}" \
     architecture=x86 \
     debug-symbols=off \
     threading=multi \
