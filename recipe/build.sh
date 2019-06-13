@@ -41,16 +41,19 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 sed -i.bak "s,cc,${TOOLSET},g" ${SRC_DIR}/project-config.jam
 
 ADDRESS_MODEL="${ARCH}"
+ARCHITECTURE=x86
 if [ "${ADDRESS_MODEL}" == "aarch64" ]; then
     ADDRESS_MODEL=64
+    ARCHITECTURE=arm
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
+    ARCHITECTURE=power
 fi
 
 ./b2 -q \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
-    architecture=x86 \
+    architecture="${ARCHITECTURE}" \
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \
