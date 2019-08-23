@@ -34,7 +34,7 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
     --without-libraries=python \
     --with-toolset=cc \
     --with-icu="${PREFIX}" \
-    | tee bootstrap.log 2>&1
+    || cat bootstrap.log
 
 # https://svn.boost.org/trac10/ticket/5917
 # https://stackoverflow.com/a/5244844/1005215
