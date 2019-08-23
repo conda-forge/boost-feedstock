@@ -32,7 +32,7 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --without-libraries=python \
-    --with-toolset=cc \
+    --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
     || cat bootstrap.log
 
