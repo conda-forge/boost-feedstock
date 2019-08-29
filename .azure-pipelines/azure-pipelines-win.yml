@@ -10,12 +10,8 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
-      win_cxx_compilervs2008:
-        CONFIG: win_cxx_compilervs2008
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compilervs2015:
-        CONFIG: win_cxx_compilervs2015
+      win_cxx_compilervs2015vc14:
+        CONFIG: win_cxx_compilervs2015vc14
         CONDA_BLD_PATH: D:\\bld\\
         UPLOAD_PACKAGES: False
   steps:

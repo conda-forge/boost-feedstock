@@ -3,9 +3,16 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2008
+- vs2015
 pin_run_as_build:
+  vc:
+    max_pin: x
   zlib:
     max_pin: x.x
+vc:
+- '14'
+zip_keys:
+- - vc
+  - cxx_compiler
 zlib:
 - '1.2'
