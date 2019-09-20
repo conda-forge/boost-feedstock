@@ -10,7 +10,7 @@ source:
   sha256: d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
 
 requirements:
@@ -19,14 +19,14 @@ requirements:
 
   host:
     - icu               # [unix]
-    - bzip2             # [unix]
     - xz                # [unix]
+    - bzip2
     - zlib
 
   run:
     - icu               # [unix]
-    - bzip2             # [unix]
     - xz                # [unix]
+    - bzip2
     - zlib
 
   run_constrained:
