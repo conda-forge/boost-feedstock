@@ -12,6 +12,15 @@ if errorlevel 1 exit 1
     threading=multi ^
     link=static,shared ^
     -j%CPU_COUNT% ^
+    -s NO_COMPRESSION=0 ^
+    -s NO_ZLIB=0 ^
+    -s NO_BZIP2=0 ^
+    -s ZLIB_INCLUDE=%PREFIX%\Library\include ^
+    -s ZLIB_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZLIB_BINARY=z ^
+    -s BZIP2_INCLUDE=%PREFIX%\Library\include ^
+    -s BZIP2_LIBPATH=%PREFIX%\Library\lib ^
+    -s BZIP2_BINARY=libbz2 ^
     --layout=system ^
     --without-python
 if errorlevel 1 exit 1
