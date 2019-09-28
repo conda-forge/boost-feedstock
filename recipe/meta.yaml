@@ -15,6 +15,7 @@ source:
   patches:
     - 0001-CONDA_BUILD-customization.patch
     - 0002-boost.python-fix-python-lib-config-abiflags.patch
+    - 0003-boost.python-fix-darwin-library-paths-and-sysroot.patch
 
 build:
   number: 0
@@ -46,6 +47,7 @@ outputs:
         - bzip2             # [unix]
         - libiconv          # [osx]
         - xz
+        - zstd
         - zlib
     test:
       commands:
@@ -127,6 +129,9 @@ outputs:
         - {{ compiler('cxx') }}  # [not win]
       commands:
         - pushd libs/python/example/tutorial                                                                # [not win]
+        # Not sure what to do about this one. We do not want to force people to do this from their prompts, I do not
+        # think, but we also do not want to bake the value in either.
+        -   export CONDA_BUILD_SYSROOT2=/opt/MacOSX10.10.sdk                                                 # [osx]
         -   bjam --debug --debug-configuration                                                              # [not win]
         -   python -c 'from __future__ import print_function; import hello_ext; print(hello_ext.greet())'   # [not win]
         - popd                                                                                              # [not win]

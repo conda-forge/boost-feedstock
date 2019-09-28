@@ -5,19 +5,23 @@ set -x -e
 # remove any old builds of the python target
 ./b2 -q -d+2 --with-python --clean
 
-./b2 -q -d+2 \
-     python=${PY_VER} \
-     -j${CPU_COUNT} \
-     --with-python \
-    --reconfigure \
-     cxxflags="${CXXFLAGS} -Wno-deprecated-declarations" \
-     clean
+for PY_VER2 in 2.7 2.6 3.7; do
+    ./b2 -q -d+2 \
+        --with-python \
+       --python-buildid=${PY_VER//./} \
+        python=${PY_VER} \
+        --reconfigure \
+        -j${CPU_COUNT} \
+        cxxflags="${CXXFLAGS} -Wno-deprecated-declarations" \
+        clean
+done
 
 ./b2 -q -d+2 \
-     python=${PY_VER} \
-     -j${CPU_COUNT} \
      --with-python \
+     --python-buildid=${PY_VER//./} \
+     python=${PY_VER} \
     --reconfigure \
+     -j${CPU_COUNT} \
      cxxflags="${CXXFLAGS} -Wno-deprecated-declarations" \
      install | tee b2.install-py-${PY_VER}.log 2>&1
 
