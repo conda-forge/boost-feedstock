@@ -1,0 +1,34 @@
+diff -urN boost_1_65_1.orig/tools/build/src/build-system.jam boost_1_65_1/tools/build/src/build-system.jam
+--- boost_1_65_1.orig/tools/build/src/build-system.jam	2017-10-22 13:24:50.667149785 +0100
++++ boost_1_65_1/tools/build/src/build-system.jam	2017-10-22 13:25:15.533866314 +0100
+@@ -331,9 +331,28 @@
+             test-config = ;
+         }
+     }
++    local cb-prefix = ;
++    if [ os.environ CONDA_PREFIX ]
++    {
++        cb-prefix = [ os.environ CONDA_PREFIX ] ;
++    }
++    if $(.debug-config)
++    {
++        ECHO "notice: cb-prefix detected as: $(cb-prefix)" ;
++    }
+ 
+-    local user-path = [ os.home-directories ] [ os.environ BOOST_BUILD_PATH ] ;
+-    local site-path = /etc $(user-path) ;
++    local user-path ;
++    local site-path ;
++    if ! $(cb-prefix) in ""
++    {
++        user-path = [ os.environ BOOST_BUILD_PATH ] ;
++        site-path = "$(cb-prefix)/etc" $(user-path) ;
++    }
++    else
++    {
++        user-path = [ os.home-directories ] [ os.environ BOOST_BUILD_PATH ] ;
++        site-path = /etc $(user-path) ;
++    }
+     if [ os.name ] in NT CYGWIN
+     {
+         site-path = [ modules.peek : SystemRoot ] $(user-path) ;

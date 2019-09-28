@@ -1,0 +1,40 @@
+--- a/work/tools/build/src/tools/python.jam.orig	2019-09-28 01:53:15.000000000 +0200
++++ b/work/tools/build/src/tools/python.jam	2019-09-28 02:05:35.398305513 +0200
+@@ -498,6 +498,10 @@
+                 sys.$(s) = [ SUBST $(output) "\\<$(s)=([^$(nl)]+)" $1 ] ;
+             }
+         }
++         # Try to get python abiflags
++        full-cmd = $(sys.executable)" -c \"from sysconfig import get_config_vars; from sys import stdout; _ = stdout.write(next((item for item in get_config_vars('ABIFLAGS') if item is not None), ''))\"" ;
++
++        sys.abiflags = [ SHELL $(full-cmd) ] ;
+         return $(output) ;
+     }
+ }
+@@ -507,7 +511,7 @@
+ # have a value based on the information given.
+ #
+ local rule compute-default-paths ( target-os : version ? : prefix ? :
+-    exec-prefix ? )
++    exec-prefix ? : abiflags ? )
+ {
+     exec-prefix ?= $(prefix) ;
+ 
+@@ -544,7 +548,7 @@
+     }
+     else
+     {
+-        includes ?= $(prefix)/include/python$(version) ;
++        includes ?= $(prefix)/include/python$(version)$(abiflags) $(exec-prefix)/include ;
+ 
+         local lib = $(exec-prefix)/lib ;
+         libraries ?= $(lib)/python$(version)/config $(lib) ;
+@@ -789,7 +793,7 @@
+                     exec-prefix = $(sys.exec_prefix) ;
+ 
+                     compute-default-paths $(target-os) : $(sys.version) :
+-                        $(sys.prefix) : $(sys.exec_prefix) ;
++                        $(sys.prefix) : $(sys.exec_prefix) : $(sys.abiflags) ;
+ 
+                     version = $(sys.version) ;
+                     interpreter-cmd ?= $(cmd) ;

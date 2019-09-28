@@ -1,54 +1,183 @@
-{% set version = "1.70.0" %}
-{% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
+{% set version = "1.71.0" %}
+{% set win_vstr = version.replace('.', '_') %}
+{% set win_vstr_mm = "_".join(version.split(".")[:2]) %}
+{% set win_astr = "x32" if win32 else "x64" %}
+{% set filename = "boost_%s.tar.bz2" % win_vstr %}
 
 package:
-  name: boost
+  # Short name to avoid filename length issues on Windows.
+  name: bst
   version: {{ version }}
 
 source:
-  fn:  {{ filename }}
-  url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: 430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778
+  url: https://dl.bintray.com/boostorg/release/{{ version }}/source/boost_{{ version.replace(".", "_") }}.tar.bz2
+  sha256: d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee
+  patches:
+    - 0001-CONDA_BUILD-customization.patch
+    - 0002-boost.python-fix-python-lib-config-abiflags.patch
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-
   host:
-    - python
-    - numpy
-    - boost-cpp  {{ version }}
+    - icu               # [unix]
+    - bzip2             # [unix]
+    - libiconv          # [osx]
+    - xz
+    - zstd
+    - zlib
 
-  run:
-    - python
-    - {{ pin_compatible('numpy') }}
-    - boost-cpp  {{ version }}
+outputs:
+  - name: libboost
+    build:
+      activate_in_script: True
+    script: install-libboost.sh   # [unix]
+    script: install-libboost.bat  # [win]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+      host:
+        - icu               # [unix]
+        - bzip2             # [unix]
+        - libiconv          # [osx]
+        - xz
+        - zlib
+    test:
+      commands:
+        # Verify b2 and bjam executables work
+        - b2 --help
+        - bjam --help
+        # Verify Python headers are removed.
+        - "! test -f $PREFIX/include/boost/python.hpp"                      # [unix]
+        - "! test -d $PREFIX/include/boost/python"                          # [unix]
+        - if exist %PREFIX%\\Library\\include\\boost\\python.hpp exit 1     # [win]
+        - if exist %PREFIX%\\Library\\include\\boost\\python exit 1         # [win]
 
-test:
-  commands:
-    # Verify Python headers are installed.
-    - test -f $PREFIX/include/boost/python.hpp                 # [unix]
-    - test -d $PREFIX/include/boost/python                     # [unix]
-    - if not exist %LIBRARY_INC%\\boost\\python.hpp exit 1     # [win]
-    - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
+        # Verify static-only libraries.
+        - test -f $PREFIX/lib/libboost_exception.a                          # [unix]
+        - test -f $PREFIX/lib/libboost_test_exec_monitor.a                  # [unix]
 
-    # Verify libraries.
-    {% set boost_libs = [
-            "python%s" % py,
-            "numpy%s" % py
-    ] %}
-    {% for each_boost_lib in boost_libs %}
-    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
-    - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}${SHLIB_EXT}                                       # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
-    - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
-    - if not exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
-    {% endfor %}
-    - conda inspect linkages -p $PREFIX boost  # [not win]
-    - conda inspect objects -p $PREFIX boost  # [osx]
+        # Verify libraries.
+        {% set boost_libs = [
+                "atomic",
+                "chrono",
+                "container",
+                "context",
+                "coroutine",
+                "date_time",
+                "filesystem",
+                "graph",
+                "iostreams",
+                "locale",
+                "log",
+                "log_setup",
+                "math_c99",
+                "math_c99f",
+                "math_c99l",
+                "math_tr1",
+                "math_tr1f",
+                "math_tr1l",
+                "prg_exec_monitor",
+                "program_options",
+                "random",
+                "regex",
+                "serialization",
+                "system",
+                "thread",
+                "timer",
+                "type_erasure",
+                "unit_test_framework",
+                "wave",
+                "wserialization"
+        ] %}
+        {% for each_boost_lib in boost_libs %}
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.dll exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.lib exit 1  # [win]
+        {% endfor %}
+
+  - name: py-boost
+    script: install-py-boost.sh   # [unix]
+    script: install-py-boost.bat  # [win]
+    build:
+      activate_in_script: True
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+      host:
+        - {{ pin_subpackage('libboost', exact=True) }}
+        - python
+        - numpy
+      run:
+        - {{ pin_subpackage('libboost', exact=True) }}
+        - python
+        - {{ pin_compatible('numpy') }}
+    test:
+      source_files: libs/python/example/*
+      requires:
+        - {{ compiler('c') }}    # [not win]
+        - {{ compiler('cxx') }}  # [not win]
+      commands:
+        - pushd libs/python/example/tutorial                                                                # [not win]
+        -   bjam --debug --debug-configuration                                                              # [not win]
+        -   python -c 'from __future__ import print_function; import hello_ext; print(hello_ext.greet())'   # [not win]
+        - popd                                                                                              # [not win]
+
+        # verify Python headers
+        - test -f $PREFIX/include/boost/python.hpp                # [unix]
+        - test -d $PREFIX/include/boost/python                    # [unix]
+        - if not exist %LIBRARY_INC%\\boost\\python.hpp exit 1    # [win]
+        - if not exist %LIBRARY_INC%\\boost\\python exit 1        # [win]
+
+        # Verify libraries.
+        {% set py_boost_libs = [
+                "python",
+                "numpy"
+        ] %}
+        {% for each_py_boost_lib in py_boost_libs %}
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}.a                                                  # [unix]
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}{{ py }}.a                                          # [unix]
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}.dylib                                              # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}{{ py }}.dylib                                      # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}.so                                                 # [linux]
+        - test -f $PREFIX/lib/libboost_{{ each_py_boost_lib }}{{ py }}.so                                         # [linux]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_py_boost_lib }}27-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.dll exit 1  # [win and py==27]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_py_boost_lib }}35-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.dll exit 1  # [win and py==35]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_py_boost_lib }}36-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.dll exit 1  # [win and py==36]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_py_boost_lib }}37-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.dll exit 1  # [win and py==37]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_py_boost_lib }}27-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.lib exit 1  # [win and py==27]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_py_boost_lib }}35-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.lib exit 1  # [win and py==35]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_py_boost_lib }}36-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.lib exit 1  # [win and py==36]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_py_boost_lib }}37-vc{{ vc }}0-mt-{{ win_astr }}-{{ win_vstr_mm }}.lib exit 1  # [win and py==37]
+        {% endfor %}
+
+
+  # Metapackages to mirror conda-forge's name. It is my goal to deprecate
+  # these names and eventually stop providing the packages.
+  # TODO :: Aim to remove these by Oct 10th 2018.
+  - name: boost-cpp
+    requirements:
+      build:
+        - {{ compiler('c') }}
+      run:
+        - {{ pin_subpackage('libboost', exact=True) }}
+
+  - name: boost
+    requirements:
+      host:
+        - python
+      run:
+        - {{ pin_subpackage('libboost', exact=True) }}
+        - {{ pin_subpackage('py-boost', exact=True) }}
+        - python
 
 about:
   home: http://www.boost.org/
@@ -65,3 +194,4 @@ extra:
     - jschueller
     - scopatz
     - isuruf
+    - mingwandroid
