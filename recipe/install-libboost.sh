@@ -6,8 +6,11 @@ set -x -e
      install | tee b2.install-libboost.log 2>&1
 
 # Remove Python headers as we don't build Boost.Python.
-rm "${PREFIX}/include/boost/python.hpp"
-rm -r "${PREFIX}/include/boost/python"
+if [[ -f "${PREFIX}/include/boost/python.hpp" ]]; then
+  echo "Warning :: ${PREFIX}/include/boost/python.hpp exists when installing libboost, it should not"
+  rm -f "${PREFIX}/include/boost/python.hpp"
+  [[ -f "${PREFIX}/include/boost/python.hpp" ]] && rm -rf "${PREFIX}/include/boost/python"
+fi
 
 mkdir -p ${PREFIX}/bin
 cp ./b2 "${PREFIX}/bin/b2" || exit 1
