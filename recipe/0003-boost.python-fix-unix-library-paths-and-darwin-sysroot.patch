@@ -1,17 +1,17 @@
---- ./work/tools/build/src/tools/python.jam.orig	2019-09-28 13:13:54.000000000 +0200
-+++ ./work/tools/build/src/tools/python.jam	2019-09-28 13:14:43.000000000 +0200
+--- a/work/tools/build/src/tools/python.jam.orig	2019-09-28 13:13:54.000000000 +0200
++++ b/work/tools/build/src/tools/python.jam	2019-09-28 13:14:43.000000000 +0200
 @@ -1017,12 +1017,22 @@
      {
          alias python_for_extensions : python : $(target-requirements) ;
      }
 -    else if $(target-os) = darwin {
-+    else if $(target-os) = darwin
-+    {
-+        local cb-sysroot = "//" ;
++    else if $(target-os) = darwin {
++        local cb-sysroot = / ;
 +        if [ os.environ CONDA_BUILD_SYSROOT ]
 +        {
 +            cb-sysroot = [ os.environ CONDA_BUILD_SYSROOT ] ;
 +        }
++        debug-message "python_for_extensions: cb-sysroot is $(cb-sysroot)" ;
 +
          alias python_for_extensions
              :
@@ -25,3 +25,12 @@
              ;
      }
      # On AIX we need Python extensions and Boost.Python to import symbols from
+@@ -1039,7 +1039,7 @@
+             :
+             : $(target-requirements)
+             :
+-            : $(usage-requirements)
++            : $(usage-requirements) <library-path>$(libraries)
+             ;
+     }
+     

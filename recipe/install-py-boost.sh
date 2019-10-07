@@ -29,7 +29,7 @@ done
 pushd "${PREFIX}/lib"
   ln -s libboost_python${PY_VER//./}.a libboost_python.a
   ln -s libboost_numpy${PY_VER//./}.a libboost_numpy.a
-  if [[ ${HOST} =~ .*darwin.* ]]; then
+  if [[ ${target_platform} == osx-64 ]]; then
     ln -s libboost_python${PY_VER//./}.dylib libboost_python.dylib
     ln -s libboost_numpy${PY_VER//./}.dylib libboost_numpy.dylib
   else
