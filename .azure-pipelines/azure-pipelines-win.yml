@@ -10,18 +10,14 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
-      win_cxx_compilervs2008python2.7:
-        CONFIG: win_cxx_compilervs2008python2.7
+      win_c_compilervs2008cxx_compilervs2008vc9:
+        CONFIG: win_c_compilervs2008cxx_compilervs2008vc9
         CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compilervs2015python3.6:
-        CONFIG: win_cxx_compilervs2015python3.6
+        UPLOAD_PACKAGES: True
+      win_c_compilervs2015cxx_compilervs2015vc14:
+        CONFIG: win_c_compilervs2015cxx_compilervs2015vc14
         CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
-      win_cxx_compilervs2015python3.7:
-        CONFIG: win_cxx_compilervs2015python3.7
-        CONDA_BLD_PATH: D:\\bld\\
-        UPLOAD_PACKAGES: False
+        UPLOAD_PACKAGES: True
   steps:
     # TODO: Fast finish on azure pipelines?
     - script: |
@@ -76,8 +72,8 @@ jobs:
 
     # Configure the VM.
     - script: |
+        set "CI=azure"
         run_conda_forge_build_setup
-
       displayName: conda-forge build setup
     
 
@@ -103,7 +99,9 @@ jobs:
       condition: not(contains(variables['CONFIG'], 'vs2008'))
 
     - script: |
+        set "GIT_BRANCH=%BUILD_SOURCEBRANCHNAME%"
         upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
+      displayName: Upload package
       env:
         BINSTAR_TOKEN: $(BINSTAR_TOKEN)
       condition: not(eq(variables['UPLOAD_PACKAGES'], 'False'))

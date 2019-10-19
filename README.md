@@ -1,5 +1,5 @@
-About boost
-===========
+About bst
+=========
 
 Home: http://www.boost.org/
 
@@ -15,14 +15,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>Appveyor</td>
-    <td>
-      <a href="https://ci.appveyor.com/project/conda-forge/boost-feedstock/branch/master">
-        <img alt="windows" src="https://img.shields.io/appveyor/ci/conda-forge/boost-feedstock/master.svg?label=Windows">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
@@ -36,66 +29,31 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_python2.7</td>
+              <td>linux_target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=linux&configuration=linux_python2.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=linux&configuration=linux_target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_python3.6</td>
+              <td>osx_target_platformosx-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=linux&configuration=linux_python3.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=osx&configuration=osx_target_platformosx-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_python3.7</td>
+              <td>win_c_compilervs2008cxx_compilervs2008vc9</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=linux&configuration=linux_python3.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=win&configuration=win_c_compilervs2008cxx_compilervs2008vc9" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_python2.7</td>
+              <td>win_c_compilervs2015cxx_compilervs2015vc14</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=osx&configuration=osx_python2.7" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_python3.6</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=osx&configuration=osx_python3.6" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_python3.7</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=osx&configuration=osx_python3.7" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_cxx_compilervs2008python2.7</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=win&configuration=win_cxx_compilervs2008python2.7" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_cxx_compilervs2015python3.6</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=win&configuration=win_cxx_compilervs2015python3.6" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_cxx_compilervs2015python3.7</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=win&configuration=win_cxx_compilervs2015python3.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=master&jobName=win&configuration=win_c_compilervs2015cxx_compilervs2015vc14" alt="variant">
                 </a>
               </td>
             </tr>
@@ -104,7 +62,12 @@ Current build status
       </details>
     </td>
   </tr>
-![ppc64le disabled](https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg)
+  <tr>
+    <td>Linux_ppc64le</td>
+    <td>
+      <img src="https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg" alt="ppc64le disabled">
+    </td>
+  </tr>
 </table>
 
 Current release info
@@ -113,20 +76,23 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-boost-green.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-boost--cpp-green.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost-green.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-py--boost-green.svg)](https://anaconda.org/conda-forge/py-boost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/py-boost.svg)](https://anaconda.org/conda-forge/py-boost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/py-boost.svg)](https://anaconda.org/conda-forge/py-boost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/py-boost.svg)](https://anaconda.org/conda-forge/py-boost) |
 
-Installing boost
-================
+Installing bst
+==============
 
-Installing `boost` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `bst` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `boost` can be installed with:
+Once the `conda-forge` channel has been enabled, `boost, boost-cpp, libboost, py-boost` can be installed with:
 
 ```
-conda install boost
+conda install boost boost-cpp libboost py-boost
 ```
 
 It is possible to list all of the versions of `boost` available on your platform with:
@@ -174,17 +140,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating boost-feedstock
-========================
+Updating bst-feedstock
+======================
 
-If you would like to improve the boost recipe or build a new
+If you would like to improve the bst recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/boost-feedstock are
+Note that all branches in the conda-forge/bst-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
@@ -203,6 +169,7 @@ Feedstock Maintainers
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@jschueller](https://github.com/jschueller/)
+* [@mingwandroid](https://github.com/mingwandroid/)
 * [@msarahan](https://github.com/msarahan/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@scopatz](https://github.com/scopatz/)
