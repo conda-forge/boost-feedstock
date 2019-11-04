@@ -1,3 +1,5 @@
+c_compiler:
+- vs2008
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -10,8 +12,26 @@ pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
+  vc:
+    max_pin: x
+  xz:
+    max_pin: x.x
+  zlib:
+    max_pin: x.x
+  zstd:
+    max_pin: x.x.x
 python:
 - '2.7'
+vc:
+- '9'
+xz:
+- '5.2'
 zip_keys:
 - - python
+  - vc
+  - c_compiler
   - cxx_compiler
+zlib:
+- '1.2'
+zstd:
+- 1.4.0
