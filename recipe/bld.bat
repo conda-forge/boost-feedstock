@@ -5,7 +5,7 @@
 @echo : %PREFIX:\=\\%\\include >> user-config.jam
 @echo : %PREFIX:\=\\%\\libs >> user-config.jam
 @echo ; >> user-config.jam
-xcopy user-config.jam C:\Users\appveyor
+xcopy user-config.jam %USERPROFILE%
 
 :: Start with bootstrap
 call bootstrap.bat
