@@ -49,7 +49,7 @@ install:
     # Tell conda we want an updated version of conda-forge-ci-setup and conda-build
     - cmd: conda.exe install -n root -c conda-forge --quiet --yes conda-forge-ci-setup=2 conda-build
     - cmd: setup_conda_rc .\ .\recipe .\.ci_support\%CONFIG%.yaml
-    
+    - cmd: run_conda_forge_build_setup
 
 # Skip .NET project specific build phase.
 build: off
