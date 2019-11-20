@@ -19,6 +19,9 @@ environment:
     - CONFIG: win_cxx_compilervs2015python3.7
       CONDA_INSTALL_LOCN: C:\Miniconda36-x64
 
+    - CONFIG: win_cxx_compilervs2015python3.8
+      CONDA_INSTALL_LOCN: C:\Miniconda36-x64
+
 
 # We always use a 64-bit machine, but can build x86 distributions
 # with the TARGET_ARCH variable.
@@ -26,6 +29,7 @@ platform:
     - x64
 
 install:
+    - cmd: set "CI=appveyor"
     # If there is a newer build queued for the same PR, cancel this one.
     - cmd: |
         powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/conda-forge/conda-forge-ci-setup-feedstock/master/recipe/conda_forge_ci_setup/ff_ci_pr_build.py', 'ff_ci_pr_build.py')"
@@ -53,4 +57,5 @@ build: off
 test_script:
     - conda.exe build recipe -m .ci_support\%CONFIG%.yaml
 deploy_script:
+    - set "GIT_BRANCH=%APPVEYOR_REPO_BRANCH%"
     - cmd: upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
