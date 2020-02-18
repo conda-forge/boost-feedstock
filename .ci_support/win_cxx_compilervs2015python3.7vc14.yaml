@@ -3,15 +3,20 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2008
+- vs2015
 numpy:
 - '1.14'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
+  vc:
+    max_pin: x
 python:
-- '2.7'
+- '3.7'
+vc:
+- '14'
 zip_keys:
 - - python
+  - vc
   - cxx_compiler
