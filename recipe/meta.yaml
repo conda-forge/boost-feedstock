@@ -10,7 +10,7 @@ source:
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
   sha256: d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee
   patches:
-    - fix-include-dir.patch
+    - fix-include-dir.patch  # [py3k and py<38]
 
 build:
   number: 0
