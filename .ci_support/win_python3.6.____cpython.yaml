@@ -13,10 +13,9 @@ pin_run_as_build:
   vc:
     max_pin: x
 python:
-- '3.6'
+- 3.6.* *_cpython
 vc:
 - '14'
 zip_keys:
-- - python
-  - vc
-  - cxx_compiler
+- - numpy
+  - python

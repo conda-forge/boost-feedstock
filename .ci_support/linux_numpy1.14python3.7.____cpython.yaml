@@ -3,20 +3,19 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2015
+- gxx
+cxx_compiler_version:
+- '7'
+docker_image:
+- condaforge/linux-anvil-comp7
 numpy:
 - '1.14'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
-  vc:
-    max_pin: x
 python:
-- '3.7'
-vc:
-- '14'
+- 3.7.* *_cpython
 zip_keys:
-- - python
-  - vc
-  - cxx_compiler
+- - numpy
+  - python
