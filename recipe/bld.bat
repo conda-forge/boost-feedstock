@@ -21,6 +21,9 @@ if errorlevel 1 exit 1
     -s BZIP2_INCLUDE=%PREFIX%\Library\include ^
     -s BZIP2_LIBPATH=%PREFIX%\Library\lib ^
     -s BZIP2_BINARY=libbz2 ^
+    -s ZSTD_INCLUDE=%PREFIX%\Library\include ^
+    -s ZSTD_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZSTD_BINARY=zstd ^
     --layout=system ^
     --without-python
 if errorlevel 1 exit 1
