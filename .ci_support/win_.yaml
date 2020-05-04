@@ -5,18 +5,13 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2015
+- vs2017
 pin_run_as_build:
   bzip2:
     max_pin: x
-  vc:
-    max_pin: x
-  zlib:
-    max_pin: x.x
+  zstd:
+    max_pin: x.x.x
 vc:
 - '14'
-zip_keys:
-- - vc
-  - cxx_compiler
-zlib:
-- '1.2'
+zstd:
+- 1.4.4
