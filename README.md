@@ -3,7 +3,7 @@ About boost-cpp
 
 Home: http://www.boost.org/
 
-Package license: Boost-1.0
+Package license: BSL-1.0
 
 Feedstock license: BSD 3-Clause
 
@@ -26,7 +26,7 @@ Current build status
     <td>Drone</td>
     <td>
       <a href="https://cloud.drone.io/conda-forge/boost-cpp-feedstock">
-        <img alt="linux" src="https://img.shields.io/drone/build/conda-forge/master.svg?label=Linux">
+        <img alt="linux" src="https://img.shields.io/drone/build/conda-forge/boost-cpp-feedstock/master.svg?label=Linux">
       </a>
     </td>
   </tr>
@@ -71,10 +71,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_cxx_compilervs2015vc14</td>
+              <td>win</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=108&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-cpp-feedstock?branchName=master&jobName=win&configuration=win_cxx_compilervs2015vc14" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-cpp-feedstock?branchName=master&jobName=win&configuration=win_" alt="variant">
                 </a>
               </td>
             </tr>
