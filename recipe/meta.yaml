@@ -13,7 +13,7 @@ source:
     - fix-include-dir.patch  # [py3k and py<38]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
 
 requirements:
