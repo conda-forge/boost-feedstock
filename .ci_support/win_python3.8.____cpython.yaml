@@ -14,3 +14,6 @@ python:
 - 3.8.* *_cpython
 vc:
 - '14'
+zip_keys:
+- - numpy
+  - python

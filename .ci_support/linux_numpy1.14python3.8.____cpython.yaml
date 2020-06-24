@@ -5,14 +5,17 @@ channel_targets:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '8'
+- '7'
 docker_image:
-- condaforge/linux-anvil-ppc64le
+- condaforge/linux-anvil-comp7
 numpy:
-- '1.16'
+- '1.14'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
 - 3.8.* *_cpython
+zip_keys:
+- - numpy
+  - python
