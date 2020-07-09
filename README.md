@@ -5,7 +5,7 @@ Home: http://www.boost.org/
 
 Package license: BSL-1.0
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: Free peer-reviewed portable C++ source libraries.
 
