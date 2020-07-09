@@ -11,7 +11,5 @@ pin_run_as_build:
     max_pin: x
   zstd:
     max_pin: x.x.x
-vc:
-- '14'
 zstd:
 - 1.4.4
