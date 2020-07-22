@@ -183,4 +183,5 @@ Feedstock Maintainers
 * [@jschueller](https://github.com/jschueller/)
 * [@msarahan](https://github.com/msarahan/)
 * [@ocefpaf](https://github.com/ocefpaf/)
+* [@xhochy](https://github.com/xhochy/)
 
