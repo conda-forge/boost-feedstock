@@ -29,16 +29,25 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
-./bootstrap.sh \
-    --prefix="${PREFIX}" \
-    --without-libraries=python \
-    --with-toolset=${TOOLSET} \
-    --with-icu="${PREFIX}" \
-    || cat bootstrap.log
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+    CXX=$CXX_FOR_BUILD CC=$CC_FOR_BUILD ./bootstrap.sh \
+        --prefix="${PREFIX}" \
+        --without-libraries=python \
+        --with-toolset=${TOOLSET} \
+        --with-icu="${PREFIX}" \
+        || cat bootstrap.log
+  else
+    ./bootstrap.sh \
+        --prefix="${PREFIX}" \
+        --without-libraries=python \
+        --with-toolset=${TOOLSET} \
+        --with-icu="${PREFIX}" \
+        || cat bootstrap.log
+fi
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
-if [ "${ADDRESS_MODEL}" == "aarch64" ]; then
+if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=arm
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
