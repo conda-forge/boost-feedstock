@@ -29,19 +29,11 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
-    CXX=$CXX_FOR_BUILD CC=$CC_FOR_BUILD ./bootstrap.sh \
-        --prefix="${PREFIX}" \
-        --without-libraries=python \
-        --with-toolset=${TOOLSET} \
-        --with-icu="${PREFIX}"
-  else
-    ./bootstrap.sh \
-        --prefix="${PREFIX}" \
-        --without-libraries=python \
-        --with-toolset=${TOOLSET} \
-        --with-icu="${PREFIX}"
-fi
+CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
+    --prefix="${PREFIX}" \
+    --without-libraries=python \
+    --with-toolset=${TOOLSET} \
+    --with-icu="${PREFIX}" || (cat bootstrap.log; exit 1)
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
