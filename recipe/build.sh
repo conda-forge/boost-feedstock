@@ -34,15 +34,13 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
         --prefix="${PREFIX}" \
         --without-libraries=python \
         --with-toolset=${TOOLSET} \
-        --with-icu="${PREFIX}" \
-        || cat bootstrap.log
+        --with-icu="${PREFIX}"
   else
     ./bootstrap.sh \
         --prefix="${PREFIX}" \
         --without-libraries=python \
         --with-toolset=${TOOLSET} \
-        --with-icu="${PREFIX}" \
-        || cat bootstrap.log
+        --with-icu="${PREFIX}"
 fi
 
 ADDRESS_MODEL="${ARCH}"
@@ -69,7 +67,7 @@ fi
     linkflags="${LINKFLAGS}" \
     --layout=system \
     -j"${CPU_COUNT}" \
-    install | sed -e "s|${PREFIX}|<PREFIX>|g" | tee b2.log 2>&1
+    install
 
 # Remove Python headers as we don't build Boost.Python.
 rm "${PREFIX}/include/boost/python.hpp"
