@@ -16,9 +16,9 @@ LIBRARY_PATH="${PREFIX}/lib"
 # Always build PIC code for enable static linking into other shared libraries
 CXXFLAGS="${CXXFLAGS} -fPIC"
 
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
-elif [ "$(uname)" == "Linux" ]; then
+elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
 
