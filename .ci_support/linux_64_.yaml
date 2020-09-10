@@ -19,6 +19,8 @@ pin_run_as_build:
     max_pin: x
   xz:
     max_pin: x.x
+target_platform:
+- linux-64
 xz:
 - '5.2'
 zstd:

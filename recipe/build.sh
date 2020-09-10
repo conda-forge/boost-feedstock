@@ -16,9 +16,9 @@ LIBRARY_PATH="${PREFIX}/lib"
 # Always build PIC code for enable static linking into other shared libraries
 CXXFLAGS="${CXXFLAGS} -fPIC"
 
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
-elif [ "$(uname)" == "Linux" ]; then
+elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
 
@@ -29,27 +29,37 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
-./bootstrap.sh \
+CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --without-libraries=python \
     --with-toolset=${TOOLSET} \
-    --with-icu="${PREFIX}" \
-    || cat bootstrap.log
+    --with-icu="${PREFIX}" || (cat bootstrap.log; exit 1)
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
-if [ "${ADDRESS_MODEL}" == "aarch64" ]; then
+ABI="sysv"
+
+if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=arm
+    ABI="aapcs"
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=power
+fi
+
+if [[ "$target_platform" == osx-* ]]; then
+    BINARY_FORMAT="mach-o"
+elif [[ "$target_platform" == linux-* ]]; then
+    BINARY_FORMAT="elf"
 fi
 
 ./b2 -q \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
+    binary-format="${BINARY_FORMAT}" \
+    abi="${ABI}" \
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \
@@ -60,7 +70,7 @@ fi
     linkflags="${LINKFLAGS}" \
     --layout=system \
     -j"${CPU_COUNT}" \
-    install | sed -e "s|${PREFIX}|<PREFIX>|g" | tee b2.log 2>&1
+    install
 
 # Remove Python headers as we don't build Boost.Python.
 rm "${PREFIX}/include/boost/python.hpp"
