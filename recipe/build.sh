@@ -37,18 +37,29 @@ CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
+ABI="sysv"
+
 if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=arm
+    ABI="aapcs"
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=power
+fi
+
+if [[ "$target_platform" == osx-* ]]; then
+    BINARY_FORMAT="mach-o"
+elif [[ "$target_platform" == linux-* ]]; then
+    BINARY_FORMAT="elf"
 fi
 
 ./b2 -q \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
+    binary-format="${BINARY_FORMAT}" \
+    abi="${ABI}" \
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \
