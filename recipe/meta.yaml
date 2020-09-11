@@ -1,4 +1,4 @@
-{% set version = "1.73.0" %}
+{% set version = "1.74.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -7,12 +7,13 @@ package:
 
 source:
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: 4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402
+  sha256: 83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1
   patches:
+    # https://github.com/boostorg/build/pull/642
     - 456be0b7ecca065fbccf380c2f51e0985e608ba0.patch  # [osx and arm64]
 
 build:
-  number: 3
+  number: 0
 
 requirements:
   build:
