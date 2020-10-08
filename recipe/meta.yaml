@@ -14,7 +14,7 @@ source:
     - fix-include-dir.patch  # [py3k and py<38]
     # fixes related to pypy
     {% if python_impl == 'pypy' %}
-    - https://foss.heptapod.net/pypy/pypy/-/raw/branch/default/pypy/module/cpyext/patches/boost.patch
+    - pypy.patch
     {% endif %}
 
 build:
