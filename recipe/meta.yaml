@@ -13,7 +13,7 @@ source:
     - fix-include-dir.patch  # [py3k and py<38]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
 
 requirements:
@@ -55,7 +55,7 @@ test:
 
 about:
   home: http://www.boost.org/
-  license: Boost-1.0
+  license: LicenseRef-Boost-1.0
   license_file: LICENSE_1_0.txt
   summary: Free peer-reviewed portable C++ source libraries.
 
