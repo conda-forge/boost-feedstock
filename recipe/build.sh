@@ -17,9 +17,9 @@ LIBRARY_PATH="${PREFIX}/lib"
 # Always build PIC code for enable static linking into other shared libraries
 CXXFLAGS="${CXXFLAGS} -fPIC"
 
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
-elif [ "$(uname)" == "Linux" ]; then
+elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
 
@@ -30,7 +30,7 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
-./bootstrap.sh \
+CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
@@ -40,18 +40,28 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
-if [ "${ADDRESS_MODEL}" == "aarch64" ]; then
+ABI="sysv"
+if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=arm
+    ABI="aapcs"
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=power
+fi
+
+if [[ "$target_platform" == osx-* ]]; then
+    BINARY_FORMAT="mach-o"
+elif [[ "$target_platform" == linux-* ]]; then
+    BINARY_FORMAT="elf"
 fi
 
 ./b2 -q \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
+    binary-format="${BINARY_FORMAT}" \
+    abi="${ABI}" \
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \

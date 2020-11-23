@@ -1,15 +1,15 @@
-cdt_name:
-- cos7
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 channel_sources:
-- conda-forge,defaults
+- conda-forge/label/rust_dev,conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- gxx
+- clangxx
 cxx_compiler_version:
-- '8'
-docker_image:
-- quay.io/condaforge/linux-anvil-ppc64le
+- '11'
+macos_machine:
+- arm64-apple-darwin20.0.0
 numpy:
 - '1.19'
 pin_run_as_build:
@@ -17,9 +17,9 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.9.* *_cpython
+- 3.8.* *_cpython
 target_platform:
-- linux-ppc64le
+- osx-arm64
 zip_keys:
 - - python
   - numpy
