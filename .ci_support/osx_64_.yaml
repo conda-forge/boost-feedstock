@@ -1,9 +1,9 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+- '10.9'
 bzip2:
 - '1'
 channel_sources:
-- conda-forge/label/llvm_rc,conda-forge,https://conda-web.anaconda.org/conda-forge
+- conda-forge,defaults
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -11,18 +11,16 @@ cxx_compiler:
 cxx_compiler_version:
 - '11'
 icu:
-- '67'
+- '68'
 macos_machine:
-- arm64-apple-darwin20.0.0
+- x86_64-apple-darwin13.4.0
 pin_run_as_build:
   bzip2:
-    max_pin: x
-  icu:
     max_pin: x
   xz:
     max_pin: x.x
 target_platform:
-- osx-arm64
+- osx-64
 xz:
 - '5.2'
 zstd:

@@ -13,7 +13,7 @@ source:
     - 456be0b7ecca065fbccf380c2f51e0985e608ba0.patch  # [osx and arm64]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -88,8 +88,6 @@ test:
     - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
     - if exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
     {% endfor %}
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://www.boost.org/
