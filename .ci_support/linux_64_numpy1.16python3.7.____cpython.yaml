@@ -7,7 +7,7 @@ channel_targets:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '7'
+- '9'
 docker_image:
 - quay.io/condaforge/linux-anvil-comp7
 numpy:
@@ -21,5 +21,7 @@ python:
 target_platform:
 - linux-64
 zip_keys:
+- - cdt_name
+  - docker_image
 - - python
   - numpy
