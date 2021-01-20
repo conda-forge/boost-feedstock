@@ -1,7 +1,7 @@
-diff --git a/src/exec.cpp b/src/exec.cpp
+diff --git a/tools/build/src/exec.cpp b/tools/build/src/exec.cpp
 index b2eabe59..dd0c3310 100644
---- a/src/exec.cpp
-+++ b/src/exec.cpp
+--- a/tools/build/src/exec.cpp
++++ b/tools/build/src/exec.cpp
 @@ -116,7 +116,7 @@ object BOOST_PYTHON_DECL exec_file(char const *filename, object global, object l
  #elif PY_VERSION_HEX >= 0x03000000
    // Let python open the file to avoid potential binary incompatibilities.
