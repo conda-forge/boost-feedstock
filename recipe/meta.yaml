@@ -13,9 +13,6 @@ source:
     # related to https://github.com/boostorg/build/pull/291
     - fix-include-dir.patch  # [py3k and py<38]
     - 456be0b7ecca065fbccf380c2f51e0985e608ba0.patch  # [osx and arm64]
-    # For PyPy and python 3.10
-    - fopen.patch
-    - cc7bd35cc7616c31a6eaa97204a9f0127900d6f8.patch
 
 build:
   number: 0
