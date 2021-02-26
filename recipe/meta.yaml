@@ -1,4 +1,4 @@
-{% set version = "1.74.0" %}
+{% set version = "1.75.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -6,19 +6,16 @@ package:
   version: {{ version }}
 
 source:
-  fn:  {{ filename }}
+  fn: {{ filename }}
   url: https://dl.bintray.com/boostorg/release/{{ version }}/source/{{ filename }}
-  sha256: 83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1
+  sha256: 953db31e016db7bb207f11432bef7df100516eeb746843fa0486a222e3fd49cb
   patches:
     # related to https://github.com/boostorg/build/pull/291
     - fix-include-dir.patch  # [py3k and py<38]
     - 456be0b7ecca065fbccf380c2f51e0985e608ba0.patch  # [osx and arm64]
-    # For PyPy and python 3.10
-    - fopen.patch
-    - cc7bd35cc7616c31a6eaa97204a9f0127900d6f8.patch
 
 build:
-  number: 3
+  number: 0
 
 requirements:
   build:
