@@ -12,4 +12,4 @@ pin_run_as_build:
 target_platform:
 - win-64
 zstd:
-- '1.4'
+- '1.5'
