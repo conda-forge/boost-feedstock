@@ -1,4 +1,4 @@
-{% set version = "1.76.0" %}
+{% set version = "1.77.0" %}
 {% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/{{ filename }}
-  sha256: f0397ba6e982c4450f27bf32a2a83292aba035b827a5623a14636ea583318c41
+  sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
   patches:
     - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch  # [not win]
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
