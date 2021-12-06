@@ -10,8 +10,6 @@ source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/{{ filename }}
   sha256: fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
   patches:
-    # related to https://github.com/boostorg/build/pull/291
-    - fix-include-dir.patch  # [py3k and py<38]
     - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch
 
 build:
