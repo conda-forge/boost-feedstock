@@ -58,6 +58,8 @@ about:
   license: BSL-1.0
   license_file: LICENSE_1_0.txt
   summary: Free peer-reviewed portable C++ source libraries.
+  dev_url: https://github.com/boostorg/boost
+  doc_url: https://www.boost.org/doc/
 
 extra:
   recipe-maintainers:
@@ -70,3 +72,4 @@ extra:
     - isuruf
     - xhochy
     - beckermr
+    - matthiasdiener
