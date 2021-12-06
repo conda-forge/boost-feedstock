@@ -9,6 +9,10 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/boost-feedstock
 
 Summary: Free peer-reviewed portable C++ source libraries.
 
+Development: https://github.com/boostorg/boost
+
+Documentation: https://www.boost.org/doc/
+
 Current build status
 ====================
 
@@ -322,6 +326,7 @@ Feedstock Maintainers
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@jschueller](https://github.com/jschueller/)
+* [@matthiasdiener](https://github.com/matthiasdiener/)
 * [@msarahan](https://github.com/msarahan/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@scopatz](https://github.com/scopatz/)
