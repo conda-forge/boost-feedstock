@@ -9,7 +9,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '9'
 docker_image:
-- quay.io/condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 numpy:
 - '1.19'
 pin_run_as_build:
@@ -21,7 +21,5 @@ python:
 target_platform:
 - linux-64
 zip_keys:
-- - cdt_name
-  - docker_image
 - - python
   - numpy
