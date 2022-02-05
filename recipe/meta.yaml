@@ -13,7 +13,7 @@ source:
     - 62e7321669f66a90e2a90c8f31af34f59ebc5d7a.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -23,6 +23,7 @@ requirements:
     - icu               # [unix]
     - xz                # [unix]
     - bzip2
+    - zlib
     - zstd
 
   run:
@@ -35,6 +36,10 @@ requirements:
     - libboost <0
 
 test:
+  files:
+    - test
+  requires:
+    - {{ compiler('cxx') }}    # [build_platform == target_platform]
   commands:
     # Verify Python headers are removed.
     - '! test -f $PREFIX/include/boost/python.hpp'                      # [unix]
