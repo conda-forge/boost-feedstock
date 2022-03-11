@@ -3,5 +3,8 @@ conda_forge_output_validation: true
 provider: {linux_aarch64: default, linux_ppc64le: default, win: azure}
 bot:
   abi_migration_branches:
-    - 1.72.x
-    - 1.74.x
+  - 1.72.x
+  - 1.74.x
+github:
+  branch_name: main
+  tooling_branch_name: main
