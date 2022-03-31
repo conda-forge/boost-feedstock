@@ -61,11 +61,12 @@ def verify_config(ns):
         raise ValueError(
             f"only Linux/macOS configs currently supported, got {ns.config}"
         )
-    elif ns.config.startswith("osx") and platform.system() == "Darwin":
+    elif ns.config.startswith("osx"):
         if "OSX_SDK_DIR" not in os.environ:
             raise RuntimeError(
-                "Need OSX_SDK_DIR env variable set. Run 'export OSX_SDK_DIR=/opt'"
-                "to download the SDK automatically to '/opt/MacOSX<ver>.sdk'"
+                "Need OSX_SDK_DIR env variable set. Run 'export OSX_SDK_DIR=SDKs' "
+                "to download the SDK automatically to 'SDKs/MacOSX<ver>.sdk'. "
+                "Setting this variable implies agreement to the licensing terms of the SDK by Apple."
             )
 
 
