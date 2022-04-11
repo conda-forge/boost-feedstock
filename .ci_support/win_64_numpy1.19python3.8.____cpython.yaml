@@ -5,7 +5,7 @@ channel_targets:
 cxx_compiler:
 - vs2017
 numpy:
-- '1.18'
+- '1.19'
 pin_run_as_build:
   python:
     min_pin: x.x
