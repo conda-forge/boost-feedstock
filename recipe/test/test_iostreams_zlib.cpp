@@ -10,6 +10,8 @@ int main()
 {
     using namespace std;
 
+    // hello.z can be generated from Python, e.g.
+    // with open('hello.z', 'wb') as fh: fh.write(zlib.compress(text))
     ifstream file("hello.z", ios_base::in | ios_base::binary);
     boost::iostreams::filtering_streambuf<boost::iostreams::input> in;
     in.push(boost::iostreams::zlib_decompressor());
