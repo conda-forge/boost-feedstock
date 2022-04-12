@@ -35,7 +35,7 @@ CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
     --with-python="${PYTHON}" \
-    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m : ${PREFIX}/include/python${PY_VER} : $PREFIX/include/pypy${PY_VER}" \
+    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m : ${PREFIX}/include/python${PY_VER} : ${PREFIX}/include/pypy${PY_VER}" \
     2>&1
 
 ADDRESS_MODEL="${ARCH}"
