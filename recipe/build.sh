@@ -38,7 +38,6 @@ CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
-    --with-python \
     2>&1
 
 ADDRESS_MODEL="${ARCH}"
