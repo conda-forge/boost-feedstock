@@ -23,22 +23,22 @@ elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
 
+# Query `sysconfig` for Python `include` path
+INCLUDEPY="$(python -c 'import sysconfig as c; print(c.get_config_var("INCLUDEPY"))')"
+
 # http://www.boost.org/build/doc/html/bbv2/tasks/crosscompile.html
 cat <<EOF > ${SRC_DIR}/tools/build/src/site-config.jam
 using ${TOOLSET} : : ${CXX} ;
+using python : ${PY_VER} : ${PYTHON} : ${INCLUDEPY} ;
 EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
-
-# Query `sysconfig` for Python `include` path
-INCLUDEPY="$(python -c 'import sysconfig as c; print(c.get_config_var("INCLUDEPY"))')"
 
 CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
-    --with-python="${PYTHON}" \
-    --with-python-root="${PREFIX} : ${INCLUDEPY}" \
+    --with-python \
     2>&1
 
 ADDRESS_MODEL="${ARCH}"
