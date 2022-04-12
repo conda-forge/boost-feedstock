@@ -30,12 +30,15 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
+# Query `sysconfig` for Python `include` path
+INCLUDEPY="$(python -c 'import sysconfig as c; print(c.get_config_var("INCLUDEPY"))')"
+
 CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --with-toolset=${TOOLSET} \
     --with-icu="${PREFIX}" \
     --with-python="${PYTHON}" \
-    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m : ${PREFIX}/include/python${PY_VER} : ${PREFIX}/include/pypy${PY_VER}" \
+    --with-python-root="${PREFIX} : ${INCLUDEPY}" \
     2>&1
 
 ADDRESS_MODEL="${ARCH}"
