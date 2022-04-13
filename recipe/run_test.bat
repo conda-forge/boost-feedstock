@@ -1,6 +1,7 @@
 :: Test boost::iostreams zlib filter support
 
 @echo on
+
 cd test
 if errorlevel 1 exit 1
 
