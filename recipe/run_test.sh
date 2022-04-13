@@ -1,4 +1,6 @@
 # Skip compile tests if we are cross-compiling
+
+set -xeou pipefail
 if [[ "${build_platform}" != "${target_platform}" ]]; then
   exit 0
 fi
