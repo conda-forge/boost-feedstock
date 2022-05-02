@@ -11,6 +11,7 @@ source:
   patches:
     - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch  # [not win]
     - 0001-json-array-erase-relocate.patch
+    - 0002-outcome-account-for-void-types.patch
 
 build:
   number: 0
