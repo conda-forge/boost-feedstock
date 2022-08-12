@@ -9,7 +9,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '12'
+- '13'
 icu:
 - '70'
 macos_machine:
