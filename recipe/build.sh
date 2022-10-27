@@ -16,6 +16,8 @@ LIBRARY_PATH="${PREFIX}/lib"
 
 # Always build PIC code for enable static linking into other shared libraries
 CXXFLAGS="${CXXFLAGS} -fPIC"
+# Ensure we always find the correct Python headers (needed for PyPy builds)
+CXXFLAGS="${CXXFLAGS} -isystem $(python -c 'import sysconfig; print(sysconfig.get_config_var("INCLUDEPY"))')"
 
 if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
