@@ -17,6 +17,8 @@ source:
     - fopen.patch
     - cc7bd35cc7616c31a6eaa97204a9f0127900d6f8.patch
     - e193f080c7d209516ac9b712fa0c50bb08026fa2.patch
+    # For Python 3.11
+    - PR_320.patch
 
 build:
   number: 6

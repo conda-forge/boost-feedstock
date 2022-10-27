@@ -1,0 +1,68 @@
+From 94d53cbc09abd00e6ff63b2c17480368f8656c33 Mon Sep 17 00:00:00 2001
+From: Pat Riehecky <riehecky@fnal.gov>
+Date: Wed, 14 Oct 2020 13:54:24 -0500
+Subject: [PATCH] Stop using deprecated API calls (python-3.9) #319
+
+---
+ include/boost/python/call.hpp        | 4 ++--
+ include/boost/python/call_method.hpp | 2 +-
+ include/boost/python/override.hpp    | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/boost/python/call.hpp b/include/boost/python/call.hpp
+index 5d2d7d2341..c057ee9a12 100644
+--- a/include/boost/python/call.hpp
++++ b/include/boost/python/call.hpp
+@@ -60,7 +60,7 @@ call(PyObject* callable
+     )
+ {
+     PyObject* const result = 
+-        PyEval_CallFunction(
++        PyObject_CallFunction(
+             callable
+             , const_cast<char*>("(" BOOST_PP_REPEAT_1ST(N, BOOST_PYTHON_FIXED, "O") ")")
+             BOOST_PP_REPEAT_1ST(N, BOOST_PYTHON_FAST_ARG_TO_PYTHON_GET, nil)
+@@ -69,7 +69,7 @@ call(PyObject* callable
+     // This conversion *must not* be done in the same expression as
+     // the call, because, in the special case where the result is a
+     // reference a Python object which was created by converting a C++
+-    // argument for passing to PyEval_CallFunction, its reference
++    // argument for passing to PyObject_CallFunction, its reference
+     // count will be 2 until the end of the full expression containing
+     // the conversion, and that interferes with dangling
+     // pointer/reference detection.
+diff --git a/include/boost/python/call_method.hpp b/include/boost/python/call_method.hpp
+index 410f66820e..424077eab4 100644
+--- a/include/boost/python/call_method.hpp
++++ b/include/boost/python/call_method.hpp
+@@ -69,7 +69,7 @@ call_method(PyObject* self, char const* name
+     // This conversion *must not* be done in the same expression as
+     // the call, because, in the special case where the result is a
+     // reference a Python object which was created by converting a C++
+-    // argument for passing to PyEval_CallFunction, its reference
++    // argument for passing to PyObject_CallFunction, its reference
+     // count will be 2 until the end of the full expression containing
+     // the conversion, and that interferes with dangling
+     // pointer/reference detection.
+diff --git a/include/boost/python/override.hpp b/include/boost/python/override.hpp
+index 39714257f9..b631226fd6 100644
+--- a/include/boost/python/override.hpp
++++ b/include/boost/python/override.hpp
+@@ -97,7 +97,7 @@ class override : public object
+     operator()() const
+     {
+         detail::method_result x(
+-            PyEval_CallFunction(
++            PyObject_CallFunction(
+                 this->ptr()
+               , const_cast<char*>("()")
+             ));
+@@ -132,7 +132,7 @@ detail::method_result
+ operator()( BOOST_PP_ENUM_BINARY_PARAMS_Z(1, N, A, const& a) ) const
+ {
+     detail::method_result x(
+-        PyEval_CallFunction(
++        PyObject_CallFunction(
+             this->ptr()
+           , const_cast<char*>("(" BOOST_PP_REPEAT_1ST(N, BOOST_PYTHON_FIXED, "O") ")")
+             BOOST_PP_REPEAT_1ST(N, BOOST_PYTHON_fast_arg_to_python_get, nil)
