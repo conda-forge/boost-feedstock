@@ -1,13 +1,11 @@
 {% set version = "1.80.0" %}
-{% set filename = "boost_%s.tar.bz2" % version.replace(".", "_") %}
 
 package:
   name: boost
   version: {{ version }}
 
 source:
-  fn: {{ filename }}
-  url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/{{ filename }}
+  url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: 1e19565d82e43bc59209a168f5ac899d3ba471d55c7610c677d4ccf2c9c500c0
   patches:
     - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch
