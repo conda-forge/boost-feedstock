@@ -1,11 +1,11 @@
-About boost-cpp
-===============
+About boost-cpp-feedstock
+=========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/boost-cpp-feedstock/blob/main/LICENSE.txt)
 
 Home: http://www.boost.org/
 
 Package license: BSL-1.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/boost-cpp-feedstock/blob/main/LICENSE.txt)
 
 Summary: Free peer-reviewed portable C++ source libraries.
 
