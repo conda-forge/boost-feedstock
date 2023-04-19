@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+- '10.9'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -9,17 +9,17 @@ cxx_compiler:
 cxx_compiler_version:
 - '14'
 macos_machine:
-- arm64-apple-darwin20.0.0
+- x86_64-apple-darwin13.4.0
 numpy:
-- '1.20'
+- '1.21'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.8.* *_73_pypy
 target_platform:
-- osx-arm64
+- osx-64
 zip_keys:
 - - python
   - numpy
