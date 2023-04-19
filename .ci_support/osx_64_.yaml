@@ -11,7 +11,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '14'
 icu:
-- '70'
+- '72'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 target_platform:

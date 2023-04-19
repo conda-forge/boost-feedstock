@@ -13,7 +13,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 icu:
-- '70'
+- '72'
 target_platform:
 - linux-ppc64le
 xz:
