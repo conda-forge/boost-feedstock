@@ -44,6 +44,8 @@ outputs:
     test:
       files:
         - test
+        - test_lib.sh
+        - test_lib.bat
       requires:
         - {{ compiler('cxx') }}    # [build_platform == target_platform]
       commands:
@@ -98,6 +100,10 @@ outputs:
         - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
         - if exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
         {% endfor %}
+
+        # test compilation
+        - ./test_lib.sh   # [unix]
+        - ./test_lib.bat  # [win]
 
 about:
   home: http://www.boost.org/
