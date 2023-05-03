@@ -1,5 +1,14 @@
 {% set version = "1.82.0" %}
 
+{% set boost_libs = [
+    "atomic", "chrono", "container", "context", "contract", "coroutine",
+    "date_time", "filesystem", "graph", "iostreams", "locale", "log", "log_setup",
+    "math_c99", "math_c99f", "math_tr1", "math_tr1f", "prg_exec_monitor",
+    "program_options", "random", "regex", "serialization", "system", "thread",
+    "timer", "type_erasure", "unit_test_framework", "wave", "wserialization"
+] %}
+{% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
+
 package:
   name: boost-split
   version: {{ version }}
@@ -59,38 +68,6 @@ outputs:
         - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
 
         # Verify libraries.
-        {% set boost_libs = [
-                "atomic",
-                "chrono",
-                "container",
-                "context",
-                "contract",
-                "coroutine",
-                "date_time",
-                "filesystem",
-                "graph",
-                "iostreams",
-                "locale",
-                "log",
-                "log_setup",
-                "math_c99",
-                "math_c99f",
-                "math_tr1",
-                "math_tr1f",
-                "prg_exec_monitor",
-                "program_options",
-                "random",
-                "regex",
-                "serialization",
-                "system",
-                "thread",
-                "timer",
-                "type_erasure",
-                "unit_test_framework",
-                "wave",
-                "wserialization"
-        ] %}
-        {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
         {% for each_boost_lib in boost_libs %}
         - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
         - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
@@ -132,11 +109,11 @@ outputs:
         - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
         # Verify libraries.
-        {% set boost_libs = [
+        {% set boost_py_libs = [
                 "python%s" % py,
                 "numpy%s" % py
         ] %}
-        {% for each_boost_lib in boost_libs %}
+        {% for each_boost_lib in boost_py_libs %}
         - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
         - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}${SHLIB_EXT}                                       # [unix]
         - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
