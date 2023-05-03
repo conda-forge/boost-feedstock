@@ -1,3 +1,5 @@
+@echo on
+
 :: Write python configuration, see https://github.com/boostorg/build/issues/194
 @echo using python > user-config.jam
 @echo : %PY_VER% >> user-config.jam
