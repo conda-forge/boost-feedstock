@@ -11,13 +11,99 @@ source:
     - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch
 
 build:
-  number: 0
-
+  number: 2
 requirements:
   build:
     - {{ compiler('cxx') }}
 
 outputs:
+  - name: boost-cpp
+    script: build-lib.sh   # [unix]
+    script: build-lib.bat  # [win]
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+
+      host:
+        - icu               # [unix]
+        - xz                # [unix]
+        - bzip2
+        - zlib
+        - zstd
+
+      run:
+        - icu               # [unix]
+        - xz                # [unix]
+        - bzip2
+        - zstd
+
+      run_constrained:
+        - libboost <0
+
+    test:
+      files:
+        - test
+        - test_lib.sh
+        - test_lib.bat
+      requires:
+        - {{ compiler('cxx') }}    # [build_platform == target_platform]
+      commands:
+        # Verify Python headers are removed.
+        - '! test -f $PREFIX/include/boost/python.hpp'                      # [unix]
+        - '! test -d $PREFIX/include/boost/python'                          # [unix]
+        - if exist %PREFIX%\\Library\\include\\boost\\python.hpp exit 1     # [win]
+        - if exist %PREFIX%\\Library\\include\\boost\\python exit 1         # [win]
+
+        # Verify static-only libraries.
+        - test -f $PREFIX/lib/libboost_exception.a                   # [unix]
+        - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
+
+        # Verify libraries.
+        {% set boost_libs = [
+                "atomic",
+                "chrono",
+                "container",
+                "context",
+                "contract",
+                "coroutine",
+                "date_time",
+                "filesystem",
+                "graph",
+                "iostreams",
+                "locale",
+                "log",
+                "log_setup",
+                "math_c99",
+                "math_c99f",
+                "math_tr1",
+                "math_tr1f",
+                "prg_exec_monitor",
+                "program_options",
+                "random",
+                "regex",
+                "serialization",
+                "system",
+                "thread",
+                "timer",
+                "type_erasure",
+                "unit_test_framework",
+                "wave",
+                "wserialization"
+        ] %}
+        {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
+        {% for each_boost_lib in boost_libs %}
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
+        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
+        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
+        - if exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
+        {% endfor %}
+
+        # test compilation
+        - ./test_lib.sh   # [unix]
+        - ./test_lib.bat  # [win]
+
   - name: boost
     script: build-py.sh   # [unix]
     script: build-py.bat  # [win]
