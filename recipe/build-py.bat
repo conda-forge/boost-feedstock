@@ -18,7 +18,7 @@ rmdir /s /q temp_prefix
     address-model=%ARCH% ^
     variant=release ^
     threading=multi ^
-    link=static,shared ^
+    link=shared ^
     --layout=system ^
     --with-python ^
     -j%CPU_COUNT%

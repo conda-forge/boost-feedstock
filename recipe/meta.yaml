@@ -202,11 +202,15 @@ outputs:
                 "numpy%s" % py
         ] %}
         {% for each_boost_lib in boost_py_libs %}
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}${SHLIB_EXT}                                       # [unix]
-        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
-        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
-        - if not exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
+        # presence of shared libs
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib               # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                  # [linux]
+        - if not exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1      # [win]
+        - if not exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1      # [win]
+
+        # absence of static libs
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
         {% endfor %}
 
   # compatibility output for old naming convention

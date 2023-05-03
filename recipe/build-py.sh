@@ -62,7 +62,7 @@ rm -rf temp_prefix
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \
-    link=static,shared \
+    link=shared \
     toolset=${TOOLSET} \
     python="${PY_VER}" \
     include="${INCLUDE_PATH}" \
