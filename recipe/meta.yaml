@@ -25,28 +25,72 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+  host:
+    - icu               # [unix]
+    - xz                # [unix]
+    - bzip2
+    - zlib
+    - zstd
 
 outputs:
-  - name: boost-cpp
-    script: build-lib.sh   # [unix]
-    script: build-lib.bat  # [win]
+  - name: libboost-headers
+    script: install-lib.sh   # [unix]
+    script: install-lib.bat  # [win]
     requirements:
-      build:
-        - {{ compiler('cxx') }}
-
       host:
         - icu               # [unix]
         - xz                # [unix]
         - bzip2
         - zlib
         - zstd
+      run_constrained:
+        - libboost <0
 
+    test:
+      commands:
+        # presence of regular headers
+        - test -d $PREFIX/include/boost                   # [unix]
+        - if not exist %LIBRARY_INC%\boost exit 1         # [win]
+
+        # absence of python headers
+        - test ! -f $PREFIX/include/boost/python.hpp      # [unix]
+        - test ! -d $PREFIX/include/boost/python          # [unix]
+        - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
+        - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
+
+        # absence of all libraries
+        {% for each_boost_lib in boost_libs + boost_libs_static_only %}
+        # absence of shared libs
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib             # [osx]
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                # [linux]
+        - if exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1          # [win]
+        - if exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1          # [win]
+
+        # absence of static libs
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
+        {% endfor %}
+
+  - name: boost-cpp
+    script: install-lib.sh   # [unix]
+    script: install-lib.bat  # [win]
+    requirements:
+      build:
+        # for strong run-exports
+        - {{ compiler('cxx') }}
+      host:
+        - icu               # [unix]
+        - xz                # [unix]
+        - bzip2
+        - zlib
+        - zstd
+        - {{ pin_subpackage("libboost-headers", exact=True) }}
       run:
         - icu               # [unix]
         - xz                # [unix]
         - bzip2
         - zstd
-
+        - {{ pin_subpackage("libboost-headers", exact=True) }}
       run_constrained:
         - libboost <0
 

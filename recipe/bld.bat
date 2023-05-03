@@ -2,10 +2,12 @@
 call bootstrap.bat
 if errorlevel 1 exit 1
 
+mkdir temp_prefix
+
 :: Build step
 .\b2 install ^
     --build-dir=buildboost ^
-    --prefix=%LIBRARY_PREFIX% ^
+    --prefix=temp_prefix ^
     toolset=msvc-%VS_MAJOR%.0 ^
     address-model=%ARCH% ^
     variant=release ^
@@ -28,15 +30,10 @@ if errorlevel 1 exit 1
     --without-python
 if errorlevel 1 exit 1
 
-:: Remove Python headers as we don't build Boost.Python.
-del %LIBRARY_INC%\boost\python.hpp
-rmdir /s /q %LIBRARY_INC%\boost\python
-
-:: Move dll's to LIBRARY_BIN
-move %LIBRARY_LIB%\boost*.dll "%LIBRARY_BIN%"
-if errorlevel 1 exit 1
+:: python headers packaged in build-py.sh (because we need to build per python version)
+del temp_prefix\include\boost\python.hpp
+rmdir /s /q temp_prefix\include\boost\python
 
 :: Set BOOST_AUTO_LINK_NOMANGLE so that auto-linking uses system layout
-echo &echo.                           >> %LIBRARY_INC%\boost\config\user.hpp
-echo #define BOOST_AUTO_LINK_NOMANGLE >> %LIBRARY_INC%\boost\config\user.hpp
-
+echo &echo.                           >> temp_prefix\include\boost\config\user.hpp
+echo #define BOOST_AUTO_LINK_NOMANGLE >> temp_prefix\include\boost\config\user.hpp

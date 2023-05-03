@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 # Hints:
 # http://boost.2283326.n4.nabble.com/how-to-build-boost-with-bzip2-in-non-standard-location-td2661155.html
@@ -7,8 +8,6 @@
 
 # Hints for OSX:
 # http://stackoverflow.com/questions/20108407/how-do-i-compile-boost-for-os-x-64b-platforms-with-stdlibc
-
-set -x -e
 
 INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
@@ -56,7 +55,10 @@ elif [[ "$target_platform" == linux-* ]]; then
     BINARY_FORMAT="elf"
 fi
 
+mkdir temp_prefix
+
 ./b2 -q \
+    --prefix=./temp_prefix \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
@@ -74,6 +76,6 @@ fi
     -j"${CPU_COUNT}" \
     install
 
-# Remove Python headers as we don't build Boost.Python.
-rm "${PREFIX}/include/boost/python.hpp"
-rm -r "${PREFIX}/include/boost/python"
+# python headers packaged in build-py.sh (because we need to build per python version)
+rm ./temp_prefix/include/boost/python.hpp
+rm -r ./temp_prefix/include/boost/python
