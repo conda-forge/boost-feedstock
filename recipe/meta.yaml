@@ -92,7 +92,12 @@ outputs:
       run:
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run_constrained:
-        # make sure we don't co-install with old version of old package name
+        # Anaconda's output is also called libboost; therefore we automatically
+        # avoid issues of co-installability, because a package with the same name
+        # can only be installed once. Rather, we need to ensure that conda-forge's
+        # old name "boost-cpp" cannot be co-installed wrongly. Since we keep that
+        # output as a compatibility wrapper (see below), it's enough to enforce
+        # the same version to ensure no old boost packages can be co-installed.
         - boost-cpp ={{ version }}
 
     test:
