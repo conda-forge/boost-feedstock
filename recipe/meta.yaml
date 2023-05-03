@@ -90,10 +90,6 @@ outputs:
         - zstd
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run:
-        - icu               # [unix]
-        - xz                # [unix]
-        - bzip2
-        - zstd
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run_constrained:
         # make sure we don't co-install with old version of old package name
