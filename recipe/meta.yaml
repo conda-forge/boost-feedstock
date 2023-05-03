@@ -8,6 +8,7 @@
     "timer", "type_erasure", "unit_test_framework", "wave", "wserialization"
 ] %}
 {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
+{% set boost_libs_static_only = ["exception", "test_exec_monitor"] %}
 
 package:
   name: boost-split
@@ -57,24 +58,40 @@ outputs:
       requires:
         - {{ compiler('cxx') }}    # [build_platform == target_platform]
       commands:
-        # Verify Python headers are removed.
-        - '! test -f $PREFIX/include/boost/python.hpp'                      # [unix]
-        - '! test -d $PREFIX/include/boost/python'                          # [unix]
-        - if exist %PREFIX%\\Library\\include\\boost\\python.hpp exit 1     # [win]
-        - if exist %PREFIX%\\Library\\include\\boost\\python exit 1         # [win]
+        # presence of regular headers
+        - test -d $PREFIX/include/boost                   # [unix]
+        - if not exist %LIBRARY_INC%\boost exit 1         # [win]
 
-        # Verify static-only libraries.
-        - test -f $PREFIX/lib/libboost_exception.a                   # [unix]
-        - test -f $PREFIX/lib/libboost_test_exec_monitor.a           # [unix]
+        # absence of python headers
+        - test ! -f $PREFIX/include/boost/python.hpp      # [unix]
+        - test ! -d $PREFIX/include/boost/python          # [unix]
+        - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
+        - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
 
-        # Verify libraries.
+        # regular libraries
         {% for each_boost_lib in boost_libs %}
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                                                 # [unix]
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib                                             # [osx]
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                                                # [linux]
-        - if not exist %PREFIX%\\Library\\bin\\boost_{{ each_boost_lib }}.dll exit 1                          # [win]
-        - if not exist %PREFIX%\\Library\\lib\\boost_{{ each_boost_lib }}.lib exit 1                          # [win]
-        - if exist %PREFIX%\\Library\\lib\\libboost_{{ each_boost_lib }}.lib exit 1                       # [win]
+        # presence of shared libs
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib               # [osx]
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                  # [linux]
+        - if not exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1      # [win]
+        - if not exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1      # [win]
+
+        # absence of static libs
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
+        {% endfor %}
+
+        # static-only libraries
+        {% for each_boost_lib in boost_libs_static_only %}
+        # presence of static libs
+        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                   # [unix]
+        - if not exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1   # [win]
+
+        # absence of shared libs
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib             # [osx]
+        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                # [linux]
+        - if exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1          # [win]
+        - if exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1          # [win]
         {% endfor %}
 
         # test compilation
