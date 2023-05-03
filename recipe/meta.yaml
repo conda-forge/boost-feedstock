@@ -117,12 +117,11 @@ outputs:
       host:
         - python
         - numpy
-        - boost-cpp  {{ version }}
-
+        - {{ pin_subpackage("boost-cpp", exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
-        - boost-cpp  {{ version }}
+        - {{ pin_subpackage("boost-cpp", exact=True) }}
 
     test:
       commands:
