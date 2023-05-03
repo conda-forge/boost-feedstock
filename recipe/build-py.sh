@@ -32,14 +32,6 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
-CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
-    --prefix="${PREFIX}" \
-    --with-toolset=${TOOLSET} \
-    --with-icu="${PREFIX}" \
-    --with-python="${PYTHON}" \
-    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}m : ${PREFIX}/include/python${PY_VER}" \
-    2>&1
-
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
 ABI="sysv"
@@ -57,6 +49,9 @@ if [[ "$target_platform" == osx-* ]]; then
 elif [[ "$target_platform" == linux-* ]]; then
     BINARY_FORMAT="elf"
 fi
+
+# clean up directory from build.sh and reuse b2 built there
+rm -rf temp_prefix
 
 ./b2 -q \
     variant=release \

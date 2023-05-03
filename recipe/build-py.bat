@@ -7,9 +7,8 @@
 @echo ; >> user-config.jam
 xcopy user-config.jam %USERPROFILE%
 
-:: Start with bootstrap
-call bootstrap.bat
-if errorlevel 1 exit 1
+:: clean up directory from bld.bat and reuse b2 built there
+rmdir /s /q temp_prefix
 
 :: Build step
 .\b2 install ^
