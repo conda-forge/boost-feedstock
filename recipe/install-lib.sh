@@ -5,6 +5,6 @@ set -ex
 cp -R temp_prefix/include/* $PREFIX/include/
 
 # everything else
-if [[ "$PKG_NAME" == "boost-cpp" ]]; then
+if [[ "$PKG_NAME" == "libboost" ]]; then
     cp -R temp_prefix/lib/* $PREFIX/lib
 fi

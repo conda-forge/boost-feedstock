@@ -44,7 +44,8 @@ outputs:
         - zlib
         - zstd
       run_constrained:
-        - libboost <0
+        # make sure we don't co-install with old version of old package name
+        - boost-cpp ={{ version }}
 
     test:
       commands:
@@ -71,9 +72,12 @@ outputs:
         - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
         {% endfor %}
 
-  - name: boost-cpp
+  - name: libboost
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
+    build:
+      run_exports:
+        - {{ pin_subpackage('libboost', max_pin='x.x') }}
     requirements:
       build:
         # for strong run-exports
@@ -92,7 +96,8 @@ outputs:
         - zstd
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run_constrained:
-        - libboost <0
+        # make sure we don't co-install with old version of old package name
+        - boost-cpp ={{ version }}
 
     test:
       files:
@@ -142,6 +147,23 @@ outputs:
         - ./test_lib.sh   # [unix]
         - ./test_lib.bat  # [win]
 
+  # compatibility output for old naming convention
+  - name: boost-cpp
+    requirements:
+      host:
+        # match host deps to avoid hash collisions between wrappers
+        - icu               # [unix]
+        - xz                # [unix]
+        - bzip2
+        - zlib
+        - zstd
+        - {{ pin_subpackage("libboost", exact=True) }}
+      run:
+        - {{ pin_subpackage("libboost", exact=True) }}
+    test:
+      commands:
+        - echo "tested in other outputs"
+
   - name: boost
     script: build-py.sh   # [unix]
     script: build-py.bat  # [win]
@@ -151,15 +173,14 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
         - {{ compiler('cxx') }}
-
       host:
         - python
         - numpy
-        - {{ pin_subpackage("boost-cpp", exact=True) }}
+        - {{ pin_subpackage("libboost", exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
-        - {{ pin_subpackage("boost-cpp", exact=True) }}
+        - {{ pin_subpackage("libboost", exact=True) }}
 
     test:
       commands:
