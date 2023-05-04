@@ -7,7 +7,7 @@
 @echo : %PREFIX:\=\\%\\include >> user-config.jam
 @echo : %PREFIX:\=\\%\\libs >> user-config.jam
 @echo ; >> user-config.jam
-xcopy user-config.jam %USERPROFILE%
+xcopy /Y user-config.jam %USERPROFILE%
 
 :: clean up directory from bld.bat and reuse b2 built there
 rmdir /s /q temp_prefix
