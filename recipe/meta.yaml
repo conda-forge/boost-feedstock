@@ -118,6 +118,12 @@ outputs:
         - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
         - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
 
+        # absence of CMake metadata for libboost-python artefacts
+        - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}                # [unix]
+        - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}                 # [unix]
+        - if exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1        # [win]
+        - if exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1         # [win]
+
         # regular libraries
         {% for each_boost_lib in boost_libs %}
         # presence of shared libs
@@ -215,6 +221,12 @@ outputs:
         - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
         - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
         {% endfor %}
+
+        # presence of CMake metadata
+        - test -d $PREFIX/lib/cmake/boost_python-{{ version }}                  # [unix]
+        - test -d $PREFIX/lib/cmake/boost_numpy-{{ version }}                   # [unix]
+        - if not exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1    # [win]
+        - if not exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1     # [win]
 
   # compatibility output for old naming convention
   - name: boost
