@@ -30,3 +30,7 @@ if errorlevel 1 exit 1
 move %LIBRARY_LIB%\boost*.dll "%LIBRARY_BIN%"
 if errorlevel 1 exit 1
 
+:: avoid clobbering CMake metadata from libboost
+rmdir /s /q %LIBRARY_LIB%\cmake\Boost-%PKG_VERSION%
+rmdir /s /q %LIBRARY_LIB%\cmake\boost_headers-%PKG_VERSION%
+del %LIBRARY_LIB%\cmake\Boost*.cmake
