@@ -168,6 +168,9 @@ outputs:
   - name: libboost-python
     script: build-py.sh   # [unix]
     script: build-py.bat  # [win]
+    build:
+      run_exports:
+        - {{ pin_subpackage('libboost-python', max_pin='x.x') }}
     requirements:
       build:
         - python                                 # [build_platform != target_platform]
