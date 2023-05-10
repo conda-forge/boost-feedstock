@@ -9,6 +9,7 @@
 ] %}
 {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
 {% set boost_libs_static_only = ["exception", "test_exec_monitor"] %}
+{% set boost_libs_py = ["python%s" % py, "numpy%s" % py] %}
 
 package:
   name: boost-split
@@ -59,17 +60,14 @@ outputs:
         - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
         - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
 
-        # absence of all libraries
-        {% for each_boost_lib in boost_libs + boost_libs_static_only %}
-        # absence of shared libs
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib             # [osx]
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                # [linux]
-        - if exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1          # [win]
-        - if exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1          # [win]
-
-        # absence of static libs
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
-        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
+        # absence of all libraries (shared & static)
+        {% for each_lib in boost_libs + boost_libs_static_only + boost_libs_py %}
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.so                # [linux]
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.dylib             # [osx]
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.a                 # [unix]
+        - if exist %LIBRARY_BIN%\boost_{{ each_lib }}.dll exit 1          # [win]
+        - if exist %LIBRARY_LIB%\boost_{{ each_lib }}.lib exit 1          # [win]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_lib }}.lib exit 1       # [win]
         {% endfor %}
 
   - name: libboost
@@ -119,36 +117,40 @@ outputs:
         - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
 
         # absence of CMake metadata for libboost-python artefacts
-        - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}                # [unix]
-        - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}                 # [unix]
-        - if exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1        # [win]
-        - if exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1         # [win]
+        - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}          # [unix]
+        - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}           # [unix]
+        - if exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1  # [win]
+        - if exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1   # [win]
 
-        # regular libraries
-        {% for each_boost_lib in boost_libs %}
-        # presence of shared libs
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib               # [osx]
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                  # [linux]
-        - if not exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1      # [win]
-        - if not exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1      # [win]
+      # library artefacts
+      {% for each_lib in boost_libs + boost_libs_static_only + boost_libs_py %}
 
-        # absence of static libs
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
-        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
-        {% endfor %}
+        # shared libraries
+        {% if each_lib in boost_libs %}
+        # default case: present
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.so                  # [linux]
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.dylib               # [osx]
+        - if not exist %LIBRARY_BIN%\boost_{{ each_lib }}.dll exit 1      # [win]
+        - if not exist %LIBRARY_LIB%\boost_{{ each_lib }}.lib exit 1      # [win]
+        {% else %}
+        # absent for libs that are static-only & the python ones
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.so                # [linux]
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.dylib             # [osx]
+        - if exist %LIBRARY_BIN%\boost_{{ each_lib }}.dll exit 1          # [win]
+        - if exist %LIBRARY_LIB%\boost_{{ each_lib }}.lib exit 1          # [win]
+        {% endif %}
 
-        # static-only libraries
-        {% for each_boost_lib in boost_libs_static_only %}
-        # presence of static libs
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                   # [unix]
-        - if not exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1   # [win]
-
-        # absence of shared libs
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib             # [osx]
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                # [linux]
-        - if exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1          # [win]
-        - if exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1          # [win]
-        {% endfor %}
+        # static libraries
+        {% if each_lib in boost_libs_static_only %}
+        # present for those that are marked static-only above
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.a                   # [unix]
+        - if not exist %LIBRARY_LIB%\libboost_{{ each_lib }}.lib exit 1   # [win]
+        {% else %}
+        # absent for default libs & the python ones
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.a                 # [unix]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_lib }}.lib exit 1       # [win]
+        {% endif %}
+      {% endfor %}
 
         # test compilation
         - ./test_lib.sh   # [unix]
@@ -206,20 +208,16 @@ outputs:
         - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
 
         # Verify libraries.
-        {% set boost_py_libs = [
-                "python%s" % py,
-                "numpy%s" % py
-        ] %}
-        {% for each_boost_lib in boost_py_libs %}
+        {% for each_lib in boost_libs_py %}
         # presence of shared libs
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.dylib               # [osx]
-        - test -f $PREFIX/lib/libboost_{{ each_boost_lib }}.so                  # [linux]
-        - if not exist %LIBRARY_BIN%\boost_{{ each_boost_lib }}.dll exit 1      # [win]
-        - if not exist %LIBRARY_LIB%\boost_{{ each_boost_lib }}.lib exit 1      # [win]
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.so              # [linux]
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.dylib           # [osx]
+        - if not exist %LIBRARY_BIN%\boost_{{ each_lib }}.dll exit 1  # [win]
+        - if not exist %LIBRARY_LIB%\boost_{{ each_lib }}.lib exit 1  # [win]
 
         # absence of static libs
-        - test ! -f $PREFIX/lib/libboost_{{ each_boost_lib }}.a                 # [unix]
-        - if exist %LIBRARY_LIB%\libboost_{{ each_boost_lib }}.lib exit 1       # [win]
+        - test ! -f $PREFIX/lib/libboost_{{ each_lib }}.a             # [unix]
+        - if exist %LIBRARY_LIB%\libboost_{{ each_lib }}.lib exit 1   # [win]
         {% endfor %}
 
         # presence of CMake metadata
