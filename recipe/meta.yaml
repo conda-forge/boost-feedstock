@@ -26,17 +26,28 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python 3.10                            # [build_platform != target_platform]
+    - numpy *                                # [build_platform != target_platform]
   host:
     - icu               # [unix]
     - xz                # [unix]
     - bzip2
     - zlib
     - zstd
+    # we only need _a_ python version for libboost; details below
+    - python 3.10
+    - numpy *
 
 outputs:
   - name: libboost-headers
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
+    build:
+      ignore_run_exports_from:
+        # from global build environment
+        - python
+        - numpy
     requirements:
       host:
         - icu               # [unix]
@@ -51,14 +62,20 @@ outputs:
     test:
       commands:
         # presence of regular headers
-        - test -d $PREFIX/include/boost                   # [unix]
-        - if not exist %LIBRARY_INC%\boost exit 1         # [win]
+        - test -d $PREFIX/include/boost            # [unix]
+        - if not exist %LIBRARY_INC%\boost exit 1  # [win]
 
-        # absence of python headers
-        - test ! -f $PREFIX/include/boost/python.hpp      # [unix]
-        - test ! -d $PREFIX/include/boost/python          # [unix]
-        - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
-        - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
+        # presence of python headers (not dependent on python version)
+        - test -f $PREFIX/include/boost/python.hpp                        # [unix]
+        - test -f $PREFIX/include/boost/python/tuple.hpp                  # [unix]
+        - if not exist %LIBRARY_INC%\boost\python.hpp exit 1              # [win]
+        - if not exist %LIBRARY_INC%\boost\python\tuple.hpp exit 1        # [win]
+
+        # absence of CMake metadata for libboost-python artefacts
+        - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}          # [unix]
+        - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}           # [unix]
+        - if exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1  # [win]
+        - if exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1   # [win]
 
         # absence of all libraries (shared & static)
         {% for each_lib in boost_libs + boost_libs_static_only + boost_libs_py %}
@@ -76,16 +93,26 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('libboost', max_pin='x.x') }}
+      ignore_run_exports_from:
+        # only used here to enable us to build the headers
+        - python
+        - numpy
     requirements:
       build:
         # for strong run-exports
         - {{ compiler('cxx') }}
+        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+        - python 3.10                            # [build_platform != target_platform]
+        - numpy *                                # [build_platform != target_platform]
       host:
         - icu               # [unix]
         - xz                # [unix]
         - bzip2
         - zlib
         - zstd
+        # we only need _a_ python version to build the headers here; for libs see below
+        - python 3.10
+        - numpy *
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run:
         - {{ pin_subpackage("libboost-headers", exact=True) }}
@@ -106,16 +133,6 @@ outputs:
       requires:
         - {{ compiler('cxx') }}    # [build_platform == target_platform]
       commands:
-        # presence of regular headers
-        - test -d $PREFIX/include/boost                   # [unix]
-        - if not exist %LIBRARY_INC%\boost exit 1         # [win]
-
-        # absence of python headers
-        - test ! -f $PREFIX/include/boost/python.hpp      # [unix]
-        - test ! -d $PREFIX/include/boost/python          # [unix]
-        - if exist %LIBRARY_INC%\boost\python.hpp exit 1  # [win]
-        - if exist %LIBRARY_INC%\boost\python exit 1      # [win]
-
         # absence of CMake metadata for libboost-python artefacts
         - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}          # [unix]
         - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}           # [unix]
@@ -158,6 +175,11 @@ outputs:
 
   # compatibility output for old naming convention
   - name: boost-cpp
+    build:
+      ignore_run_exports_from:
+        # from global build environment
+        - python
+        - numpy
     requirements:
       host:
         # match host deps to avoid hash collisions between wrappers
@@ -201,12 +223,6 @@ outputs:
 
     test:
       commands:
-        # Verify Python headers are installed.
-        - test -f $PREFIX/include/boost/python.hpp                 # [unix]
-        - test -d $PREFIX/include/boost/python                     # [unix]
-        - if not exist %LIBRARY_INC%\\boost\\python.hpp exit 1     # [win]
-        - if not exist %LIBRARY_INC%\\boost\\python exit 1         # [win]
-
         # Verify libraries.
         {% for each_lib in boost_libs_py %}
         # presence of shared libs

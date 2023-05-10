@@ -32,9 +32,11 @@ CXXFLAGS="$(echo ${CXXFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g
 CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
     CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
-    --without-libraries=python \
     --with-toolset=${TOOLSET} \
-    --with-icu="${PREFIX}" || (cat bootstrap.log; exit 1)
+    --with-icu="${PREFIX}" \
+    --with-python="${PYTHON}" \
+    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}" \
+    || (cat bootstrap.log; exit 1)
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
@@ -69,13 +71,18 @@ mkdir temp_prefix
     runtime-link=shared \
     link=shared \
     toolset=${TOOLSET} \
+    python="${PY_VER}" \
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
+    --with-python \
     -j"${CPU_COUNT}" \
     install
 
-# python headers packaged in build-py.sh (because we need to build per python version)
-rm ./temp_prefix/include/boost/python.hpp
-rm -r ./temp_prefix/include/boost/python
+# we package the (python-version-independent) headers here, whereas the libs
+# are done in build-py.sh (because we need to build per python version)
+rm -f ./temp_prefix/lib/libboost_python*
+rm -f ./temp_prefix/lib/libboost_numpy*
+rm -rf ./temp_prefix/lib/cmake/boost_python*
+rm -rf ./temp_prefix/lib/cmake/boost_numpy*
