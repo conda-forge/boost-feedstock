@@ -35,7 +35,6 @@ mkdir temp_prefix
     -s ZSTD_LIBPATH=%PREFIX%\Library\lib ^
     -s ZSTD_BINARY=zstd ^
     --layout=system ^
-    --with-python ^
     -j%CPU_COUNT%
 if errorlevel 1 exit 1
 

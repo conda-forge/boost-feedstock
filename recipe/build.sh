@@ -76,7 +76,6 @@ mkdir temp_prefix
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
-    --with-python \
     -j"${CPU_COUNT}" \
     install
 
