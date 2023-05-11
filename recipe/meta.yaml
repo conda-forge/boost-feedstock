@@ -45,9 +45,9 @@ outputs:
     script: install-lib.bat  # [win]
     build:
       ignore_run_exports_from:
-        # from global build environment
-        - python
-        - numpy
+        # from global build environment; see cbc why it's a variable
+        - {{ PY_DUMMY_STRING }}
+        - {{ NP_DUMMY_STRING }}
     requirements:
       host:
         - icu               # [unix]
@@ -95,8 +95,8 @@ outputs:
         - {{ pin_subpackage('libboost', max_pin='x.x') }}
       ignore_run_exports_from:
         # only used here to enable us to build the headers
-        - python
-        - numpy
+        - {{ PY_DUMMY_STRING }}
+        - {{ NP_DUMMY_STRING }}
     requirements:
       build:
         # for strong run-exports
@@ -177,8 +177,8 @@ outputs:
     build:
       ignore_run_exports_from:
         # from global build environment
-        - python
-        - numpy
+        - {{ PY_DUMMY_STRING }}
+        - {{ NP_DUMMY_STRING }}
     requirements:
       host:
         # match host deps to avoid hash collisions between wrappers

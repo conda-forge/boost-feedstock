@@ -4,3 +4,10 @@ PY_DUMMY_VER:
   - "3.10"
 NP_DUMMY_VER:
   - "1.21"
+# We need to avoid conda-smithy from reading the strings "- python" and "- numpy"
+# in the description of an output, even if it appears under `ignore_run_exports`;
+# otherwise it think that output depends on python and will build it several times.
+PY_DUMMY_STRING:
+  - "python"
+NP_DUMMY_STRING:
+  - "numpy"
