@@ -27,17 +27,17 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python 3.10                            # [build_platform != target_platform]
-    - numpy *                                # [build_platform != target_platform]
+    - python {{ PY_DUMMY_VER }} *cpython     # [build_platform != target_platform]
+    - numpy {{ NP_DUMMY_VER }}               # [build_platform != target_platform]
   host:
     - icu               # [unix]
     - xz                # [unix]
     - bzip2
     - zlib
     - zstd
-    # we only need _a_ python version for libboost; details below
-    - python 3.10
-    - numpy *
+    # see conda_build_config
+    - python {{ PY_DUMMY_VER }} *cpython
+    - numpy {{ NP_DUMMY_VER }}
 
 outputs:
   - name: libboost-headers
@@ -102,17 +102,16 @@ outputs:
         # for strong run-exports
         - {{ compiler('cxx') }}
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-        - python 3.10                            # [build_platform != target_platform]
-        - numpy *                                # [build_platform != target_platform]
+        - python {{ PY_DUMMY_VER }} *cpython     # [build_platform != target_platform]
+        - numpy {{ NP_DUMMY_VER }}               # [build_platform != target_platform]
       host:
         - icu               # [unix]
         - xz                # [unix]
         - bzip2
         - zlib
         - zstd
-        # we only need _a_ python version to build the headers here; for libs see below
-        - python 3.10
-        - numpy *
+        - python {{ PY_DUMMY_VER }} *cpython
+        - numpy {{ NP_DUMMY_VER }}
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run:
         - {{ pin_subpackage("libboost-headers", exact=True) }}

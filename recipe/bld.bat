@@ -1,6 +1,6 @@
 :: Write python configuration, see https://github.com/boostorg/build/issues/194
 @echo using python > user-config.jam
-@echo : %PY_VER% >> user-config.jam
+@echo : %PY_DUMMY_VER% >> user-config.jam
 @echo : %PYTHON:\=\\% >> user-config.jam
 @echo : %PREFIX:\=\\%\\include >> user-config.jam
 @echo : %PREFIX:\=\\%\\libs >> user-config.jam
