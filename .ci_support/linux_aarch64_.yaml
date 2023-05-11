@@ -1,5 +1,15 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
+NP_DUMMY_STRING:
+- numpy
+NP_DUMMY_VER:
+- '1.21'
+PY_DUMMY_STRING:
+- python
+PY_DUMMY_VER:
+- '3.10'
+boost:
+- 1.78.0
 bzip2:
 - '1'
 cdt_arch:
@@ -26,6 +36,8 @@ numpy:
 - '1.21'
 - '1.21'
 pin_run_as_build:
+  boost:
+    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
