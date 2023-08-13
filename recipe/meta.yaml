@@ -43,11 +43,6 @@ outputs:
   - name: libboost-headers
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
-    build:
-      ignore_run_exports_from:
-        # from global build environment; see cbc why it's a variable
-        - {{ PY_DUMMY_STRING }}
-        - {{ NP_DUMMY_STRING }}
     requirements:
       host:
         - icu               # [unix]
@@ -90,28 +85,16 @@ outputs:
   - name: libboost
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
-    build:
-      run_exports:
-        - {{ pin_subpackage('libboost', max_pin='x.x') }}
-      ignore_run_exports_from:
-        # only used here to enable us to build the headers
-        - {{ PY_DUMMY_STRING }}
-        - {{ NP_DUMMY_STRING }}
     requirements:
       build:
         # for strong run-exports
         - {{ compiler('cxx') }}
-        - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-        - python {{ PY_DUMMY_VER }} *cpython     # [build_platform != target_platform]
-        - numpy {{ NP_DUMMY_VER }}               # [build_platform != target_platform]
       host:
         - icu               # [unix]
         - xz                # [unix]
         - bzip2
         - zlib
         - zstd
-        - python {{ PY_DUMMY_VER }} *cpython
-        - numpy {{ NP_DUMMY_VER }}
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run:
         - {{ pin_subpackage("libboost-headers", exact=True) }}
@@ -174,11 +157,6 @@ outputs:
 
   # compatibility output for old naming convention
   - name: boost-cpp
-    build:
-      ignore_run_exports_from:
-        # from global build environment
-        - {{ PY_DUMMY_STRING }}
-        - {{ NP_DUMMY_STRING }}
     requirements:
       host:
         # match host deps to avoid hash collisions between wrappers
