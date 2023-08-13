@@ -88,8 +88,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-boost-green.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-boost--cpp-green.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost-green.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--dev-green.svg)](https://anaconda.org/conda-forge/libboost-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-dev.svg)](https://anaconda.org/conda-forge/libboost-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-dev.svg)](https://anaconda.org/conda-forge/libboost-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-dev.svg)](https://anaconda.org/conda-forge/libboost-dev) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--headers-green.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--python-green.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--python--dev-green.svg)](https://anaconda.org/conda-forge/libboost-python-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-python-dev.svg)](https://anaconda.org/conda-forge/libboost-python-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-python-dev.svg)](https://anaconda.org/conda-forge/libboost-python-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-python-dev.svg)](https://anaconda.org/conda-forge/libboost-python-dev) |
 
 Installing boost
 ================
@@ -101,16 +103,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `boost, boost-cpp, libboost, libboost-headers, libboost-python` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `boost, boost-cpp, libboost, libboost-dev, libboost-headers, libboost-python, libboost-python-dev` can be installed with `conda`:
 
 ```
-conda install boost boost-cpp libboost libboost-headers libboost-python
+conda install boost boost-cpp libboost libboost-dev libboost-headers libboost-python libboost-python-dev
 ```
 
 or with `mamba`:
 
 ```
-mamba install boost boost-cpp libboost libboost-headers libboost-python
+mamba install boost boost-cpp libboost libboost-dev libboost-headers libboost-python libboost-python-dev
 ```
 
 It is possible to list all of the versions of `boost` available on your platform with `conda`:

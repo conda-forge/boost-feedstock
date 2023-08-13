@@ -1,11 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
-NP_DUMMY_STRING:
-- numpy
 NP_DUMMY_VER:
 - '1.21'
-PY_DUMMY_STRING:
-- python
 PY_DUMMY_VER:
 - '3.10'
 boost:
@@ -40,6 +36,11 @@ python:
 - 3.11.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
+python_impl:
+- cpython
+- cpython
+- cpython
+- cpython
 target_platform:
 - osx-arm64
 xz:
@@ -47,6 +48,7 @@ xz:
 zip_keys:
 - - python
   - numpy
+  - python_impl
 zlib:
 - '1.2'
 zstd:
