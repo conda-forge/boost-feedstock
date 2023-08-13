@@ -30,7 +30,8 @@ if errorlevel 1 exit 1
 move %LIBRARY_LIB%\boost*.dll "%LIBRARY_BIN%"
 if errorlevel 1 exit 1
 
-:: avoid clobbering CMake metadata from libboost
-rmdir /s /q %LIBRARY_LIB%\cmake\Boost-%PKG_VERSION%
-rmdir /s /q %LIBRARY_LIB%\cmake\boost_headers-%PKG_VERSION%
-del %LIBRARY_LIB%\cmake\Boost*.cmake
+:: remove CMake metadata from libboost-python; save it for libboost-python-dev
+:: needs to be done separately per python version
+mkdir %SRC_DIR%\cf_%PY_VER%_cmake
+move %LIBRARY_LIB%\cmake\boost_python-%PKG_VERSION% %SRC_DIR%\cf_%PY_VER%_cmake\
+move %LIBRARY_LIB%\cmake\boost_numpy-%PKG_VERSION% %SRC_DIR%\cf_%PY_VER%_cmake\

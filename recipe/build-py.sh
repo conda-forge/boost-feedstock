@@ -72,3 +72,9 @@ rm -rf temp_prefix
     --with-python \
     -j"${CPU_COUNT}" \
     install 2>&1 | tee b2.log
+
+# remove CMake metadata from libboost-python; save it for libboost-python-dev
+# needs to be done separately per python version
+mkdir -p $SRC_DIR/cf_${PY_VER}_cmake
+mv $PREFIX/lib/cmake/boost_python-$PKG_VERSION $SRC_DIR/cf_${PY_VER}_cmake/
+mv $PREFIX/lib/cmake/boost_numpy-$PKG_VERSION $SRC_DIR/cf_${PY_VER}_cmake/
