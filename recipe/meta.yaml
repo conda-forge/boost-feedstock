@@ -48,11 +48,6 @@ outputs:
       build:                # [win]
         - cmake             # [win]
       host:
-        - icu               # [unix]
-        - xz                # [unix]
-        - bzip2
-        - zlib
-        - zstd
       run_constrained:
         # make sure we don't co-install with old version of old package name
         - boost-cpp ={{ version }}
@@ -94,8 +89,9 @@ outputs:
         - {{ compiler('cxx') }}
       host:
         - icu               # [unix]
-        - xz                # [unix]
+        - libiconv          # [win]
         - bzip2
+        - xz
         - zlib
         - zstd
         - {{ pin_subpackage("libboost-headers", exact=True) }}
@@ -164,8 +160,9 @@ outputs:
       host:
         # match host deps to avoid hash collisions between wrappers
         - icu               # [unix]
-        - xz                # [unix]
+        - libiconv          # [win]
         - bzip2
+        - xz
         - zlib
         - zstd
         - {{ pin_subpackage("libboost", exact=True) }}
