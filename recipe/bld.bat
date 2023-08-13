@@ -15,7 +15,6 @@ mkdir temp_prefix
 
 :: Build step
 .\b2 install ^
-    --build-dir=buildboost ^
     --prefix=temp_prefix ^
     toolset=msvc-%VS_MAJOR%.0 ^
     address-model=%ARCH% ^

@@ -53,7 +53,10 @@ fi
 # clean up directory from build.sh and reuse b2 built there
 rm -rf temp_prefix
 
+mkdir build-py
+
 ./b2 -q \
+    --build-dir=build-py \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
@@ -72,6 +75,9 @@ rm -rf temp_prefix
     --with-python \
     -j"${CPU_COUNT}" \
     install 2>&1 | tee b2.log
+
+# clean up between builds for different python versions/implementations
+rm -rf build-py
 
 # remove CMake metadata from libboost-python; save it for libboost-python-dev
 # needs to be done separately per python version & implementation
