@@ -44,6 +44,9 @@ outputs:
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
     requirements:
+      # dummy build env to avoid EnvironmentLocationNotFound on win
+      build:                # [win]
+        - cmake             # [win]
       host:
         - icu               # [unix]
         - xz                # [unix]
