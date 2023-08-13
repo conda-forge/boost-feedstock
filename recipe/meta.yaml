@@ -223,7 +223,10 @@ outputs:
         - numpy                                  # [build_platform != target_platform]
         - {{ compiler('cxx') }}
       host:
-        - python
+        # ensure python_impl gets picked up by smithy (by using it as a selector) and therefore
+        # populated in the .ci_config/*.yaml files, for use in {build,install}-py.{sh,bat}.
+        - python  # [python_impl == "cpython"]
+        - python  # [python_impl == "pypy"]
         - numpy
         # keep this in host to ensure that the environment content snapshot before/after
         # installation doesn't consider the headers or CMake metadata part of this output
