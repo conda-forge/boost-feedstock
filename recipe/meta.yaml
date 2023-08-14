@@ -279,8 +279,8 @@ outputs:
       host:
         - python
         - numpy
-        - {{ pin_subpackage("libboost-python", exact=True) }}
-        - {{ pin_subpackage("libboost-headers", exact=True) }}
+        # as for libboost-python
+        - {{ pin_subpackage("libboost-dev", exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
