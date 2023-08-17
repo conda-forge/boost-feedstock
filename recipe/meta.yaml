@@ -149,7 +149,7 @@ outputs:
       {% endfor %}
 
   # libboost headers + libs + metadata
-  - name: libboost-dev
+  - name: libboost-devel
     script: install-lib.sh   # [unix]
     script: install-lib.bat  # [win]
     build:
@@ -184,7 +184,7 @@ outputs:
         - if not exist %LIBRARY_LIB%\cmake\boost_{{ each_lib }}-{{ version }} exit 1    # [win]
         {% endfor %}
 
-        # absence of CMake metadata that belongs to libboost-python(-dev)
+        # absence of CMake metadata that belongs to libboost-python(-devel)
         - test ! -d $PREFIX/lib/cmake/boost_python-{{ version }}          # [unix]
         - test ! -d $PREFIX/lib/cmake/boost_numpy-{{ version }}           # [unix]
         - if exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1  # [win]
@@ -205,9 +205,9 @@ outputs:
         - xz
         - zlib
         - zstd
-        - {{ pin_subpackage("libboost-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
-        - {{ pin_subpackage("libboost-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-devel", exact=True) }}
     test:
       commands:
         - echo "tested in other outputs"
@@ -230,7 +230,7 @@ outputs:
         - numpy
         # keep this in host to ensure that the environment content snapshot before/after
         # installation doesn't consider the headers or CMake metadata part of this output
-        - {{ pin_subpackage("libboost-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
@@ -265,7 +265,7 @@ outputs:
         - if exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1   # [win]
 
   # python libs w/ headers
-  - name: libboost-python-dev
+  - name: libboost-python-devel
     script: install-py.sh   # [unix]
     script: install-py.bat  # [win]
     build:
@@ -280,7 +280,7 @@ outputs:
         - python
         - numpy
         # as for libboost-python
-        - {{ pin_subpackage("libboost-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
         - python
         - {{ pin_compatible('numpy') }}
@@ -306,9 +306,9 @@ outputs:
         # match host deps to avoid hash collisions between wrappers
         - python
         - numpy
-        - {{ pin_subpackage("libboost-python-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-python-devel", exact=True) }}
       run:
-        - {{ pin_subpackage("libboost-python-dev", exact=True) }}
+        - {{ pin_subpackage("libboost-python-devel", exact=True) }}
     test:
       commands:
         - echo "tested in other outputs"
