@@ -53,6 +53,14 @@ fi
 # clean up directory from build.sh and reuse b2 built there
 rm -rf temp_prefix
 
+# $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake has
+# already been packaged (including the python headers!) into libboost-headers,
+# however the installation below will overwrite it with another (smaller) set
+# of metadata, causing a potentially corrupted package. Save the file in
+# question and restore it below.
+mkdir -p $SRC_DIR/cf_cmake
+cp $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake $SRC_DIR/cf_cmake/
+
 mkdir build-py
 
 ./b2 -q \
@@ -78,6 +86,9 @@ mkdir build-py
 
 # clean up between builds for different python versions/implementations
 rm -rf build-py
+
+# see comment above; move, don't copy (avoids collisions between runs)
+mv $SRC_DIR/cf_cmake/boost_headers-config.cmake $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/
 
 # remove CMake metadata from libboost-python; save it for libboost-python-dev
 # needs to be done separately per python version & implementation
