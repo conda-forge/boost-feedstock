@@ -59,7 +59,7 @@ rm -rf temp_prefix
 # of metadata, causing a potentially corrupted package. Save the file in
 # question and restore it below.
 mkdir -p $SRC_DIR/cf_cmake
-cp $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake $SRC_DIR/cf_cmake/
+mv $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake $SRC_DIR/cf_cmake/
 
 mkdir build-py
 
