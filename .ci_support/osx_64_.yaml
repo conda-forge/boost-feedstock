@@ -21,12 +21,12 @@ icu:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
-- '1.21'
+- '1.22'
 - '1.23'
-- '1.21'
-- '1.21'
-- '1.21'
-- '1.21'
+- '1.22'
+- '1.22'
+- '1.22'
+- '1.22'
 pin_run_as_build:
   boost:
     max_pin: x.x.x
