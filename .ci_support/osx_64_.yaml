@@ -26,7 +26,6 @@ numpy:
 - '1.22'
 - '1.22'
 - '1.22'
-- '1.22'
 pin_run_as_build:
   boost:
     max_pin: x.x.x
@@ -36,14 +35,12 @@ pin_run_as_build:
 python:
 - 3.10.* *_cpython
 - 3.11.* *_cpython
-- 3.8.* *_73_pypy
 - 3.8.* *_cpython
 - 3.9.* *_73_pypy
 - 3.9.* *_cpython
 python_impl:
 - cpython
 - cpython
-- pypy
 - cpython
 - pypy
 - cpython
