@@ -36,7 +36,7 @@ CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |s
     --with-icu="${PREFIX}" \
     --with-python="${PYTHON}" \
     --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}" \
-    || (cat bootstrap.log; exit 1)
+    || (cat bootstrap.log && exit 1)
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86

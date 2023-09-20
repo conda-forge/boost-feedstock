@@ -8,7 +8,7 @@
 # Hints for OSX:
 # http://stackoverflow.com/questions/20108407/how-do-i-compile-boost-for-os-x-64b-platforms-with-stdlibc
 
-set -x -e
+set -x -e -u
 set -o pipefail
 
 INCLUDE_PATH="${PREFIX}/include"
@@ -30,7 +30,7 @@ cat <<EOF > ${SRC_DIR}/tools/build/src/site-config.jam
 using ${TOOLSET} : : ${CXX} ;
 EOF
 
-LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
+LINKFLAGS="-L${LIBRARY_PATH}"
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
