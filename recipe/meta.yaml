@@ -19,7 +19,8 @@ source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: a6e1ab9b0860e6a2881dd7b21fe9f737a095e5f33a3a874afc6a345228597ee6
   patches:
-    - 5eff1ecc8413b0dc93a1ab047d7fed751e6cb40e.patch
+    # ensure our compiler flags get used during bootstrapping 
+    - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
   number: 3
