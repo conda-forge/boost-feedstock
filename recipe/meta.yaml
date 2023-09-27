@@ -24,6 +24,8 @@ source:
 
 build:
   number: 4
+  # debug
+  skip: true  # [not win]
 
 requirements:
   build:
