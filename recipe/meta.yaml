@@ -14,7 +14,7 @@ source:
     - 0001-Fix-enum_type_object-type-on-Python-3.11.patch
 
 build:
-  number: 4
+  number: 5
 
 requirements:
   build:
