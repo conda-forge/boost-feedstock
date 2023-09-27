@@ -45,7 +45,7 @@ requirements:
     - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
     - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
   host:
-    - icu               # [unix]
+    - icu
     - xz                # [unix]
     - bzip2
     - zlib
@@ -105,8 +105,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        - icu               # [unix]
-        - libiconv          # [win]
+        - icu
         - bzip2
         - xz
         - zlib
@@ -214,8 +213,7 @@ outputs:
     requirements:
       host:
         # match host deps to avoid hash collisions between wrappers
-        - icu               # [unix]
-        - libiconv          # [win]
+        - icu
         - bzip2
         - xz
         - zlib

@@ -24,6 +24,10 @@ mkdir temp_prefix
     threading=multi ^
     link=shared ^
     cxxstd=20 ^
+    boost.locale.icu=on ^
+    boost.locale.std=on ^
+    boost.locale.winapi=on ^
+    -s ICU_PATH=%LIBRARY_PREFIX% ^
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^
