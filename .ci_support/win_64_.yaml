@@ -1,0 +1,52 @@
+NP_DUMMY_VER:
+- '1.21'
+PY_DUMMY_VER:
+- '3.10'
+boost:
+- 1.78.0
+bzip2:
+- '1'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- vs2019
+libiconv:
+- '1'
+numpy:
+- '1.22'
+- '1.23'
+- '1.22'
+- '1.22'
+- '1.22'
+pin_run_as_build:
+  boost:
+    max_pin: x.x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.10.* *_cpython
+- 3.11.* *_cpython
+- 3.8.* *_cpython
+- 3.9.* *_73_pypy
+- 3.9.* *_cpython
+python_impl:
+- cpython
+- cpython
+- cpython
+- pypy
+- cpython
+target_platform:
+- win-64
+xz:
+- '5'
+zip_keys:
+- - python
+  - numpy
+  - python_impl
+zlib:
+- '1.2'
+zstd:
+- '1.5'

@@ -1,5 +1,4 @@
 #!/bin/bash
-set -ex
 
 # Hints:
 # http://boost.2283326.n4.nabble.com/how-to-build-boost-with-bzip2-in-non-standard-location-td2661155.html
@@ -9,11 +8,16 @@ set -ex
 # Hints for OSX:
 # http://stackoverflow.com/questions/20108407/how-do-i-compile-boost-for-os-x-64b-platforms-with-stdlibc
 
+set -x -e -u
+set -o pipefail
+
 INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
 
 # Always build PIC code for enable static linking into other shared libraries
 CXXFLAGS="${CXXFLAGS} -fPIC"
+# Ensure we always find the correct Python headers (needed for PyPy builds)
+CXXFLAGS="${CXXFLAGS} -isystem $(python -c 'import sysconfig; print(sysconfig.get_config_var("INCLUDEPY"))')"
 
 if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
@@ -26,22 +30,11 @@ cat <<EOF > ${SRC_DIR}/tools/build/src/site-config.jam
 using ${TOOLSET} : : ${CXX} ;
 EOF
 
-LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
-
-CXXFLAGS="$(echo ${CXXFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
-CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
-    CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
-    --prefix="${PREFIX}" \
-    --with-toolset=${TOOLSET} \
-    --with-icu="${PREFIX}" \
-    --with-python="${PYTHON}" \
-    --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}" \
-    || (cat bootstrap.log && exit 1)
+LINKFLAGS="-L${LIBRARY_PATH}"
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
 ABI="sysv"
-
 if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=arm
@@ -57,10 +50,21 @@ elif [[ "$target_platform" == linux-* ]]; then
     BINARY_FORMAT="elf"
 fi
 
-mkdir temp_prefix
+# clean up directory from build.sh and reuse b2 built there
+rm -rf temp_prefix
+
+# $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake has
+# already been packaged (including the python headers!) into libboost-headers,
+# however the installation below will overwrite it with another (smaller) set
+# of metadata, causing a potentially corrupted package. Save the file in
+# question and restore it below.
+mkdir -p $SRC_DIR/cf_cmake
+mv $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/boost_headers-config.cmake $SRC_DIR/cf_cmake/
+
+mkdir build-py
 
 ./b2 -q \
-    --prefix=./temp_prefix \
+    --build-dir=build-py \
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
@@ -71,17 +75,23 @@ mkdir temp_prefix
     runtime-link=shared \
     link=shared \
     toolset=${TOOLSET} \
-    python="${PY_DUMMY_VER}" \
+    python="${PY_VER}" \
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
     --layout=system \
+    --with-python \
     -j"${CPU_COUNT}" \
-    install
+    install 2>&1 | tee b2.log
 
-# we package the (python-version-independent) headers here, whereas the libs
-# are done in build-py.sh (because we need to build per python version)
-rm -f ./temp_prefix/lib/libboost_python*
-rm -f ./temp_prefix/lib/libboost_numpy*
-rm -rf ./temp_prefix/lib/cmake/boost_python*
-rm -rf ./temp_prefix/lib/cmake/boost_numpy*
+# clean up between builds for different python versions/implementations
+rm -rf build-py
+
+# see comment above; move, don't copy (avoids collisions between runs)
+mv $SRC_DIR/cf_cmake/boost_headers-config.cmake $PREFIX/lib/cmake/boost_headers-$PKG_VERSION/
+
+# remove CMake metadata from libboost-python; save it for libboost-python-dev
+# needs to be done separately per python version & implementation
+mkdir -p $SRC_DIR/cf_${PY_VER}_${python_impl}_cmake
+mv $PREFIX/lib/cmake/boost_python-$PKG_VERSION $SRC_DIR/cf_${PY_VER}_${python_impl}_cmake/
+mv $PREFIX/lib/cmake/boost_numpy-$PKG_VERSION $SRC_DIR/cf_${PY_VER}_${python_impl}_cmake/

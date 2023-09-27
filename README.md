@@ -31,241 +31,45 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_numpy1.21python3.10.____cpython</td>
+              <td>linux_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.21python3.10.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy1.21python3.8.____73_pypy</td>
+              <td>linux_aarch64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.21python3.8.____73_pypy" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy1.21python3.8.____cpython</td>
+              <td>linux_ppc64le</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.21python3.8.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy1.21python3.9.____73_pypy</td>
+              <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.21python3.9.____73_pypy" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy1.21python3.9.____cpython</td>
+              <td>osx_arm64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.21python3.9.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_numpy1.23python3.11.____cpython</td>
+              <td>win_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_numpy1.23python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.21python3.8.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.21python3.8.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.21python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.21python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.21python3.9.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.21python3.9.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.21python3.9.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.21python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_numpy1.23python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_numpy1.23python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.21python3.8.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.21python3.8.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.21python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.21python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.21python3.9.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.21python3.9.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.21python3.9.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.21python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le_numpy1.23python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_numpy1.23python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.21python3.8.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.21python3.8.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.21python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.21python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.21python3.9.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.21python3.9.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.21python3.9.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.21python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.23python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_numpy1.23python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_numpy1.21python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_numpy1.21python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_numpy1.21python3.9.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_numpy1.21python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_numpy1.23python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_numpy1.23python3.11.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.10.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.21python3.10.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.8.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.21python3.8.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.21python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.9.____73_pypy</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.21python3.9.____73_pypy" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.21python3.9.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.21python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_numpy1.23python3.11.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=107&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_numpy1.23python3.11.____cpython" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/boost-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -282,6 +86,12 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-boost-green.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-boost--cpp-green.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost-green.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--devel-green.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--headers-green.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--python-green.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-python.svg)](https://anaconda.org/conda-forge/libboost-python) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--python--devel-green.svg)](https://anaconda.org/conda-forge/libboost-python-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-python-devel.svg)](https://anaconda.org/conda-forge/libboost-python-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-python-devel.svg)](https://anaconda.org/conda-forge/libboost-python-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-python-devel.svg)](https://anaconda.org/conda-forge/libboost-python-devel) |
 
 Installing boost
 ================
@@ -293,16 +103,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `boost` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `boost, boost-cpp, libboost, libboost-devel, libboost-headers, libboost-python, libboost-python-devel` can be installed with `conda`:
 
 ```
-conda install boost
+conda install boost boost-cpp libboost libboost-devel libboost-headers libboost-python libboost-python-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba install boost
+mamba install boost boost-cpp libboost libboost-devel libboost-headers libboost-python libboost-python-devel
 ```
 
 It is possible to list all of the versions of `boost` available on your platform with `conda`:
