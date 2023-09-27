@@ -36,6 +36,8 @@ build:
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
+  # debug
+  skip: true  # [not win]
 
 requirements:
   build:
