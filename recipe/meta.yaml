@@ -21,8 +21,8 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
-    # backport https://github.com/boostorg/functional/commit/6a573e4b8333ee63ee62ce95558c3667348db233
-    - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
+    # backport https://github.com/boostorg/test/commit/cada8c11df0ee360c2a05b0f44daeae6893419e4
+    - patches/0001-Fix-definition-of-BOOST_TEST_PRIxPTR-for-glibc-2.2-2.patch
 
 build:
   number: 0

@@ -1,4 +1,4 @@
-From a0200924fdafb7225c1042f2396b091c43fc0d06 Mon Sep 17 00:00:00 2001
+From 35bbbd251c035834962edec389195e4080e444be Mon Sep 17 00:00:00 2001
 From: Samuel Debionne <samuel.debionne@esrf.fr>
 Date: Fri, 30 Apr 2021 11:55:58 +0200
 Subject: [PATCH] Add default value for cxx and cxxflags options for the cxx
