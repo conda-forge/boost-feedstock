@@ -23,6 +23,10 @@ mkdir temp_prefix
     variant=release ^
     threading=multi ^
     link=shared ^
+    boost.locale.icu=on ^
+    boost.locale.std=on ^
+    boost.locale.winapi=on ^
+    -s ICU_PATH=%LIBRARY_PREFIX% ^
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^
