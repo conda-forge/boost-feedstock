@@ -1,3 +1,5 @@
+azure:
+  store_build_artifacts: true
 bot:
   abi_migration_branches:
   - v1.78.x
@@ -16,5 +18,3 @@ provider:
   linux_ppc64le: default
   win: azure
 test_on_native_only: true
-azure:
-  store_build_artifacts: true

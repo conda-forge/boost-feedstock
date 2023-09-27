@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 icu:
-- '72'
+- '73'
 numpy:
 - '1.22'
 - '1.23'
