@@ -26,14 +26,14 @@ mkdir temp_prefix
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^
-    -s ZLIB_INCLUDE=%PREFIX%\Library\include ^
-    -s ZLIB_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZLIB_INCLUDE=%LIBRARY_INC% ^
+    -s ZLIB_LIBPATH=%LIBRARY_LIB% ^
     -s ZLIB_BINARY=z ^
-    -s BZIP2_INCLUDE=%PREFIX%\Library\include ^
-    -s BZIP2_LIBPATH=%PREFIX%\Library\lib ^
+    -s BZIP2_INCLUDE=%LIBRARY_INC% ^
+    -s BZIP2_LIBPATH=%LIBRARY_LIB% ^
     -s BZIP2_BINARY=libbz2 ^
-    -s ZSTD_INCLUDE=%PREFIX%\Library\include ^
-    -s ZSTD_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZSTD_INCLUDE=%LIBRARY_INC% ^
+    -s ZSTD_LIBPATH=%LIBRARY_LIB% ^
     -s ZSTD_BINARY=zstd ^
     --layout=system ^
     -j%CPU_COUNT%
