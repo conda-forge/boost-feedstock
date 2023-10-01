@@ -23,7 +23,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 3
+  number: 4
 
 requirements:
   build:
@@ -286,7 +286,7 @@ outputs:
         - python
         - {{ pin_compatible('numpy') }}
         - {{ pin_subpackage("libboost-python", exact=True) }}
-        - {{ pin_subpackage("libboost-headers", exact=True) }}
+        - {{ pin_subpackage("libboost-devel", exact=True) }}
       run_constrained:
         # make sure we don't co-install with old version of old package name
         - boost ={{ version }}
