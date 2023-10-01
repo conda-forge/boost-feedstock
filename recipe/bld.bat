@@ -1,3 +1,5 @@
+@echo on
+
 :: Write python configuration, see https://github.com/boostorg/build/issues/194
 @echo using python > user-config.jam
 @echo : %PY_DUMMY_VER% >> user-config.jam
@@ -9,7 +11,7 @@ xcopy /Y user-config.jam %USERPROFILE%
 
 :: Start with bootstrap
 call bootstrap.bat
-if errorlevel 1 exit 1
+if %ERRORLEVEL% neq 0 exit 1
 
 mkdir temp_prefix
 
@@ -24,18 +26,18 @@ mkdir temp_prefix
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^
-    -s ZLIB_INCLUDE=%PREFIX%\Library\include ^
-    -s ZLIB_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZLIB_INCLUDE=%LIBRARY_INC% ^
+    -s ZLIB_LIBPATH=%LIBRARY_LIB% ^
     -s ZLIB_BINARY=z ^
-    -s BZIP2_INCLUDE=%PREFIX%\Library\include ^
-    -s BZIP2_LIBPATH=%PREFIX%\Library\lib ^
+    -s BZIP2_INCLUDE=%LIBRARY_INC% ^
+    -s BZIP2_LIBPATH=%LIBRARY_LIB% ^
     -s BZIP2_BINARY=libbz2 ^
-    -s ZSTD_INCLUDE=%PREFIX%\Library\include ^
-    -s ZSTD_LIBPATH=%PREFIX%\Library\lib ^
+    -s ZSTD_INCLUDE=%LIBRARY_INC% ^
+    -s ZSTD_LIBPATH=%LIBRARY_LIB% ^
     -s ZSTD_BINARY=zstd ^
     --layout=system ^
     -j%CPU_COUNT%
-if errorlevel 1 exit 1
+if %ERRORLEVEL% neq 0 exit 1
 
 :: Set BOOST_AUTO_LINK_NOMANGLE so that auto-linking uses system layout
 echo &echo.                           >> temp_prefix\include\boost\config\user.hpp

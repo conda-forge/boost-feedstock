@@ -209,6 +209,7 @@ Feedstock Maintainers
 
 * [@beckermr](https://github.com/beckermr/)
 * [@ccordoba12](https://github.com/ccordoba12/)
+* [@h-vetinari](https://github.com/h-vetinari/)
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@jschueller](https://github.com/jschueller/)
