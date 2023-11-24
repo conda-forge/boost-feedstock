@@ -1,4 +1,4 @@
-{% set version = "1.82.0" %}
+{% set version = "1.83.0" %}
 
 {% set boost_libs = [
     "atomic", "chrono", "container", "context", "contract", "coroutine",
@@ -17,15 +17,15 @@ package:
 
 source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: a6e1ab9b0860e6a2881dd7b21fe9f737a095e5f33a3a874afc6a345228597ee6
+  sha256: 6478edfe2f3305127cffe8caf73ea0176c53769f4bf1585be237eb30798c3b8e
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
-    # backport https://github.com/boostorg/functional/commit/6a573e4b8333ee63ee62ce95558c3667348db233
-    - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
+    # backport https://github.com/boostorg/test/commit/cada8c11df0ee360c2a05b0f44daeae6893419e4
+    - patches/0001-Fix-definition-of-BOOST_TEST_PRIxPTR-for-glibc-2.2-2.patch
 
 build:
-  number: 6
+  number: 0
 
 requirements:
   build:
