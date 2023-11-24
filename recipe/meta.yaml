@@ -25,7 +25,7 @@ source:
     - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
 
 build:
-  number: 6
+  number: 7
 
 requirements:
   build:
