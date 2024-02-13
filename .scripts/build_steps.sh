@@ -34,9 +34,9 @@ CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 mamba install --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build boa conda-forge-ci-setup=4
+    pip mamba conda-build boa conda-forge-ci-setup=4 "conda-build<3.28"
 mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build boa conda-forge-ci-setup=4
+    pip mamba conda-build boa conda-forge-ci-setup=4 "conda-build<3.28"
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
@@ -55,12 +55,6 @@ fi
 
 if [[ -f "${FEEDSTOCK_ROOT}/LICENSE.txt" ]]; then
   cp "${FEEDSTOCK_ROOT}/LICENSE.txt" "${RECIPE_ROOT}/recipe-scripts-license.txt"
-fi
-
-if [[ "${sha:-}" == "" ]]; then
-  pushd ${FEEDSTOCK_ROOT}
-  sha=$(git rev-parse HEAD)
-  popd
 fi
 
 if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then

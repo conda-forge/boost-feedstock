@@ -23,7 +23,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -273,8 +273,6 @@ outputs:
       run_exports:
         # run-export the output without the headers
         - {{ pin_subpackage("libboost-python", max_pin="x.x") }}
-        # output may also depend on boost libs
-        - {{ pin_subpackage("libboost", max_pin="x.x") }}
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
       build:                # [win]

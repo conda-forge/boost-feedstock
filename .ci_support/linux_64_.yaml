@@ -2,8 +2,6 @@ NP_DUMMY_VER:
 - '1.21'
 PY_DUMMY_VER:
 - '3.10'
-boost:
-- 1.78.0
 bzip2:
 - '1'
 cdt_name:
@@ -28,8 +26,6 @@ numpy:
 - '1.22'
 - '1.22'
 pin_run_as_build:
-  boost:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
