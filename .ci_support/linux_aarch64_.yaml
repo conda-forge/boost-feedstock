@@ -4,8 +4,6 @@ NP_DUMMY_VER:
 - '1.21'
 PY_DUMMY_VER:
 - '3.10'
-boost:
-- 1.78.0
 bzip2:
 - '1'
 cdt_arch:
@@ -13,11 +11,6 @@ cdt_arch:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge
-- conda-forge
-- conda-forge/label/python_rc,conda-forge
-- conda-forge
-- conda-forge
 - conda-forge
 channel_targets:
 - conda-forge main
@@ -37,8 +30,6 @@ numpy:
 - '1.22'
 - '1.22'
 pin_run_as_build:
-  boost:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
@@ -64,7 +55,6 @@ zip_keys:
 - - python
   - numpy
   - python_impl
-  - channel_sources
 zlib:
 - '1.2'
 zstd:
