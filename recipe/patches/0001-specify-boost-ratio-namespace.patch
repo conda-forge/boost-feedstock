@@ -1,0 +1,370 @@
+From 490b9f2a4bf01f1cf46374d6a1224ba58873cddd Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Fri, 23 Feb 2024 12:48:42 +0100
+Subject: [PATCH] Uniform usage of ratio as boost::ratio
+
+---
+ .../detail/inlined/win/process_cpu_clocks.hpp |  4 +-
+ include/boost/chrono/duration.hpp             | 14 +--
+ include/boost/chrono/io/duration_units.hpp    | 98 +++++++++----------
+ include/boost/chrono/system_clocks.hpp        |  2 +-
+ 4 files changed, 59 insertions(+), 59 deletions(-)
+
+diff --git a/include/boost/chrono/detail/inlined/win/process_cpu_clocks.hpp b/include/boost/chrono/detail/inlined/win/process_cpu_clocks.hpp
+index 87b5d4af..84d0220a 100644
+--- a/include/boost/chrono/detail/inlined/win/process_cpu_clocks.hpp
++++ b/include/boost/chrono/detail/inlined/win/process_cpu_clocks.hpp
+@@ -37,7 +37,7 @@ process_real_cpu_clock::time_point process_real_cpu_clock::now() BOOST_NOEXCEPT
+     {
+       BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
+     }
+-    typedef ratio_divide<giga, ratio<CLOCKS_PER_SEC> >::type R;
++    typedef ratio_divide<giga, boost::ratio<CLOCKS_PER_SEC> >::type R;
+     return time_point(
+       duration(static_cast<rep>(c)*R::num/R::den)
+     );
+@@ -60,7 +60,7 @@ process_real_cpu_clock::time_point process_real_cpu_clock::now(
+     {
+       ec.clear();
+     }
+-    typedef ratio_divide<giga, ratio<CLOCKS_PER_SEC> >::type R;
++    typedef ratio_divide<giga, boost::ratio<CLOCKS_PER_SEC> >::type R;
+     return time_point(
+       duration(static_cast<rep>(c)*R::num/R::den)
+     );
+diff --git a/include/boost/chrono/duration.hpp b/include/boost/chrono/duration.hpp
+index 72a94518..20fad0c6 100644
+--- a/include/boost/chrono/duration.hpp
++++ b/include/boost/chrono/duration.hpp
+@@ -74,7 +74,7 @@ time2_demo contained this comment:
+ namespace boost {
+ namespace chrono {
+
+-    template <class Rep, class Period = ratio<1> >
++    template <class Rep, class Period = boost::ratio<1> >
+     class duration;
+
+     namespace detail
+@@ -196,12 +196,12 @@ namespace chrono {
+     template <class Rep> struct duration_values;
+
+     // convenience typedefs
+-    typedef duration<boost::int_least64_t, nano> nanoseconds;    // at least 64 bits needed
+-    typedef duration<boost::int_least64_t, micro> microseconds;  // at least 55 bits needed
+-    typedef duration<boost::int_least64_t, milli> milliseconds;  // at least 45 bits needed
+-    typedef duration<boost::int_least64_t> seconds;              // at least 35 bits needed
+-    typedef duration<boost::int_least32_t, ratio< 60> > minutes; // at least 29 bits needed
+-    typedef duration<boost::int_least32_t, ratio<3600> > hours;  // at least 23 bits needed
++    typedef duration<boost::int_least64_t, nano> nanoseconds;           // at least 64 bits needed
++    typedef duration<boost::int_least64_t, micro> microseconds;         // at least 55 bits needed
++    typedef duration<boost::int_least64_t, milli> milliseconds;         // at least 45 bits needed
++    typedef duration<boost::int_least64_t> seconds;                     // at least 35 bits needed
++    typedef duration<boost::int_least32_t, boost::ratio< 60> > minutes; // at least 29 bits needed
++    typedef duration<boost::int_least32_t, boost::ratio<3600> > hours;  // at least 23 bits needed
+
+ //----------------------------------------------------------------------------//
+ //                          duration helpers                                  //
+diff --git a/include/boost/chrono/io/duration_units.hpp b/include/boost/chrono/io/duration_units.hpp
+index 8438ad45..d73a10b0 100644
+--- a/include/boost/chrono/io/duration_units.hpp
++++ b/include/boost/chrono/io/duration_units.hpp
+@@ -311,13 +311,13 @@ namespace boost
+           rt = rt_ratio(exa());
+           break;
+         case 16:
+-          rt = rt_ratio(ratio<1> ());
++          rt = rt_ratio(boost::ratio<1> ());
+           break;
+         case 17:
+-          rt = rt_ratio(ratio<60> ());
++          rt = rt_ratio(boost::ratio<60> ());
+           break;
+         case 18:
+-          rt = rt_ratio(ratio<3600> ());
++          rt = rt_ratio(boost::ratio<3600> ());
+           break;
+         default:
+           return false;
+@@ -417,7 +417,7 @@ namespace boost
+        */
+       string_type do_get_n_d_unit(duration_style style, rt_ratio, intmax_t v) const
+       {
+-        return do_get_unit(style, ratio<1>(), do_get_plural_form(v));
++        return do_get_unit(style, boost::ratio<1>(), do_get_plural_form(v));
+       }
+
+       /**
+@@ -429,7 +429,7 @@ namespace boost
+           switch (rt.den)
+           {
+           case BOOST_RATIO_INTMAX_C(1):
+-            return do_get_unit(style, ratio<1>(), do_get_plural_form(v));
++            return do_get_unit(style, boost::ratio<1>(), do_get_plural_form(v));
+           case BOOST_RATIO_INTMAX_C(10):
+             return do_get_unit(style, deci(), do_get_plural_form(v));
+           case BOOST_RATIO_INTMAX_C(100):
+@@ -455,13 +455,13 @@ namespace boost
+           case BOOST_RATIO_INTMAX_C(10):
+              return do_get_unit(style, deca(), do_get_plural_form(v));
+           case BOOST_RATIO_INTMAX_C(60):
+-            return do_get_unit(style, ratio<60>(), do_get_plural_form(v));
++            return do_get_unit(style, boost::ratio<60>(), do_get_plural_form(v));
+           case BOOST_RATIO_INTMAX_C(100):
+              return do_get_unit(style, hecto(), do_get_plural_form(v));
+            case BOOST_RATIO_INTMAX_C(1000):
+              return do_get_unit(style, kilo(), do_get_plural_form(v));
+            case BOOST_RATIO_INTMAX_C(3600):
+-             return do_get_unit(style, ratio<3600>(), do_get_plural_form(v));
++             return do_get_unit(style, boost::ratio<3600>(), do_get_plural_form(v));
+            case BOOST_RATIO_INTMAX_C(1000000):
+              return do_get_unit(style, mega(), do_get_plural_form(v));
+            case BOOST_RATIO_INTMAX_C(1000000000):
+@@ -515,11 +515,11 @@ namespace boost
+        * @param pf the requested plural form.
+        * @return if style is symbol returns "s", otherwise if pf is 0 return "second", if pf is 1 "seconds"
+        */
+-      virtual string_type do_get_unit(duration_style style, ratio<1> u, std::size_t pf) const
++      virtual string_type do_get_unit(duration_style style, boost::ratio<1> u, std::size_t pf) const
+       {
+         return static_get_unit(style,u,pf);
+       }
+-      static string_type static_get_unit(duration_style style, ratio<1> , std::size_t pf)
++      static string_type static_get_unit(duration_style style, boost::ratio<1> , std::size_t pf)
+       {
+         static const CharT t[] =
+         { 's' };
+@@ -554,11 +554,11 @@ namespace boost
+        * @param pf the requested plural form.
+        * @return if style is symbol returns "min", otherwise if pf is 0 return "minute", if pf is 1 "minutes"
+        */
+-      virtual string_type do_get_unit(duration_style style, ratio<60> u, std::size_t pf) const
++      virtual string_type do_get_unit(duration_style style, boost::ratio<60> u, std::size_t pf) const
+       {
+         return static_get_unit(style,u,pf);
+       }
+-      static string_type static_get_unit(duration_style style, ratio<60> , std::size_t pf)
++      static string_type static_get_unit(duration_style style, boost::ratio<60> , std::size_t pf)
+       {
+         static const CharT t[] =
+         { 'm', 'i', 'n' };
+@@ -586,11 +586,11 @@ namespace boost
+        * @param pf the requested plural form.
+        * @return if style is symbol returns "h", otherwise if pf is 0 return "hour", if pf is 1 "hours"
+        */
+-      virtual string_type do_get_unit(duration_style style, ratio<3600> u, std::size_t pf) const
++      virtual string_type do_get_unit(duration_style style, boost::ratio<3600> u, std::size_t pf) const
+       {
+         return static_get_unit(style,u,pf);
+       }
+-      static string_type static_get_unit(duration_style style, ratio<3600> , std::size_t pf)
++      static string_type static_get_unit(duration_style style, boost::ratio<3600> , std::size_t pf)
+       {
+         static const CharT t[] =
+         { 'h' };
+@@ -618,11 +618,11 @@ namespace boost
+        */
+       virtual string_type do_get_unit(duration_style style, atto u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, atto u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       /**
+        * @param style the duration style.
+@@ -632,11 +632,11 @@ namespace boost
+        */
+       virtual string_type do_get_unit(duration_style style, femto u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, femto u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       /**
+        * @param style the duration style.
+@@ -646,115 +646,115 @@ namespace boost
+        */
+       virtual string_type do_get_unit(duration_style style, pico u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, pico u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, nano u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, nano u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, micro u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, micro u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, milli u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, milli u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, centi u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, centi u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, deci u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, deci u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, deca u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, deca u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, hecto u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, hecto u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, kilo u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, kilo u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, mega u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, mega u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, giga u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, giga u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, tera u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, tera u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, peta u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, peta u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+       virtual string_type do_get_unit(duration_style style, exa u, std::size_t pf) const
+       {
+-        return do_get_ratio_prefix(style, u) + do_get_unit(style, ratio<1> (), pf);
++        return do_get_ratio_prefix(style, u) + do_get_unit(style, boost::ratio<1> (), pf);
+       }
+       static string_type static_get_unit(duration_style style, exa u, std::size_t pf)
+       {
+-        return static_get_ratio_prefix(style, u) + static_get_unit(style, ratio<1> (), pf);
++        return static_get_ratio_prefix(style, u) + static_get_unit(style, boost::ratio<1> (), pf);
+       }
+
+     protected:
+@@ -951,9 +951,9 @@ namespace boost
+         it = static_fill_units(it, tera());
+         it = static_fill_units(it, peta());
+         it = static_fill_units(it, exa());
+-        it = static_fill_units(it, ratio<1> ());
+-        it = static_fill_units(it, ratio<60> ());
+-        it = static_fill_units(it, ratio<3600> ());
++        it = static_fill_units(it, boost::ratio<1> ());
++        it = static_fill_units(it, boost::ratio<60> ());
++        it = static_fill_units(it, boost::ratio<3600> ());
+         return it;
+       }
+     };
+@@ -973,7 +973,7 @@ namespace boost
+                 duration_units_default_holder<CharT>::valid_units_ = new string_type[19 * 3];
+
+                 string_type* it = duration_units_default_holder<CharT>::n_d_valid_units_;
+-                it = duration_units_default<CharT>::static_fill_units(it, ratio<1> ());
++                it = duration_units_default<CharT>::static_fill_units(it, boost::ratio<1> ());
+                 it = duration_units_default<CharT>::static_init_valid_units(duration_units_default_holder<CharT>::valid_units_);
+
+                 duration_units_default_holder<CharT>::initialized_ = true;
+diff --git a/include/boost/chrono/system_clocks.hpp b/include/boost/chrono/system_clocks.hpp
+index a808ca7c..4093a369 100644
+--- a/include/boost/chrono/system_clocks.hpp
++++ b/include/boost/chrono/system_clocks.hpp
+@@ -75,7 +75,7 @@ time2_demo contained this comment:
+
+ #ifdef BOOST_CHRONO_WINDOWS_API
+ // The system_clock tick is 100 nanoseconds
+-# define BOOST_SYSTEM_CLOCK_DURATION boost::chrono::duration<boost::int_least64_t, ratio<BOOST_RATIO_INTMAX_C(1), BOOST_RATIO_INTMAX_C(10000000)> >
++# define BOOST_SYSTEM_CLOCK_DURATION boost::chrono::duration<boost::int_least64_t, boost::ratio<BOOST_RATIO_INTMAX_C(1), BOOST_RATIO_INTMAX_C(10000000)> >
+ #else
+ # define BOOST_SYSTEM_CLOCK_DURATION boost::chrono::nanoseconds
+ #endif

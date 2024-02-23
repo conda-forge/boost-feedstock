@@ -23,9 +23,11 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # backport https://github.com/boostorg/functional/commit/6a573e4b8333ee63ee62ce95558c3667348db233
     - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
+    # backport https://github.com/boostorg/chrono/pull/75
+    - patches/0001-specify-boost-ratio-namespace.patch
 
 build:
-  number: 6
+  number: 7
 
 requirements:
   build:
