@@ -75,6 +75,7 @@ mkdir temp_prefix
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
+    cxxstd=20 \
     --layout=system \
     -j"${CPU_COUNT}" \
     install
