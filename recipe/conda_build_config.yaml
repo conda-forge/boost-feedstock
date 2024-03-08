@@ -4,3 +4,7 @@ PY_DUMMY_VER:
   - "3.10"
 NP_DUMMY_VER:
   - "1.21"
+  
+# Bump MacOs target to 10.13 for Boost.Cobalt / C++20 support
+MACOSX_DEPLOYMENT_TARGET:
+  - '10.13' # [osx and x86_64]
