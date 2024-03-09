@@ -29,8 +29,8 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python {{ PY_DUMMY_VER }} *cpython     # [build_platform != target_platform]
-    - numpy {{ NP_DUMMY_VER }}               # [build_platform != target_platform]
+    - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
+    - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
   host:
     - icu               # [unix]
     - xz                # [unix]
@@ -38,8 +38,8 @@ requirements:
     - zlib
     - zstd
     # see conda_build_config
-    - python {{ PY_DUMMY_VER }} *cpython
-    - numpy {{ NP_DUMMY_VER }}
+    - python {{ PY_DUMMY_VER }}.* *_cpython
+    - numpy {{ NP_DUMMY_VER }}.*
 
 outputs:
   - name: libboost-headers
