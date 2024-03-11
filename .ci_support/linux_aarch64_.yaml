@@ -1,9 +1,5 @@
 BUILD:
 - aarch64-conda_cos7-linux-gnu
-NP_DUMMY_VER:
-- '1.21'
-PY_DUMMY_VER:
-- '3.10'
 bzip2:
 - '1'
 cdt_arch:

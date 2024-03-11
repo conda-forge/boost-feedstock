@@ -1,7 +1,3 @@
-NP_DUMMY_VER:
-- '1.21'
-PY_DUMMY_VER:
-- '3.10'
 bzip2:
 - '1'
 channel_sources:
