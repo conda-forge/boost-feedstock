@@ -31,8 +31,8 @@ source:
 build:
   number: 2
   script_env:
-    PY_DUMMY_VER={{ PY_DUMMY_VER }}
-    NP_DUMMY_VER={{ NP_DUMMY_VER }}
+    - PY_DUMMY_VER={{ PY_DUMMY_VER }}
+    - NP_DUMMY_VER={{ NP_DUMMY_VER }}
 
 requirements:
   build:
