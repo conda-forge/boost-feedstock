@@ -11,6 +11,11 @@
 {% set boost_libs_static_only = ["exception", "test_exec_monitor"] %}
 {% set boost_libs_py = ["python%s" % py, "numpy%s" % py] %}
 
+# we only need _a_ python version to build the headers for libboost-headers,
+# make it accessible in the build scripts via build/script_env below.
+{% set PY_DUMMY_VER = "3.10" %}
+{% set NP_DUMMY_VER = "1.21" %}
+
 package:
   name: boost-split
   version: {{ version }}
@@ -25,6 +30,9 @@ source:
 
 build:
   number: 2
+  script_env:
+    PY_DUMMY_VER={{ PY_DUMMY_VER }}
+    NP_DUMMY_VER={{ NP_DUMMY_VER }}
 
 requirements:
   build:
