@@ -106,6 +106,8 @@ outputs:
         - xz
         - zlib
         - zstd
+      run:
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
       run_constrained:
         # Anaconda's output is also called libboost; therefore we automatically
         # avoid issues of co-installability, because a package with the same name
