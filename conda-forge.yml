@@ -9,6 +9,6 @@ provider:
   linux_aarch64: default
   linux_ppc64le: emulated
   win: azure
-test_on_native_only: true
 conda_build:
   pkg_format: '2'
+test: native_and_emulated
