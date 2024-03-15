@@ -17,8 +17,8 @@ provider:
   linux_aarch64: default
   linux_ppc64le: default
   win: azure
-test_on_native_only: true
 remote_ci_setup:
-  - conda-forge-ci-setup=4
+- conda-forge-ci-setup=4
   # breakage due to (most likely) https://github.com/conda/conda-build/issues/5179
-  - conda-build<3.28
+- conda-build<3.28
+test: native_and_emulated
