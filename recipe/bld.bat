@@ -23,6 +23,7 @@ mkdir temp_prefix
     variant=release ^
     threading=multi ^
     link=shared ^
+    cxxstd=20 ^
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^

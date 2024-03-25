@@ -1,7 +1,7 @@
 {% set version = "1.84.0" %}
 
 {% set boost_libs = [
-    "atomic", "chrono", "container", "context", "contract", "coroutine",
+    "atomic", "chrono", "cobalt", "container", "context", "contract", "coroutine",
     "date_time", "filesystem", "graph", "iostreams", "locale", "log", "log_setup",
     "math_c99", "math_c99f", "math_tr1", "math_tr1f", "prg_exec_monitor",
     "program_options", "random", "regex", "serialization", "system", "thread",
@@ -10,6 +10,11 @@
 {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
 {% set boost_libs_static_only = ["exception", "test_exec_monitor"] %}
 {% set boost_libs_py = ["python%s" % py, "numpy%s" % py] %}
+
+# we only need _a_ python version to build the headers for libboost-headers,
+# make it accessible in the build scripts via build/script_env below.
+{% set PY_DUMMY_VER = "3.10" %}
+{% set NP_DUMMY_VER = "1.21" %}
 
 package:
   name: boost-split
@@ -21,16 +26,20 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    - patches/0002-Reimplement-string_set-as-any_string.patch
 
 build:
-  number: 1
+  number: 2
+  script_env:
+    - PY_DUMMY_VER={{ PY_DUMMY_VER }}
+    - NP_DUMMY_VER={{ NP_DUMMY_VER }}
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python {{ PY_DUMMY_VER }} *cpython     # [build_platform != target_platform]
-    - numpy {{ NP_DUMMY_VER }}               # [build_platform != target_platform]
+    - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
+    - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
   host:
     - icu               # [unix]
     - xz                # [unix]
@@ -38,8 +47,8 @@ requirements:
     - zlib
     - zstd
     # see conda_build_config
-    - python {{ PY_DUMMY_VER }} *cpython
-    - numpy {{ NP_DUMMY_VER }}
+    - python {{ PY_DUMMY_VER }}.* *_cpython
+    - numpy {{ NP_DUMMY_VER }}.*
 
 outputs:
   - name: libboost-headers
@@ -97,6 +106,8 @@ outputs:
         - xz
         - zlib
         - zstd
+      run:
+        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
       run_constrained:
         # Anaconda's output is also called libboost; therefore we automatically
         # avoid issues of co-installability, because a package with the same name

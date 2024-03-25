@@ -17,6 +17,8 @@ CXXFLAGS="${CXXFLAGS} -fPIC"
 
 if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
+    # see https://conda-forge.org/docs/maintainer/knowledge_base/#newer-c-features-with-old-sdk
+    CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
@@ -75,6 +77,7 @@ mkdir temp_prefix
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
+    cxxstd=20 \
     --layout=system \
     -j"${CPU_COUNT}" \
     install

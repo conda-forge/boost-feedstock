@@ -1,9 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
-NP_DUMMY_VER:
-- '1.21'
-PY_DUMMY_VER:
-- '3.10'
 bzip2:
 - '1'
 channel_sources:
