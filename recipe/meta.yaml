@@ -26,7 +26,6 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
-    - patches/0002-Reimplement-string_set-as-any_string.patch
 
 build:
   number: 0
