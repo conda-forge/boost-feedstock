@@ -38,6 +38,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
     - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
@@ -100,6 +101,7 @@ outputs:
       build:
         # for strong run-exports
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
       host:
         - icu               # [unix]
         - libiconv          # [win]
@@ -233,6 +235,7 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
       host:
         # ensure python_impl gets picked up by smithy (by using it as a selector) and therefore
         # populated in the .ci_config/*.yaml files, for use in {build,install}-py.{sh,bat}.
