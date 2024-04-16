@@ -1,5 +1,7 @@
 bzip2:
 - '1'
+c_stdlib:
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
