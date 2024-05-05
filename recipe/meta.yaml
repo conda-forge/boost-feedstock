@@ -30,7 +30,7 @@ source:
     - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
 
 build:
-  number: 6
+  number: 7
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -247,7 +247,6 @@ outputs:
         - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
         - python
-        - {{ pin_compatible('numpy') }}
       run_constrained:
         # make sure we don't co-install with old version of old package name
         - boost ={{ version }}
@@ -299,7 +298,6 @@ outputs:
         - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
         - python
-        - {{ pin_compatible('numpy') }}
         - {{ pin_subpackage("libboost-python", exact=True) }}
         - {{ pin_subpackage("libboost-devel", exact=True) }}
       run_constrained:
