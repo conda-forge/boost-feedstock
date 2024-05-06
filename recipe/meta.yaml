@@ -27,7 +27,9 @@ source:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # backport https://github.com/boostorg/charconv/pull/183
-    - patches/0001-Merge-pull-request-183-from-boostorg-ppc64le.patch
+    - patches/0002-Merge-pull-request-183-from-boostorg-ppc64le.patch
+    # backport https://github.com/boostorg/python/pull/432
+    - patches/0003-Support-numpy-2.0.0b1.patch
 
 build:
   number: 1
