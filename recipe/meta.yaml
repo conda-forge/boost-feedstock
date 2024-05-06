@@ -27,7 +27,9 @@ source:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # backport https://github.com/boostorg/functional/commit/6a573e4b8333ee63ee62ce95558c3667348db233
-    - patches/0001-Define-unary_function-and-binary_function-unconditio.patch
+    - patches/0002-Define-unary_function-and-binary_function-unconditio.patch
+    # backport https://github.com/boostorg/python/pull/432
+    - patches/0003-Support-numpy-2.0.0b1.patch
 
 build:
   number: 7
