@@ -26,7 +26,10 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    # backport https://github.com/boostorg/locale/pull/212
     - patches/0002-Reimplement-string_set-as-any_string.patch
+    # backport https://github.com/boostorg/python/pull/432
+    - patches/0003-Support-numpy-2.0.0b1.patch
 
 build:
   number: 3
