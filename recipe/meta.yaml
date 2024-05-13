@@ -1,4 +1,4 @@
-{% set version = "1.84.0" %}
+{% set version = "1.85.0" %}
 
 {% set boost_libs = [
     "atomic", "chrono", "cobalt", "container", "context", "contract", "coroutine",
@@ -22,14 +22,15 @@ package:
 
 source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454
+  sha256: 7009fe1faa1697476bdc7027703a2badb84e849b7b0baad5086b087b971f8617
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
-    - patches/0002-Reimplement-string_set-as-any_string.patch
+    # backport https://github.com/boostorg/charconv/pull/183
+    - patches/0001-Merge-pull-request-183-from-boostorg-ppc64le.patch
 
 build:
-  number: 2
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -37,6 +38,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
     - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
@@ -99,6 +101,7 @@ outputs:
       build:
         # for strong run-exports
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
       host:
         - icu               # [unix]
         - libiconv          # [win]
@@ -106,8 +109,6 @@ outputs:
         - xz
         - zlib
         - zstd
-      run:
-        - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
       run_constrained:
         # Anaconda's output is also called libboost; therefore we automatically
         # avoid issues of co-installability, because a package with the same name
@@ -234,6 +235,7 @@ outputs:
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
         - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
       host:
         # ensure python_impl gets picked up by smithy (by using it as a selector) and therefore
         # populated in the .ci_config/*.yaml files, for use in {build,install}-py.{sh,bat}.

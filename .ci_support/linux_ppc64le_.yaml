@@ -1,5 +1,9 @@
 bzip2:
 - '1'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cdt_name:
 - cos7
 channel_sources:
@@ -44,6 +48,8 @@ target_platform:
 xz:
 - '5'
 zip_keys:
+- - c_stdlib_version
+  - cdt_name
 - - python
   - numpy
   - python_impl
