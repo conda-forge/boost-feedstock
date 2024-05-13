@@ -26,6 +26,8 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping 
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    # backport https://github.com/boostorg/charconv/pull/183
+    - patches/0001-Merge-pull-request-183-from-boostorg-ppc64le.patch
 
 build:
   number: 0
