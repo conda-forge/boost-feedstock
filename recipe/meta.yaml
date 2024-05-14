@@ -29,7 +29,7 @@ source:
     - patches/0002-Reimplement-string_set-as-any_string.patch
 
 build:
-  number: 2
+  number: 3
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}

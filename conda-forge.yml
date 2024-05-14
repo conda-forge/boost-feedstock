@@ -19,6 +19,5 @@ provider:
   win: azure
 remote_ci_setup:
 - conda-forge-ci-setup=4
-  # breakage due to (most likely) https://github.com/conda/conda-build/issues/5179
 - conda-build<3.28
 test: native_and_emulated
