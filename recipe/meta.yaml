@@ -30,7 +30,7 @@ source:
     - patches/0001-Merge-pull-request-183-from-boostorg-ppc64le.patch
 
 build:
-  number: 1
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
