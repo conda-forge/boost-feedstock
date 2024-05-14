@@ -1,7 +1,7 @@
 {% set version = "1.85.0" %}
 
 {% set boost_libs = [
-    "atomic", "chrono", "cobalt", "container", "context", "contract", "coroutine",
+    "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
     "date_time", "filesystem", "graph", "iostreams", "locale", "log", "log_setup",
     "math_c99", "math_c99f", "math_tr1", "math_tr1f", "prg_exec_monitor",
     "program_options", "random", "regex", "serialization", "system", "thread",
