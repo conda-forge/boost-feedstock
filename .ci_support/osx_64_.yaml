@@ -1,40 +1,31 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
-NP_DUMMY_VER:
-- '1.21'
-PY_DUMMY_VER:
-- '3.10'
-boost:
-- 1.78.0
+- '10.13'
 bzip2:
 - '1'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '10.13'
 channel_sources:
-- conda-forge
-- conda-forge
-- conda-forge/label/python_rc,conda-forge
-- conda-forge
-- conda-forge
-- conda-forge
+- conda-forge/label/numpy_rc,conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '15'
+- '16'
 icu:
 - '73'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
+- '2.0'
+- '2.0'
+- '2.0'
 - '1.22'
-- '1.23'
-- '1.26'
 - '1.22'
-- '1.22'
-- '1.22'
+- '2.0'
 pin_run_as_build:
-  boost:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
@@ -60,7 +51,6 @@ zip_keys:
 - - python
   - numpy
   - python_impl
-  - channel_sources
 zlib:
 - '1.2'
 zstd:
