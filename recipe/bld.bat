@@ -52,3 +52,6 @@ del temp_prefix\lib\boost_numpy*.lib
 del temp_prefix\lib\boost_numpy*.dll
 rmdir /s /q temp_prefix\lib\cmake\boost_python-%PKG_VERSION%
 rmdir /s /q temp_prefix\lib\cmake\boost_numpy-%PKG_VERSION%
+
+set MAX_NUMBER_OF_MEMBERS=200
+erb include\boost\hana\detail\struct_macros.hpp.erb > temp_prefix\include\boost\hana\detail\struct_macros.hpp
