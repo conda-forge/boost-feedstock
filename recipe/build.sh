@@ -90,7 +90,8 @@ rm -rf ./temp_prefix/lib/cmake/boost_python*
 rm -rf ./temp_prefix/lib/cmake/boost_numpy*
 
 # Use a larger default for pre-generated headers.
-# This generates more macros for larger sizes.
-# See include/boost/hana/detail/struct_macros.hpp.erb for more details
+# This generates more macros for larger sizes. See
+# https://github.com/boostorg/hana/blob/boost-1.85.0/include/boost/hana/detail/struct_macros.hpp.erb
+# for more details.
 export MAX_NUMBER_OF_MEMBERS=200
-erb include/boost/hana/detail/struct_macros.hpp.erb > temp_prefix/include/boost/hana/detail/struct_macros.hpp
+erb boost/hana/detail/struct_macros.hpp.erb > temp_prefix/include/boost/hana/detail/struct_macros.hpp
