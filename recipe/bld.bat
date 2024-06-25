@@ -24,9 +24,15 @@ mkdir temp_prefix
     threading=multi ^
     link=shared ^
     cxxstd=20 ^
+    boost.locale.icu=on ^
+    boost.locale.std=on ^
+    boost.locale.winapi=on ^
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
     -s NO_BZIP2=0 ^
+    -s ICU_INCLUDE=%LIBRARY_INC% ^
+    -s ICU_LIBPATH=%LIBRARY_LIB% ^
+    -s ICU_BINARY=icuio ^
     -s ZLIB_INCLUDE=%LIBRARY_INC% ^
     -s ZLIB_LIBPATH=%LIBRARY_LIB% ^
     -s ZLIB_BINARY=z ^
