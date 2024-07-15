@@ -24,15 +24,17 @@ source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454
   patches:
-    # ensure our compiler flags get used during bootstrapping 
+    # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # backport https://github.com/boostorg/locale/pull/212
     - patches/0002-Reimplement-string_set-as-any_string.patch
     # backport https://github.com/boostorg/python/pull/432
     - patches/0003-Support-numpy-2.0.0b1.patch
+    # backport https://github.com/boostorg/python/pull/443
+    - patches/0004-Support-numpy-2.0.patch
 
 build:
-  number: 3
+  number: 4
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
