@@ -24,12 +24,14 @@ source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: 7009fe1faa1697476bdc7027703a2badb84e849b7b0baad5086b087b971f8617
   patches:
-    # ensure our compiler flags get used during bootstrapping 
+    # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # backport https://github.com/boostorg/charconv/pull/183
     - patches/0002-Merge-pull-request-183-from-boostorg-ppc64le.patch
     # backport https://github.com/boostorg/python/pull/432
     - patches/0003-Support-numpy-2.0.0b1.patch
+    # backport https://github.com/boostorg/python/pull/443
+    - patches/0004-Support-numpy-2.0.patch
 
 build:
   number: 3
