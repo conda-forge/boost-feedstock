@@ -1,5 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
+MACOSX_SDK_VERSION:
+- '11.0'
 bzip2:
 - '1'
 c_stdlib:
@@ -7,7 +9,7 @@ c_stdlib:
 c_stdlib_version:
 - '11.0'
 channel_sources:
-- conda-forge/label/numpy_rc,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -49,6 +51,6 @@ zip_keys:
   - numpy
   - python_impl
 zlib:
-- '1.2'
+- '1'
 zstd:
 - '1.5'
