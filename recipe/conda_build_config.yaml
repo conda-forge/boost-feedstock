@@ -1,3 +1,0 @@
-# Bump MacOs target to 10.13 for Boost.Cobalt / C++20 support
-c_stdlib_version:   # [osx and x86_64]
-  - '10.13' # [osx and x86_64]

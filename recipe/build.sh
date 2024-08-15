@@ -1,6 +1,16 @@
 #!/bin/bash
 set -ex
 
+# work-around for https://github.com/bfgroup/b2/issues/405
+echo "using python" > user-config.jam
+echo ": $PY_DUMMY_VER" >> user-config.jam
+echo ": $PYTHON" >> user-config.jam
+echo ": $PREFIX/include/python$PY_DUMMY_VER" >> user-config.jam
+echo ": $PREFIX/lib" >> user-config.jam
+echo ";" >> user-config.jam
+# see https://www.boost.org/build/doc/html/bbv2/overview/configuration.html
+export BOOST_BUILD_PATH=$SRC_DIR
+
 # Hints:
 # http://boost.2283326.n4.nabble.com/how-to-build-boost-with-bzip2-in-non-standard-location-td2661155.html
 # http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
