@@ -85,8 +85,6 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-boost-green.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost.svg)](https://anaconda.org/conda-forge/boost) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-boost--cpp-green.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/boost-cpp.svg)](https://anaconda.org/conda-forge/boost-cpp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost-green.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost.svg)](https://anaconda.org/conda-forge/libboost) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--devel-green.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-devel.svg)](https://anaconda.org/conda-forge/libboost-devel) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libboost--headers-green.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libboost-headers.svg)](https://anaconda.org/conda-forge/libboost-headers) |
@@ -103,41 +101,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `boost, boost-cpp, libboost, libboost-devel, libboost-headers, libboost-python, libboost-python-devel` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libboost, libboost-devel, libboost-headers, libboost-python, libboost-python-devel` can be installed with `conda`:
 
 ```
-conda install boost boost-cpp libboost libboost-devel libboost-headers libboost-python libboost-python-devel
-```
-
-or with `mamba`:
-
-```
-mamba install boost boost-cpp libboost libboost-devel libboost-headers libboost-python libboost-python-devel
-```
-
-It is possible to list all of the versions of `boost` available on your platform with `conda`:
-
-```
-conda search boost --channel conda-forge
+conda install libboost libboost-devel libboost-headers libboost-python libboost-python-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba search boost --channel conda-forge
+mamba install libboost libboost-devel libboost-headers libboost-python libboost-python-devel
+```
+
+It is possible to list all of the versions of `libboost` available on your platform with `conda`:
+
+```
+conda search libboost --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libboost --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search boost --channel conda-forge
+mamba repoquery search libboost --channel conda-forge
 
-# List packages depending on `boost`:
-mamba repoquery whoneeds boost --channel conda-forge
+# List packages depending on `libboost`:
+mamba repoquery whoneeds libboost --channel conda-forge
 
-# List dependencies of `boost`:
-mamba repoquery depends boost --channel conda-forge
+# List dependencies of `libboost`:
+mamba repoquery depends libboost --channel conda-forge
 ```
 
 
