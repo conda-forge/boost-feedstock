@@ -1,5 +1,3 @@
-azure:
-  store_build_artifacts: true
 bot:
   abi_migration_branches:
   - v1.84.x
