@@ -13,6 +13,9 @@ xcopy /Y user-config.jam %USERPROFILE%
 call bootstrap.bat
 if %ERRORLEVEL% neq 0 exit 1
 
+:: bootstrap.bat turns off echo; turn it on again
+@echo on
+
 mkdir temp_prefix
 
 :: Build step
