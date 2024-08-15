@@ -1,4 +1,15 @@
 #!/bin/bash
+set -ex
+
+# work-around for https://github.com/bfgroup/b2/issues/405
+echo "using python" > user-config.jam
+echo ": $PY_VER" >> user-config.jam
+echo ": $PYTHON" >> user-config.jam
+echo ": $PREFIX/include/python$PY_VER" >> user-config.jam
+echo ": $PREFIX/lib" >> user-config.jam
+echo ";" >> user-config.jam
+# see https://www.boost.org/build/doc/html/bbv2/overview/configuration.html
+export BOOST_BUILD_PATH=$SRC_DIR
 
 # Hints:
 # http://boost.2283326.n4.nabble.com/how-to-build-boost-with-bzip2-in-non-standard-location-td2661155.html
@@ -7,9 +18,6 @@
 
 # Hints for OSX:
 # http://stackoverflow.com/questions/20108407/how-do-i-compile-boost-for-os-x-64b-platforms-with-stdlibc
-
-set -x -e -u
-set -o pipefail
 
 INCLUDE_PATH="${PREFIX}/include"
 LIBRARY_PATH="${PREFIX}/lib"
