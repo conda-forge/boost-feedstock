@@ -66,8 +66,8 @@ outputs:
         - cmake             # [win]
       host:
       run_constrained:
-        # make sure we don't co-install with old version of old package name
-        - boost-cpp ={{ version }}
+        # avoid co-installation with old naming of package
+        - boost-cpp <0.0a0
     test:
       commands:
         # presence of regular headers
@@ -114,13 +114,8 @@ outputs:
         - zlib
         - zstd
       run_constrained:
-        # Anaconda's output is also called libboost; therefore we automatically
-        # avoid issues of co-installability, because a package with the same name
-        # can only be installed once. Rather, we need to ensure that conda-forge's
-        # old name "boost-cpp" cannot be co-installed wrongly. Since we keep that
-        # output as a compatibility wrapper (see below), it's enough to enforce
-        # the same version to ensure no old boost packages can be co-installed.
-        - boost-cpp ={{ version }}
+        # avoid co-installation with old naming of package
+        - boost-cpp <0.0a0
     test:
       commands:
         # absence of headers
@@ -181,8 +176,8 @@ outputs:
         - {{ pin_subpackage("libboost", exact=True) }}
         - {{ pin_subpackage("libboost-headers", exact=True) }}
       run_constrained:
-        # make sure we don't co-install with old version of old package name
-        - boost-cpp ={{ version }}
+        # avoid co-installation with old naming of package
+        - boost-cpp <0.0a0
     test:
       files:
         - test
@@ -211,24 +206,6 @@ outputs:
         - ./test_lib.sh   # [unix]
         - ./test_lib.bat  # [win]
 
-  # compatibility output for old naming convention
-  - name: boost-cpp
-    requirements:
-      host:
-        # match host deps to avoid hash collisions between wrappers
-        - icu               # [unix]
-        - libiconv          # [win]
-        - bzip2
-        - xz
-        - zlib
-        - zstd
-        - {{ pin_subpackage("libboost-devel", exact=True) }}
-      run:
-        - {{ pin_subpackage("libboost-devel", exact=True) }}
-    test:
-      commands:
-        - echo "tested in other outputs"
-
   # the python libraries (no headers)
   - name: libboost-python
     script: build-py.sh   # [unix]
@@ -252,8 +229,8 @@ outputs:
       run:
         - python
       run_constrained:
-        # make sure we don't co-install with old version of old package name
-        - boost ={{ version }}
+        # avoid co-installation with old naming of package
+        - boost <0.0a0
         # avoid co-installation with Anaconda's naming of this output
         - py-boost <0.0a0
     test:
@@ -303,8 +280,8 @@ outputs:
         - {{ pin_subpackage("libboost-python", exact=True) }}
         - {{ pin_subpackage("libboost-devel", exact=True) }}
       run_constrained:
-        # make sure we don't co-install with old version of old package name
-        - boost ={{ version }}
+        # avoid co-installation with old naming of package
+        - boost <0.0a0
         # avoid co-installation with Anaconda's naming of this output
         - py-boost <0.0a0
     test:
@@ -314,20 +291,6 @@ outputs:
         - test -d $PREFIX/lib/cmake/boost_numpy-{{ version }}                   # [unix]
         - if not exist %LIBRARY_LIB%\cmake\boost_python-{{ version }} exit 1    # [win]
         - if not exist %LIBRARY_LIB%\cmake\boost_numpy-{{ version }} exit 1     # [win]
-
-  # compatibility output for old naming convention
-  - name: boost
-    requirements:
-      host:
-        # match host deps to avoid hash collisions between wrappers
-        - python
-        - numpy
-        - {{ pin_subpackage("libboost-python-devel", exact=True) }}
-      run:
-        - {{ pin_subpackage("libboost-python-devel", exact=True) }}
-    test:
-      commands:
-        - echo "tested in other outputs"
 
 about:
   home: http://www.boost.org/
