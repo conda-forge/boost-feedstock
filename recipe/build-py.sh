@@ -90,7 +90,7 @@ mkdir build-py
     --layout=system \
     --with-python \
     -j"${CPU_COUNT}" \
-    install 2>&1 | tee b2.log
+    install 2>&1 || (tee b2.log && exit 1)
 
 # clean up between builds for different python versions/implementations
 rm -rf build-py
