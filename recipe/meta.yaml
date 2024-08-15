@@ -1,4 +1,4 @@
-{% set version = "1.85.0" %}
+{% set version = "1.86.0" %}
 
 {% set boost_libs = [
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
@@ -22,7 +22,7 @@ package:
 
 source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: 7009fe1faa1697476bdc7027703a2badb84e849b7b0baad5086b087b971f8617
+  sha256: 1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
@@ -34,7 +34,7 @@ source:
     - patches/0004-Support-numpy-2.0.patch
 
 build:
-  number: 4
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -59,11 +59,11 @@ requirements:
 
 outputs:
   - name: libboost-headers
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
-      build:                # [win]
+      build:   # [win]
         - cmake             # [win]
       host:
       run_constrained:
@@ -100,7 +100,7 @@ outputs:
 
   # libraries without the headers (for run-export)
   - name: libboost
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     requirements:
       build:
@@ -168,7 +168,7 @@ outputs:
 
   # libboost headers + libs + metadata
   - name: libboost-devel
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     build:
       run_exports:
@@ -232,7 +232,7 @@ outputs:
 
   # the python libraries (no headers)
   - name: libboost-python
-    script: build-py.sh   # [unix]
+    script: build-py.sh  # [unix]
     script: build-py.bat  # [win]
     requirements:
       build:
@@ -284,7 +284,7 @@ outputs:
 
   # python libs w/ headers
   - name: libboost-python-devel
-    script: install-py.sh   # [unix]
+    script: install-py.sh  # [unix]
     script: install-py.bat  # [win]
     build:
       run_exports:
@@ -292,7 +292,7 @@ outputs:
         - {{ pin_subpackage("libboost-python", max_pin="x.x") }}
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
-      build:                # [win]
+      build:   # [win]
         - cmake             # [win]
       host:
         - python
