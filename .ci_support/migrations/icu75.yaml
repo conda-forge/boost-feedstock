@@ -3,6 +3,8 @@ __migrator:
   commit_message: Rebuild for icu 75
   kind: version
   migration_number: 1
+  # need boost 1.86 for older icu as well
+  use_local: true
 icu:
-- '75'
+- '73'
 migrator_ts: 1720864544.533804

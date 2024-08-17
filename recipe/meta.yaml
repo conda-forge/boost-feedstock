@@ -33,7 +33,7 @@ source:
     - patches/0003-Support-numpy-2.0.patch
 
 build:
-  number: 0
+  number: 1
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
