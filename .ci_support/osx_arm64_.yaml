@@ -10,18 +10,16 @@ c_stdlib_version:
 - '11.0'
 channel_sources:
 - conda-forge
-- conda-forge
-- conda-forge
-- conda-forge/label/python_rc,conda-forge
-- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '17'
+- '18'
 icu:
 - '75'
+liblzma_devel:
+- '5'
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
@@ -48,13 +46,10 @@ python_impl:
 - cpython
 target_platform:
 - osx-arm64
-xz:
-- '5'
 zip_keys:
 - - python
   - numpy
   - python_impl
-  - channel_sources
 zlib:
 - '1'
 zstd:
