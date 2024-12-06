@@ -34,7 +34,7 @@ source:
     - patches/0004-Support-numpy-2.0.patch
 
 build:
-  number: 6
+  number: 7
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -48,7 +48,7 @@ requirements:
     - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
   host:
     - icu               # [unix]
-    - xz                # [unix]
+    - liblzma-devel     # [unix]
     - bzip2
     - zlib
     - zstd
@@ -110,7 +110,7 @@ outputs:
         - icu               # [unix]
         - libiconv          # [win]
         - bzip2
-        - xz
+        - liblzma-devel
         - zlib
         - zstd
       run_constrained:
@@ -219,7 +219,7 @@ outputs:
         - icu               # [unix]
         - libiconv          # [win]
         - bzip2
-        - xz
+        - liblzma-devel
         - zlib
         - zstd
         - {{ pin_subpackage("libboost-devel", exact=True) }}
