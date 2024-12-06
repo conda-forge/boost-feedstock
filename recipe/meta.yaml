@@ -33,7 +33,7 @@ source:
     - patches/0003-Support-numpy-2.0.patch
 
 build:
-  number: 2
+  number: 3
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -48,7 +48,7 @@ requirements:
     - ruby *
   host:
     - icu               # [unix]
-    - xz                # [unix]
+    - liblzma-devel     # [unix]
     - bzip2
     - zlib
     - zstd
@@ -110,7 +110,7 @@ outputs:
         - icu               # [unix]
         - libiconv          # [win]
         - bzip2
-        - xz
+        - liblzma-devel
         - zlib
         - zstd
       run_constrained:
