@@ -1,4 +1,4 @@
-{% set version = "1.86.0" %}
+{% set version = "1.87.0" %}
 
 {% set boost_libs = [
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
@@ -22,7 +22,7 @@ package:
 
 source:
   url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: 1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b
+  sha256: af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
@@ -33,7 +33,7 @@ source:
     - patches/0003-Support-numpy-2.0.patch
 
 build:
-  number: 3
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
