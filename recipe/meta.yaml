@@ -21,14 +21,14 @@ package:
   version: {{ version }}
 
 source:
-  url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
+  url: https://archives.boost.io/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 0
+  number: 1
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
