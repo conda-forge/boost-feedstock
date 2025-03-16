@@ -1,4 +1,4 @@
-{% set version = "1.87.0" %}
+{% set version = "1.88.0" %}
 
 {% set boost_libs = [
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
@@ -21,14 +21,14 @@ package:
   version: {{ version }}
 
 source:
-  url: https://archives.boost.io/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: af57be25cb4c4f4b413ed692fe378affb4352ea50fbe294a11ef548f4d527d89
+  url: https://archives.boost.io/beta/{{ version }}.beta1/source/boost_{{ version|replace(".", "_") }}_b1.tar.bz2
+  sha256: 9e42c0611500151d795d66a07ef0a21036c02d24678e2e887caf6d97fcbc25ca
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 2
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
