@@ -28,7 +28,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 1
+  number: 2
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -111,6 +111,8 @@ outputs:
       run_constrained:
         # avoid co-installation with old naming of package
         - boost-cpp <0.0a0
+        # see https://www.boost.org/users/history/version_1_87_x.html
+        - __win ==0|>=10        # [win]
     test:
       commands:
         # absence of headers
