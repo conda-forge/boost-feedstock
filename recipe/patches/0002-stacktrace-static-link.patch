@@ -1,0 +1,104 @@
+diff --git a/libs/stacktrace/build/Jamfile.v2 b/libs/stacktrace/build/Jamfile.v2
+index ce57c34..953dc8b 100644
+--- a/libs/stacktrace/build/Jamfile.v2
++++ b/libs/stacktrace/build/Jamfile.v2
+@@ -39,7 +39,7 @@ lib backtrace
+ 
+ actions mp_simple_run_action
+ {
+-      $(>) > $(<)
++      echo \"\" > $(<)
+ }
+ 
+ rule mp-run-simple ( sources + : args * : input-files * : requirements * : target-name )
+@@ -68,10 +68,10 @@ lib boost_stacktrace_noop
+     ../src/noop.cpp
+   : # requirements
+     <warnings>all
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -82,11 +82,11 @@ lib boost_stacktrace_backtrace
+     <warnings>all
+     <target-os>linux:<library>dl
+     <library>backtrace
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+     [ check-target-builds libbacktrace : : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -96,11 +96,11 @@ lib boost_stacktrace_addr2line
+   : # requirements
+     <warnings>all
+     <target-os>linux:<library>dl
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+     [ check-target-builds addr2line : : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -110,11 +110,11 @@ lib boost_stacktrace_basic
+   : # requirements
+     <warnings>all
+     <target-os>linux:<library>dl
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+     [ check-target-builds WinDbg : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -124,11 +124,11 @@ lib boost_stacktrace_windbg
+   : # requirements
+     <warnings>all
+     <library>Dbgeng <library>ole32
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+     [ check-target-builds WinDbg : : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -138,11 +138,11 @@ lib boost_stacktrace_windbg_cached
+   : # requirements
+     <warnings>all
+     <library>Dbgeng <library>ole32
+-    <link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    <link>static
+     [ check-target-builds WinDbgCached : : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
+ 
+@@ -176,6 +176,6 @@ lib boost_stacktrace_from_exception
+     # [ check-target-builds libbacktrace : : <build>no ]
+   : # default build
+   : # usage-requirements
+-    #<link>shared:<define>BOOST_STACKTRACE_DYN_LINK=1
++    #<link>static
+     <define>BOOST_STACKTRACE_NO_LIB=1
+   ;
