@@ -28,7 +28,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 0
+  number: 1
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -224,6 +224,7 @@ outputs:
         # installation doesn't consider the headers or CMake metadata part of this output
         - {{ pin_subpackage("libboost-devel", exact=True) }}
       run:
+        - {{ pin_subpackage("libboost", exact=True) }}
         - python
       run_constrained:
         # avoid co-installation with old naming of package
