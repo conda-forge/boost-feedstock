@@ -4,7 +4,7 @@
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
     "date_time", "filesystem", "graph", "iostreams", "locale", "log", "log_setup",
     "math_c99", "math_c99f", "math_tr1", "math_tr1f", "prg_exec_monitor",
-    "program_options", "random", "regex", "serialization", "system", "thread",
+    "program_options", "random", "regex", "serialization", "thread",
     "timer", "type_erasure", "unit_test_framework", "wave", "wserialization"
 ] %}
 {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
