@@ -112,7 +112,7 @@ outputs:
         # avoid co-installation with old naming of package
         - boost-cpp <0.0a0
         # see https://www.boost.org/users/history/version_1_87_x.html
-        - __win ==0|>=10        # [win]
+        - __win >=10        # [win]
     test:
       commands:
         # absence of headers
