@@ -1,4 +1,7 @@
+# boost is not being tested with current compilers, and as we're
+# all learning almost every day: "what isn't tested, is broken"
+# https://github.com/boostorg/boost/issues/990
 c_compiler_version:     # [osx]
-  - 18                  # [osx]
+  - 17                  # [osx]
 cxx_compiler_version:   # [osx]
-  - 18                  # [osx]
+  - 17                  # [osx]
