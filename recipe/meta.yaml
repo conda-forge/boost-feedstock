@@ -1,10 +1,10 @@
-{% set version = "1.88.0" %}
+{% set version = "1.89.0" %}
 
 {% set boost_libs = [
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
     "date_time", "filesystem", "graph", "iostreams", "locale", "log", "log_setup",
     "math_c99", "math_c99f", "math_tr1", "math_tr1f", "prg_exec_monitor",
-    "program_options", "random", "regex", "serialization", "system", "thread",
+    "program_options", "random", "regex", "serialization", "thread",
     "timer", "type_erasure", "unit_test_framework", "wave", "wserialization"
 ] %}
 {% set boost_libs = boost_libs + ["math_c99l", "math_tr1l"] %}  # [not ppc64le]
@@ -22,13 +22,13 @@ package:
 
 source:
   url: https://archives.boost.io/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: 46d9d2c06637b219270877c9e16155cbd015b6dc84349af064c088e9b5b12f7b
+  sha256: 85a33fa22621b4f314f8e85e1a5e2a9363d22e4f4992925d4bb3bc631b5a0c7a
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 1
+  number: 0
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -53,11 +53,11 @@ requirements:
 
 outputs:
   - name: libboost-headers
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
-      build:                # [win]
+      build:   # [win]
         - cmake             # [win]
       host:
       run_constrained:
@@ -94,7 +94,7 @@ outputs:
 
   # libraries without the headers (for run-export)
   - name: libboost
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     requirements:
       build:
@@ -112,7 +112,7 @@ outputs:
         # avoid co-installation with old naming of package
         - boost-cpp <0.0a0
         # see https://www.boost.org/users/history/version_1_87_x.html
-        - __win ==0|>=10        # [win]
+        - __win >=10        # [win]
     test:
       commands:
         # absence of headers
@@ -159,7 +159,7 @@ outputs:
 
   # libboost headers + libs + metadata
   - name: libboost-devel
-    script: install-lib.sh   # [unix]
+    script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
     build:
       run_exports:
@@ -205,7 +205,7 @@ outputs:
 
   # the python libraries (no headers)
   - name: libboost-python
-    script: build-py.sh   # [unix]
+    script: build-py.sh  # [unix]
     script: build-py.bat  # [win]
     requirements:
       build:
@@ -258,7 +258,7 @@ outputs:
 
   # python libs w/ headers
   - name: libboost-python-devel
-    script: install-py.sh   # [unix]
+    script: install-py.sh  # [unix]
     script: install-py.bat  # [win]
     build:
       run_exports:
@@ -266,7 +266,7 @@ outputs:
         - {{ pin_subpackage("libboost-python", max_pin="x.x") }}
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
-      build:                # [win]
+      build:   # [win]
         - cmake             # [win]
       host:
         - python
