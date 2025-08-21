@@ -26,9 +26,10 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    - patches/0002-stacktrace-static-link.patch
 
 build:
-  number: 0
+  number: 1
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
@@ -42,6 +43,7 @@ requirements:
     - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
     - ruby *
   host:
+    - backtrace         # [unix]
     - icu               # [unix]
     - liblzma-devel     # [unix]
     - bzip2
@@ -102,6 +104,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
+        - backtrace         # [unix]
         - icu               # [unix]
         - libiconv          # [win]
         - bzip2
