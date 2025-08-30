@@ -1,7 +1,4 @@
-# boost is not being tested with current compilers, and as we're
-# all learning almost every day: "what isn't tested, is broken"
+# b2 bootstrap needs newer C++ stdlib and doesn't use the one we provide, see
 # https://github.com/boostorg/boost/issues/990
-c_compiler_version:     # [osx]
-  - 17                  # [osx]
-cxx_compiler_version:   # [osx]
-  - 17                  # [osx]
+MACOSX_SDK_VERSION:     # [osx]
+  - 12.3                # [osx]
