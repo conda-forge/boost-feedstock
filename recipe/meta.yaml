@@ -21,7 +21,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://boostorg.jfrog.io/artifactory/main/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
+  url: https://archives.boost.io/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
   sha256: 1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b
   patches:
     # ensure our compiler flags get used during bootstrapping
@@ -33,7 +33,7 @@ source:
     - patches/0003-Support-numpy-2.0.patch
 
 build:
-  number: 3
+  number: 4
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
