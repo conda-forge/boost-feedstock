@@ -1,4 +1,4 @@
-c_compiler_version:     # [osx]
-  - 18                  # [osx]
-cxx_compiler_version:   # [osx]
-  - 18                  # [osx]
+# b2 bootstrap needs newer C++ stdlib and doesn't use the one we provide, see
+# https://github.com/boostorg/boost/issues/990
+MACOSX_SDK_VERSION:     # [osx]
+  - 12.3                # [osx]
