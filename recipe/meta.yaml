@@ -29,6 +29,8 @@ source:
 
 build:
   number: 1
+  # debug
+  skip: true  # [not osx]
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
