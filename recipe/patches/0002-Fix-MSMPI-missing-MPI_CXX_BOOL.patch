@@ -1,0 +1,30 @@
+From 58e417214ef842047cd1ec9df602c5fc6241f832 Mon Sep 17 00:00:00 2001
+From: Samuel Debionne <samuel.debionne@esrf.fr>
+Date: Thu, 17 Apr 2025 17:55:55 +0200
+Subject: [PATCH] Fix MSMPI missing MPI_CXX_BOOL
+
+---
+ include/boost/mpi/datatype.hpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/include/boost/mpi/datatype.hpp b/include/boost/mpi/datatype.hpp
+index ef8aa2e..b098e20 100644
+--- a/boost/mpi/datatype.hpp
++++ b/boost/mpi/datatype.hpp
+@@ -213,8 +213,13 @@ BOOST_MPI_DATATYPE(packed, MPI_PACKED, builtin);
+ BOOST_MPI_DATATYPE(char, MPI_CHAR, builtin);
+ 
+ /// INTERNAL ONLY
++#if !defined(MSMPI_VER)
+ /// We need to pick a boolean type, MPI_CXX_BOOL seems appropriate
+ BOOST_MPI_DATATYPE(bool, MPI_CXX_BOOL, logical);
++#else
++/// but is not available on MSMPI
++BOOST_MPI_DATATYPE(bool, MPI_C_BOOL, logical);
++#endif
+ 
+ /// INTERNAL ONLY
+ BOOST_MPI_DATATYPE(short, MPI_SHORT, integer);
+-- 
+2.43.0
+
