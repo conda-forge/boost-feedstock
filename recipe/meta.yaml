@@ -26,9 +26,11 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    # fix missing MPI_CXX_BOOL symbol in msmpi
+    - patches/0002-Fix-MSMPI-missing-MPI_CXX_BOOL.patch
 
 build:
-  number: 2
+  number: 3
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
