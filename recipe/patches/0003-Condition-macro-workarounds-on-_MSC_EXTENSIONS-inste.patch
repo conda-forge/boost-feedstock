@@ -1,0 +1,149 @@
+From 44c2ccd508fc47f71c2399a1280483b786e48301 Mon Sep 17 00:00:00 2001
+From: Peter Dimov <pdimov@gmail.com>
+Date: Fri, 27 Jun 2025 02:10:14 +0300
+Subject: [PATCH] Condition macro workarounds on _MSC_EXTENSIONS instead of
+ _MSC_VER. Fixes #84.
+
+---
+ include/boost/mpl/and.hpp    | 12 ++++--------
+ include/boost/mpl/bitand.hpp |  8 ++------
+ include/boost/mpl/bitor.hpp  |  8 ++------
+ include/boost/mpl/or.hpp     |  8 ++------
+ 4 files changed, 10 insertions(+), 26 deletions(-)
+
+diff --git a/include/boost/mpl/and.hpp b/include/boost/mpl/and.hpp
+index a6f4892..3effb84 100644
+--- a/include/boost/mpl/and.hpp
++++ b/include/boost/mpl/and.hpp
+@@ -28,26 +28,22 @@
+ // 'or' and 'and' macros, see http://tinyurl.com/3et69; 'defined(and)'
+ // has to be checked in a separate condition, otherwise GCC complains 
+ // about 'and' being an alternative token
+-#if defined(_MSC_VER) && !defined(__cplusplus)
+-#ifndef __GCCXML__
+-#if defined(and) 
++#if defined(_MSC_EXTENSIONS)
++#if defined(and)
+ #   pragma push_macro("and")
+ #   undef and
+ #   define and(x)
+ #endif
+ #endif
+-#endif
+ 
+ #   define BOOST_MPL_PREPROCESSED_HEADER and.hpp
+ #   include <boost/mpl/aux_/include_preprocessed.hpp>
+ 
+-#if defined(_MSC_VER) && !defined(__clang__) && !defined(__cplusplus)
+-#ifndef __GCCXML__
+-#if defined(and) 
++#if defined(_MSC_EXTENSIONS)
++#if defined(and)
+ #   pragma pop_macro("and")
+ #endif
+ #endif
+-#endif
+ 
+ #else
+ 
+diff --git a/include/boost/mpl/bitand.hpp b/include/boost/mpl/bitand.hpp
+index 82261d0..360e154 100644
+--- a/include/boost/mpl/bitand.hpp
++++ b/include/boost/mpl/bitand.hpp
+@@ -19,27 +19,23 @@
+ // macros, see http://tinyurl.com/ycwdxco; 'defined(bitand)'
+ // has to be checked in a separate condition, otherwise GCC complains 
+ // about 'bitand' being an alternative token
+-#if defined(_MSC_VER) && !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(bitand)
+ #   pragma push_macro("bitand")
+ #   undef bitand
+ #   define bitand(x)
+ #endif
+ #endif
+-#endif
+ 
+ #define AUX778076_OP_NAME   bitand_
+ #define AUX778076_OP_PREFIX bitand
+ #define AUX778076_OP_TOKEN  &
+ #include <boost/mpl/aux_/arithmetic_op.hpp>
+ 
+-#if defined(_MSC_VER) && !defined(__clang__) && !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(bitand)
+ #   pragma pop_macro("bitand")
+ #endif
+ #endif
+-#endif
+ 
+ #endif // BOOST_MPL_BITAND_HPP_INCLUDED
+diff --git a/include/boost/mpl/bitor.hpp b/include/boost/mpl/bitor.hpp
+index 9bd4da2..b19bd6f 100644
+--- a/include/boost/mpl/bitor.hpp
++++ b/include/boost/mpl/bitor.hpp
+@@ -19,27 +19,23 @@
+ // macros, see http://tinyurl.com/ycwdxco; 'defined(bitor)'
+ // has to be checked in a separate condition, otherwise GCC complains 
+ // about 'bitor' being an alternative token
+-#if defined(_MSC_VER) && !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(bitor)
+ #   pragma push_macro("bitor")
+ #   undef bitor
+ #   define bitor(x)
+ #endif
+ #endif
+-#endif
+ 
+ #define AUX778076_OP_NAME   bitor_
+ #define AUX778076_OP_PREFIX bitor
+ #define AUX778076_OP_TOKEN  |
+ #include <boost/mpl/aux_/arithmetic_op.hpp>
+ 
+-#if defined(_MSC_VER) && !defined(__clang__) && !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(bitor)
+ #   pragma pop_macro("bitor")
+ #endif
+ #endif
+-#endif
+ 
+ #endif // BOOST_MPL_BITOR_HPP_INCLUDED
+diff --git a/include/boost/mpl/or.hpp b/include/boost/mpl/or.hpp
+index 337e53a..cb90c02 100644
+--- a/include/boost/mpl/or.hpp
++++ b/include/boost/mpl/or.hpp
+@@ -29,26 +29,22 @@
+ // 'or' and 'and' macros, see http://tinyurl.com/3et69; 'defined(or)'
+ // has to be checked in a separate condition, otherwise GCC complains 
+ // about 'or' being an alternative token
+-#if defined(_MSC_VER)&& !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(or)
+ #   pragma push_macro("or")
+ #   undef or
+ #   define or(x)
+ #endif
+ #endif
+-#endif
+ 
+ #   define BOOST_MPL_PREPROCESSED_HEADER or.hpp
+ #   include <boost/mpl/aux_/include_preprocessed.hpp>
+ 
+-#if defined(_MSC_VER) && !defined(__clang__) && !defined(__cplusplus)
+-#ifndef __GCCXML__
++#if defined(_MSC_EXTENSIONS)
+ #if defined(or)
+ #   pragma pop_macro("or")
+ #endif
+ #endif
+-#endif
+ 
+ #else
+ 
