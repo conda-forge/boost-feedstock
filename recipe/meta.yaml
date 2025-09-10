@@ -28,9 +28,11 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
     # fix missing MPI_CXX_BOOL symbol in msmpi
     - patches/0002-Fix-MSMPI-missing-MPI_CXX_BOOL.patch
+    # fix macro in MPL
+    - patches/0003-Condition-macro-workarounds-on-_MSC_EXTENSIONS-inste.patch
 
 build:
-  number: 3
+  number: 4
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
