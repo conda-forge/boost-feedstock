@@ -30,9 +30,11 @@ source:
     - patches/0002-Fix-MSMPI-missing-MPI_CXX_BOOL.patch
     # backport https://github.com/boostorg/mpl/commit/aa3b1c464d094c590ca443658800204ecaf80e6d
     - patches/0003-Condition-macro-workarounds-on-_MSC_EXTENSIONS-inste.patch
+    # backport https://github.com/boostorg/lockfree/pull/109/commits/1bf32a6dd3a2244d70700655240a8117d9b60c3a
+    - patches/0004-include-cstdint-in-all-files-using-fix-width-integer.patch
 
 build:
-  number: 4
+  number: 5
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
