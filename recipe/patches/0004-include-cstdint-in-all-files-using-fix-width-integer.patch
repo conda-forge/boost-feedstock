@@ -1,0 +1,61 @@
+From 1bf32a6dd3a2244d70700655240a8117d9b60c3a Mon Sep 17 00:00:00 2001
+From: Jan Palus <jpalus@fastmail.com>
+Date: Thu, 26 Dec 2024 19:59:38 +0100
+Subject: [PATCH] include <cstdint> in all files using fix width integer types
+
+---
+ include/boost/lockfree/detail/freelist.hpp | 1 +
+ include/boost/lockfree/stack.hpp           | 1 +
+ test/spsc_value_stress_test.cpp            | 1 +
+ test/spsc_value_test.cpp                   | 2 ++
+ 4 files changed, 5 insertions(+)
+
+diff --git a/include/boost/lockfree/detail/freelist.hpp b/include/boost/lockfree/detail/freelist.hpp
+index 31c8c98..2ac6019 100644
+--- a/include/boost/lockfree/detail/freelist.hpp
++++ b/include/boost/lockfree/detail/freelist.hpp
+@@ -10,6 +10,7 @@
+ #define BOOST_LOCKFREE_FREELIST_HPP_INCLUDED
+ 
+ #include <array>
++#include <cstdint>
+ #include <cstring>
+ #include <limits>
+ #include <memory>
+diff --git a/include/boost/lockfree/stack.hpp b/include/boost/lockfree/stack.hpp
+index 19d5e7d..d6646e3 100644
+--- a/include/boost/lockfree/stack.hpp
++++ b/include/boost/lockfree/stack.hpp
+@@ -29,6 +29,7 @@
+ #include <boost/lockfree/detail/uses_optional.hpp>
+ #include <boost/lockfree/lockfree_forward.hpp>
+ 
++#include <cstdint>
+ #include <tuple>
+ #include <type_traits>
+ 
+diff --git a/test/spsc_value_stress_test.cpp b/test/spsc_value_stress_test.cpp
+index 8c9228f..55cba3f 100644
+--- a/test/spsc_value_stress_test.cpp
++++ b/test/spsc_value_stress_test.cpp
+@@ -16,6 +16,7 @@
+ #include <boost/optional.hpp>
+ 
+ #include <atomic>
++#include <cstdint>
+ #include <thread>
+ 
+ // #define BOOST_LOCKFREE_STRESS_TEST
+diff --git a/test/spsc_value_test.cpp b/test/spsc_value_test.cpp
+index 1cdca9f..c0e4828 100644
+--- a/test/spsc_value_test.cpp
++++ b/test/spsc_value_test.cpp
+@@ -13,6 +13,8 @@
+ #    include <boost/test/unit_test.hpp>
+ #endif
+ 
++#include <cstdint>
++
+ BOOST_AUTO_TEST_CASE( spsc_value_test )
+ {
+     boost::lockfree::spsc_value< uint64_t > v;
