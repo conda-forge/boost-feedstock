@@ -34,7 +34,7 @@ source:
     - patches/0004-include-cstdint-in-all-files-using-fix-width-integer.patch
 
 build:
-  number: 5
+  number: 6
   script_env:
     - PY_DUMMY_VER={{ PY_DUMMY_VER }}
     - NP_DUMMY_VER={{ NP_DUMMY_VER }}
