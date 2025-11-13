@@ -10,10 +10,6 @@ c_stdlib_version:
 - '10.13'
 channel_sources:
 - conda-forge
-- conda-forge
-- conda-forge
-- conda-forge
-- conda-forge,conda-forge/label/python_rc
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -40,11 +36,10 @@ python:
 - 3.14.* *_cp314
 python_impl:
 - cpython
+python_min:
+- '3.10'
 target_platform:
 - osx-64
-zip_keys:
-- - python
-  - channel_sources
 zlib:
 - '1'
 zstd:
