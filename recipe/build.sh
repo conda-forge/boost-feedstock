@@ -3,9 +3,9 @@ set -ex
 
 # work-around for https://github.com/bfgroup/b2/issues/405
 echo "using python" > user-config.jam
-echo ": $PY_DUMMY_VER" >> user-config.jam
+echo ": ${python_min}" >> user-config.jam
 echo ": $PYTHON" >> user-config.jam
-echo ": $PREFIX/include/python$PY_DUMMY_VER" >> user-config.jam
+echo ": $PREFIX/include/python${python_min}" >> user-config.jam
 echo ": $PREFIX/lib" >> user-config.jam
 echo ";" >> user-config.jam
 # see https://www.boost.org/build/doc/html/bbv2/overview/configuration.html
@@ -83,7 +83,7 @@ mkdir temp_prefix
     runtime-link=shared \
     link=shared \
     toolset=${TOOLSET} \
-    python="${PY_DUMMY_VER}" \
+    python="${python_min}" \
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
