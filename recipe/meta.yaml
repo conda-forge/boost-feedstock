@@ -11,11 +11,6 @@
 {% set boost_libs_static_only = ["exception", "test_exec_monitor"] %}
 {% set boost_libs_py = ["python%s" % py, "numpy%s" % py] %}
 
-# we only need _a_ python version to build the headers for libboost-headers,
-# make it accessible in the build scripts via build/script_env below.
-{% set PY_DUMMY_VER = "3.10" %}
-{% set NP_DUMMY_VER = "2.0" %}
-
 package:
   name: boost-split
   version: {{ version }}
@@ -34,18 +29,15 @@ source:
     - patches/0004-include-cstdint-in-all-files-using-fix-width-integer.patch
 
 build:
-  number: 5
-  script_env:
-    - PY_DUMMY_VER={{ PY_DUMMY_VER }}
-    - NP_DUMMY_VER={{ NP_DUMMY_VER }}
+  number: 6
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python {{ PY_DUMMY_VER }}.* *_cpython  # [build_platform != target_platform]
-    - numpy {{ NP_DUMMY_VER }}.*             # [build_platform != target_platform]
+    - python {{ python_min }}.* *_cpython    # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
     - ruby *
   host:
     - icu               # [unix]
@@ -53,9 +45,8 @@ requirements:
     - bzip2
     - zlib
     - zstd
-    # see above
-    - python {{ PY_DUMMY_VER }}.* *_cpython
-    - numpy {{ NP_DUMMY_VER }}.*
+    - python {{ python_min }}.* *_cpython
+    - numpy
 
 outputs:
   - name: libboost-headers
