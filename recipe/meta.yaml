@@ -1,4 +1,4 @@
-{% set version = "1.89.0" %}
+{% set version = "1.90.0" %}
 
 {% set boost_libs = [
     "atomic", "charconv", "chrono", "cobalt", "container", "context", "contract", "coroutine",
@@ -16,8 +16,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://archives.boost.io/release/{{ version }}/source/boost_{{ version|replace(".", "_") }}.tar.bz2
-  sha256: 85a33fa22621b4f314f8e85e1a5e2a9363d22e4f4992925d4bb3bc631b5a0c7a
+  url: https://archives.boost.io/beta/{{ version }}.beta1/source/boost_{{ version|replace(".", "_") }}_b1.tar.bz2
+  sha256: d1754f544e83418c2b5fe18245666830088948cb3629d2b346d56f31c71138e5
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
@@ -25,7 +25,7 @@ source:
     - patches/0002-Fix-MSMPI-missing-MPI_CXX_BOOL.patch
 
 build:
-  number: 3
+  number: 0
 
 requirements:
   build:
