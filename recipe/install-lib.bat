@@ -14,4 +14,7 @@ if [%PKG_NAME%] == [libboost-headers] (
 ) else (
     REM everything else
     xcopy /E /Y temp_prefix\lib %LIBRARY_LIB%
+    REM Patch CMake configs so IMPORTED_LOCATION for DLLs points to bin/ not lib/
+    python "%RECIPE_DIR%\fix-cmake-dll-paths.py" "%LIBRARY_LIB%\cmake"
+    if errorlevel 1 exit /b 1
 )
