@@ -6,6 +6,8 @@ if [%PKG_NAME%] == [libboost-headers] (
     REM robocopy leaves non-zero exit status as sign of success; clear it
     echo "robocopy done"
 ) else if [%PKG_NAME%] == [libboost] (
+    REM remove static variant that exists in addition to shared variant
+    del /s /q temp_prefix\lib\libboost_regex.lib
     REM only the libraries (don't copy CMake metadata)
     move temp_prefix\lib\boost*.lib %LIBRARY_LIB%
     move temp_prefix\lib\libboost*.lib %LIBRARY_LIB%
