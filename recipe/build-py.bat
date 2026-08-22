@@ -23,6 +23,7 @@ mkdir build-py
     variant=release ^
     threading=multi ^
     link=shared ^
+    cxxstd=20 ^
     --layout=system ^
     --with-python ^
     -j%CPU_COUNT%
