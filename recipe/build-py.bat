@@ -32,9 +32,8 @@ if %ERRORLEVEL% neq 0 exit 1
 :: clean up between builds for different python versions/implementations
 rmdir /s /q build-py
 
-:: Move dll's to LIBRARY_BIN
-move %LIBRARY_LIB%\boost*.dll "%LIBRARY_BIN%"
-if %ERRORLEVEL% neq 0 exit 1
+:: b2 already installs dll's directly under LIBRARY_BIN (not LIBRARY_LIB), so
+:: no move is needed here.
 
 :: remove CMake metadata from libboost-python; save it for libboost-python-dev
 :: needs to be done separately per python version & implementation
