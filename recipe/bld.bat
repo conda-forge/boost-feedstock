@@ -50,9 +50,9 @@ echo #define BOOST_AUTO_LINK_NOMANGLE >> temp_prefix\include\boost\config\user.h
 :: we package the (python-version-independent) headers here, whereas the libs
 :: are done in build-py.sh (because we need to build per python version)
 del temp_prefix\lib\boost_python*.lib
-del temp_prefix\lib\boost_python*.dll
+del temp_prefix\bin\boost_python*.dll
 del temp_prefix\lib\boost_numpy*.lib
-del temp_prefix\lib\boost_numpy*.dll
+del temp_prefix\bin\boost_numpy*.dll
 rmdir /s /q temp_prefix\lib\cmake\boost_python-%PKG_VERSION%
 rmdir /s /q temp_prefix\lib\cmake\boost_numpy-%PKG_VERSION%
 

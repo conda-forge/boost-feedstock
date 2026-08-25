@@ -87,6 +87,7 @@ mkdir build-py
     include="${INCLUDE_PATH}" \
     cxxflags="${CXXFLAGS}" \
     linkflags="${LINKFLAGS}" \
+    cxxstd=20 \
     --layout=system \
     --with-python \
     -j"${CPU_COUNT}" \
