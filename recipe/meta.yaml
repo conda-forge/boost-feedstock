@@ -23,7 +23,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -46,11 +46,16 @@ outputs:
   - name: libboost-headers
     script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
+    build:
+      noarch: generic
     requirements:
       # dummy build env to avoid EnvironmentLocationNotFound on win
       build:   # [win]
         - cmake             # [win]
       host:
+      run:
+        - __unix  # [unix]
+        - __win   # [win]
       run_constrained:
         # avoid co-installation with old naming of package
         - boost-cpp <0.0a0
