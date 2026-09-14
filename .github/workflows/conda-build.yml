@@ -58,6 +58,18 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
+          - CONFIG: win_arm64_
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_platform: win-arm64
+            build_workspace_dir: C:\\bld\\
+            docker_run_args: 
+            free_disk_space: skip
+            os: windows
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['windows-11-arm']
+            tools_install_dir: C:\Miniforge
     steps:
 
     - name: Checkout code
