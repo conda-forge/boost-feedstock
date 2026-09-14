@@ -1,21 +1,15 @@
 bzip2:
 - '1'
 c_stdlib:
-- sysroot
-c_stdlib_version:
-- '2.17'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '15'
-docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma10
-icu:
-- '78'
+- vs2022
+libiconv:
+- '1'
 liblzma_devel:
 - '5'
 numpy:
@@ -25,16 +19,13 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
-- 3.12.* *_cpython
-- 3.13.* *_cp313
 - 3.14.* *_cp314
 python_impl:
 - cpython
 python_min:
-- '3.11'
+- '3.14'
 target_platform:
-- linux-aarch64
+- win-arm64
 zlib:
 - '1'
 zstd:
