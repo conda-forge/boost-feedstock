@@ -18,11 +18,24 @@ if %ERRORLEVEL% neq 0 exit 1
 
 mkdir temp_prefix
 
+:: Boost.Build separates the address width from the instruction set.
+set "BOOST_ADDRESS_MODEL=%ARCH%"
+set "BOOST_ARCHITECTURE=x86"
+set "BOOST_PCH=on"
+if "%target_platform%" == "win-arm64" (
+    set "BOOST_ADDRESS_MODEL=64"
+    set "BOOST_ARCHITECTURE=arm"
+    :: Avoid MSVC PCH virtual-memory allocation failures on the ARM64 runner.
+    set "BOOST_PCH=off"
+)
+
 :: Build step
 .\b2 install ^
     --prefix=temp_prefix ^
     toolset=msvc-%VS_MAJOR%.0 ^
-    address-model=%ARCH% ^
+    address-model=%BOOST_ADDRESS_MODEL% ^
+    architecture=%BOOST_ARCHITECTURE% ^
+    pch=%BOOST_PCH% ^
     variant=release ^
     threading=multi ^
     link=shared ^
@@ -58,3 +71,4 @@ rmdir /s /q temp_prefix\lib\cmake\boost_numpy-%PKG_VERSION%
 
 set MAX_NUMBER_OF_MEMBERS=200
 erb boost\hana\detail\struct_macros.hpp.erb > temp_prefix\include\boost\hana\detail\struct_macros.hpp
+if %ERRORLEVEL% neq 0 exit 1

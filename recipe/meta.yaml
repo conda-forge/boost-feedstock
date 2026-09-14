@@ -21,9 +21,10 @@ source:
   patches:
     # ensure our compiler flags get used during bootstrapping
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
+    - patches/0002-use-arm64-fcontext-assembly.patch  # [win and arm64]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -39,7 +40,8 @@ requirements:
     - bzip2
     - zlib
     - zstd
-    - python {{ python_min }}.* *_cpython
+    - python {{ python_min }}.* *_cpython  # [not (win and arm64)]
+    - python {{ python_min }}.* *_cp{{ python_min | replace(".", "") }}  # [win and arm64]
     - numpy
 
 outputs:

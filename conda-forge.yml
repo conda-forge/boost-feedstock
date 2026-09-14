@@ -13,6 +13,7 @@ github:
   branch_name: main
   tooling_branch_name: main
 provider:
+  win_arm64: default
   linux_aarch64: default
   linux_ppc64le: default
   win: azure

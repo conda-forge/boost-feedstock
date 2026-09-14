@@ -1,0 +1,25 @@
+Use the shipped Windows ARM64 Context assembly and its matching ABI.
+
+--- a/libs/context/build/Jamfile.v2
++++ b/libs/context/build/Jamfile.v2
+@@ -21,7 +21,6 @@
+     : requirements
+       <conditional>@boost-context-features.default_abi
+       <conditional>@boost-context-features.default_binary_format
+-      <target-os>windows,<architecture>arm,<address-model>64:<context-impl>winfib
+       <target-os>windows:<define>_WIN32_WINNT=0x0601
+       <target-os>linux,<toolset>gcc,<segmented-stacks>on:<cxxflags>-fsplit-stack
+       <target-os>linux,<toolset>gcc,<segmented-stacks>on:<cxxflags>-DBOOST_USE_SEGMENTED_STACKS
+--- a/libs/context/boost-context-features.jam
++++ b/libs/context/boost-context-features.jam
+@@ -56,7 +56,9 @@
+     local tmp = sysv ;
+     local arch = [ property.select <architecture> : $(properties) ] ;
+ 
+-    if <target-os>windows in $(properties) { tmp = ms ; }
++    if <target-os>windows in $(properties) && <architecture>arm in $(properties)
++        && <address-model>64 in $(properties) { tmp = aapcs ; }
++    else if <target-os>windows in $(properties) { tmp = ms ; }
+     else if <target-os>cygwin in $(properties) { tmp = ms ; }
+     else if [ os.name ] = "NT" { tmp = ms ; }
+     else if [ os.name ] = "CYGWIN" { tmp = ms ; }
