@@ -31,7 +31,8 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python {{ python_min }}.* *_cpython    # [build_platform != target_platform]
+    - python {{ python_min }}.*              # [build_platform != target_platform]
+    - cpython                                # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - ruby *
   host:
@@ -40,8 +41,8 @@ requirements:
     - bzip2
     - zlib
     - zstd
-    - python {{ python_min }}.* *_cpython  # [not (win and arm64)]
-    - python {{ python_min }}.* *_cp{{ python_min | replace(".", "") }}  # [win and arm64]
+    - python {{ python_min }}.*
+    - cpython
     - numpy
 
 outputs:
