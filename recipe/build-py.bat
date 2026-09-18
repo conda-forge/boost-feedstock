@@ -1,10 +1,17 @@
 @echo on
 
+:: python 3.15 moved the windows headers from %PREFIX%\include into
+:: %PREFIX%\include\python; ask python rather than hard-coding either layout
+"%PYTHON%" -c "import sysconfig; print(sysconfig.get_config_var('INCLUDEPY'))" > py_include.txt
+if %ERRORLEVEL% neq 0 exit 1
+set /p PY_INC=<py_include.txt
+del py_include.txt
+
 :: Write python configuration, see https://github.com/boostorg/build/issues/194
 @echo using python > user-config.jam
 @echo : %PY_VER% >> user-config.jam
 @echo : %PYTHON:\=\\% >> user-config.jam
-@echo : %PREFIX:\=\\%\\include >> user-config.jam
+@echo : %PY_INC:\=\\% >> user-config.jam
 @echo : %PREFIX:\=\\%\\libs >> user-config.jam
 @echo ; >> user-config.jam
 xcopy /Y user-config.jam %USERPROFILE%
