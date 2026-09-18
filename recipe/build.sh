@@ -27,8 +27,6 @@ CXXFLAGS="${CXXFLAGS} -fPIC"
 
 if [[ "${target_platform}" == osx* ]]; then
     TOOLSET=clang
-    # see https://conda-forge.org/docs/maintainer/knowledge_base/#newer-c-features-with-old-sdk
-    CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 elif [[ "${target_platform}" == linux* ]]; then
     TOOLSET=gcc
 fi
@@ -40,6 +38,13 @@ EOF
 
 LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 
+# Note: -D_LIBCPP_DISABLE_AVAILABILITY is added further down, after
+# bootstrapping the b2 engine. That define makes libc++ assume all
+# ABI-exported symbols (e.g. __hash_memory, introduced in LLVM 21) are
+# available regardless of MACOSX_DEPLOYMENT_TARGET, which is not true for
+# the MACOSX_SDK_VERSION we build against and breaks linking the b2 engine.
+# The b2 engine itself doesn't need this define, only the actual Boost
+# library build does. See https://github.com/boostorg/boost/issues/990.
 CXXFLAGS="$(echo ${CXXFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
 CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
     CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
@@ -49,6 +54,11 @@ CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |s
     --with-python="${PYTHON}" \
     --with-python-root="${PREFIX} : ${PREFIX}/include/python${PY_VER}" \
     || (cat bootstrap.log && exit 1)
+
+if [[ "${target_platform}" == osx* ]]; then
+    # see https://conda-forge.org/docs/maintainer/knowledge_base/#newer-c-features-with-old-sdk
+    CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
+fi
 
 ADDRESS_MODEL="${ARCH}"
 ARCHITECTURE=x86
