@@ -45,8 +45,19 @@ LINKFLAGS="${LINKFLAGS} -L${LIBRARY_PATH}"
 # the MACOSX_SDK_VERSION we build against and breaks linking the b2 engine.
 # The b2 engine itself doesn't need this define, only the actual Boost
 # library build does. See https://github.com/boostorg/boost/issues/990.
-CXXFLAGS="$(echo ${CXXFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
-CFLAGS="$(echo ${CFLAGS} | sed 's/ -march=[^ ]*//g' | sed 's/ -mcpu=[^ ]*//g' |sed 's/ -mtune=[^ ]*//g')" \
+#
+# The bootstrap.sh patch still passes conda's CXX/CXXFLAGS into B2's engine
+# build. B2 must run on the build machine, so drop target-only ISA/ABI flags
+# when cross-compiling (x86_64 gcc rejects -mabi=lp64d).
+CXXFLAGS="$(echo ${CXXFLAGS} | sed -E 's/(^| )-m(arch|cpu|tune)=[^ ]*//g')"
+CFLAGS="$(echo ${CFLAGS} | sed -E 's/(^| )-m(arch|cpu|tune)=[^ ]*//g')"
+BOOTSTRAP_CXXFLAGS="${CXXFLAGS}"
+BOOTSTRAP_CFLAGS="${CFLAGS}"
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+    BOOTSTRAP_CXXFLAGS="$(echo ${BOOTSTRAP_CXXFLAGS} | sed -E 's/(^| )-mabi=[^ ]*//g')"
+    BOOTSTRAP_CFLAGS="$(echo ${BOOTSTRAP_CFLAGS} | sed -E 's/(^| )-mabi=[^ ]*//g')"
+fi
+CXXFLAGS="${BOOTSTRAP_CXXFLAGS}" CFLAGS="${BOOTSTRAP_CFLAGS}" \
     CXX=${CXX_FOR_BUILD:-${CXX}} CC=${CC_FOR_BUILD:-${CC}} ./bootstrap.sh \
     --prefix="${PREFIX}" \
     --with-toolset=${TOOLSET} \
@@ -71,6 +82,10 @@ if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; the
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=power
+elif [ "${ADDRESS_MODEL}" == "riscv64" ]; then
+    # b2 features (not gcc -mabi). Boost.Context asm is riscv64_sysv_elf.
+    ADDRESS_MODEL=64
+    ARCHITECTURE=riscv
 fi
 
 if [[ "$target_platform" == osx-* ]]; then
