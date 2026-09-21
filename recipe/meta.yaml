@@ -23,14 +23,14 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 3
+  number: 4
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python {{ python_min }}.* *_cpython    # [build_platform != target_platform]
+    - python {{ python_min }}.*              # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - ruby *
   host:
@@ -39,7 +39,7 @@ requirements:
     - bzip2
     - zlib
     - zstd
-    - python {{ python_min }}.* *_cpython
+    - python {{ python_min }}.*
     - numpy
 
 outputs:
@@ -211,10 +211,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        # ensure python_impl gets picked up by smithy (by using it as a selector) and therefore
-        # populated in the .ci_config/*.yaml files, for use in {build,install}-py.{sh,bat}.
-        - python  # [python_impl == "cpython"]
-        - python  # [python_impl == "pypy"]
+        - python
         - numpy
         # keep this in host to ensure that the environment content snapshot before/after
         # installation doesn't consider the headers or CMake metadata part of this output
