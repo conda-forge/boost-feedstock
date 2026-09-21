@@ -50,6 +50,10 @@ if [ "${ADDRESS_MODEL}" == "aarch64" ] || [ "${ADDRESS_MODEL}" == "arm64" ]; the
 elif [ "${ADDRESS_MODEL}" == "ppc64le" ]; then
     ADDRESS_MODEL=64
     ARCHITECTURE=power
+elif [ "${ADDRESS_MODEL}" == "riscv64" ]; then
+    # b2 features (not gcc -mabi). Boost.Context asm is riscv64_sysv_elf.
+    ADDRESS_MODEL=64
+    ARCHITECTURE=riscv
 fi
 
 if [[ "$target_platform" == osx-* ]]; then
