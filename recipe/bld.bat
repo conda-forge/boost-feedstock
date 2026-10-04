@@ -24,15 +24,45 @@ if %ERRORLEVEL% neq 0 exit 1
 @echo on
 
 mkdir temp_prefix
+mkdir temp_static_prefix
 
 :: Build step
+call :build_boost shared temp_prefix
+if errorlevel 1 exit /b 1
+call :build_boost static temp_static_prefix
+if errorlevel 1 exit /b 1
+
+:: Set BOOST_AUTO_LINK_NOMANGLE so that auto-linking uses system layout
+echo &echo.                           >> temp_prefix\include\boost\config\user.hpp
+echo #define BOOST_AUTO_LINK_NOMANGLE >> temp_prefix\include\boost\config\user.hpp
+
+:: we package the (python-version-independent) headers here, whereas the libs
+:: are done in build-py.sh (because we need to build per python version)
+del temp_prefix\lib\boost_python*.lib
+del temp_prefix\bin\boost_python*.dll
+del temp_prefix\lib\boost_numpy*.lib
+del temp_static_prefix\lib\boost_python*.lib
+del temp_static_prefix\bin\boost_python*.dll
+del temp_static_prefix\lib\boost_numpy*.lib
+del temp_static_prefix\bin\boost_numpy*.dll
+del temp_prefix\bin\boost_numpy*.dll
+rmdir /s /q temp_prefix\lib\cmake\boost_python-%PKG_VERSION%
+rmdir /s /q temp_prefix\lib\cmake\boost_numpy-%PKG_VERSION%
+
+set MAX_NUMBER_OF_MEMBERS=200
+erb boost\hana\detail\struct_macros.hpp.erb > temp_prefix\include\boost\hana\detail\struct_macros.hpp
+
+goto :eof
+
+:: Shared B2 options for both link modes.
+:build_boost
 .\b2 install ^
-    --prefix=temp_prefix ^
+    --prefix=%~2 ^
     toolset=msvc-%VS_MAJOR%.0 ^
     address-model=%ARCH% ^
     variant=release ^
     threading=multi ^
-    link=shared ^
+    link=%~1 ^
     cxxstd=20 ^
     -s NO_COMPRESSION=0 ^
     -s NO_ZLIB=0 ^
@@ -48,20 +78,4 @@ mkdir temp_prefix
     -s ZSTD_BINARY=zstd ^
     --layout=system ^
     -j%CPU_COUNT%
-if %ERRORLEVEL% neq 0 exit 1
-
-:: Set BOOST_AUTO_LINK_NOMANGLE so that auto-linking uses system layout
-echo &echo.                           >> temp_prefix\include\boost\config\user.hpp
-echo #define BOOST_AUTO_LINK_NOMANGLE >> temp_prefix\include\boost\config\user.hpp
-
-:: we package the (python-version-independent) headers here, whereas the libs
-:: are done in build-py.sh (because we need to build per python version)
-del temp_prefix\lib\boost_python*.lib
-del temp_prefix\bin\boost_python*.dll
-del temp_prefix\lib\boost_numpy*.lib
-del temp_prefix\bin\boost_numpy*.dll
-rmdir /s /q temp_prefix\lib\cmake\boost_python-%PKG_VERSION%
-rmdir /s /q temp_prefix\lib\cmake\boost_numpy-%PKG_VERSION%
-
-set MAX_NUMBER_OF_MEMBERS=200
-erb boost\hana\detail\struct_macros.hpp.erb > temp_prefix\include\boost\hana\detail\struct_macros.hpp
+exit /b %ERRORLEVEL%

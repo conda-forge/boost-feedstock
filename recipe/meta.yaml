@@ -23,7 +23,7 @@ source:
     - patches/0001-Add-default-value-for-cxx-and-cxxflags-options-for-t.patch
 
 build:
-  number: 3
+  number: 4
 
 requirements:
   build:
@@ -92,6 +92,9 @@ outputs:
   - name: libboost
     script: install-lib.sh  # [unix]
     script: install-lib.bat  # [win]
+    build:
+      script_env:
+        - "BOOST_LIBS_STATIC_ONLY={{ boost_libs_static_only | join(',') }}"
     requirements:
       build:
         # for strong run-exports
@@ -152,6 +155,39 @@ outputs:
         - test ! -d $PREFIX/lib/cmake/boost_{{ each_lib }}-{{ version }}            # [unix]
         - if exist %LIBRARY_LIB%\cmake\boost_{{ each_lib }}-{{ version }} exit 1    # [win]
       {% endfor %}
+
+  # static libraries without headers or CMake metadata
+  - name: libboost-static
+    script: install-lib.sh  # [unix]
+    script: install-lib.bat  # [win]
+    requirements:
+      build:
+        # for strong run-exports
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+      host:
+        - icu               # [unix]
+        - libiconv          # [win]
+        - bzip2
+        - liblzma-devel
+        - zlib
+        - zstd
+        - {{ pin_subpackage("libboost", exact=True) }}
+      run:
+        - {{ pin_subpackage("libboost", exact=True) }}
+      run_constrained:
+        - boost-cpp <0.0a0
+        - __win >=10  # [win]
+    test:
+      commands:
+        - test ! -d $PREFIX/include/boost       # [unix]
+        - if exist %LIBRARY_INC%\boost exit 1   # [win]
+        {% for each_lib in boost_libs + boost_libs_static_only %}
+        - test -f $PREFIX/lib/libboost_{{ each_lib }}.a                   # [unix]
+        - if not exist %LIBRARY_LIB%\libboost_{{ each_lib }}.lib exit 1   # [win]
+        - test ! -d $PREFIX/lib/cmake/boost_{{ each_lib }}-{{ version }}            # [unix]
+        - if exist %LIBRARY_LIB%\cmake\boost_{{ each_lib }}-{{ version }} exit 1 # [win]
+        {% endfor %}
 
   # libboost headers + libs + metadata
   - name: libboost-devel

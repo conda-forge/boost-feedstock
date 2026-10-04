@@ -5,11 +5,15 @@ if [[ "$PKG_NAME" == "libboost-headers" ]]; then
     # for libboost-headers, only the headers;
     cp -R temp_prefix/include/. $PREFIX/include
 elif [[ "$PKG_NAME" == "libboost" ]]; then
-    # remove static variant that exists in addition to shared variant
-    rm -f temp_prefix/lib/libboost_regex.a
     # only the libraries (don't copy CMake metadata)
     cp -R temp_prefix/lib/libboost*${SHLIB_EXT}* $PREFIX/lib
-    cp -R temp_prefix/lib/libboost*.a $PREFIX/lib
+    # Preserve libraries that have no shared variant in this output.
+    IFS=, read -r -a boost_libs_static_only <<< "${BOOST_LIBS_STATIC_ONLY}"
+    for each_lib in "${boost_libs_static_only[@]}"; do
+        cp -R "temp_prefix/lib/libboost_${each_lib}.a" $PREFIX/lib
+    done
+elif [[ "$PKG_NAME" == "libboost-static" ]]; then
+    cp -R temp_static_prefix/lib/libboost*.a $PREFIX/lib
 else
     # everything else
     if [[ "$target_platform" == "osx-arm64" ]]; then

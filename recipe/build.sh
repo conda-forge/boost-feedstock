@@ -95,9 +95,9 @@ elif [[ "$target_platform" == linux-* ]]; then
 fi
 
 mkdir temp_prefix
+mkdir temp_static_prefix
 
-./b2 -q \
-    --prefix=./temp_prefix \
+b2_args=(
     variant=release \
     address-model="${ADDRESS_MODEL}" \
     architecture="${ARCHITECTURE}" \
@@ -106,7 +106,6 @@ mkdir temp_prefix
     debug-symbols=off \
     threading=multi \
     runtime-link=shared \
-    link=shared \
     toolset=${TOOLSET} \
     python="${python_min}" \
     include="${INCLUDE_PATH}" \
@@ -114,8 +113,13 @@ mkdir temp_prefix
     linkflags="${LINKFLAGS}" \
     cxxstd=20 \
     --layout=system \
-    -j"${CPU_COUNT}" \
-    install
+    -j"${CPU_COUNT}"
+)
+
+./b2 -q --prefix=./temp_prefix "${b2_args[@]}" link=shared install
+
+# Build the static variants separately, for packaging into `libboost-static`.
+./b2 -q --prefix=./temp_static_prefix "${b2_args[@]}" link=static install
 
 # we package the (python-version-independent) headers here, whereas the libs
 # are done in build-py.sh (because we need to build per python version)
@@ -123,6 +127,8 @@ rm -f ./temp_prefix/lib/libboost_python*
 rm -f ./temp_prefix/lib/libboost_numpy*
 rm -rf ./temp_prefix/lib/cmake/boost_python*
 rm -rf ./temp_prefix/lib/cmake/boost_numpy*
+rm -f ./temp_static_prefix/lib/libboost_python*
+rm -f ./temp_static_prefix/lib/libboost_numpy*
 
 # Use a larger default for pre-generated headers.
 # This generates more macros for larger sizes. See
