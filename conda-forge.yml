@@ -20,5 +20,5 @@ provider:
 test: native_and_emulated
 workflow_settings:
   pagefile_size:
-    - value: 16
-      os: win
+  - os: win
+    value: 16
