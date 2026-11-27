@@ -13,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '22'
+- '19'
 icu:
 - '78'
 liblzma_devel:

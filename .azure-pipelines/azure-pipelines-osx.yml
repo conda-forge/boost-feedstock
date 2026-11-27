@@ -27,7 +27,7 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-        vm_image: macOS-15
+        vm_image: macOS-15-arm64
   timeoutInMinutes: 360
   variables: {}
 
