@@ -7,7 +7,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2022
+- vs
+cxx_compiler_version:
+- '2022'
 libiconv:
 - '1'
 liblzma_devel:
@@ -19,7 +21,6 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
 - 3.11.* *_cpython
 - 3.12.* *_cpython
 - 3.13.* *_cp313
@@ -27,10 +28,10 @@ python:
 python_impl:
 - cpython
 python_min:
-- '3.10'
+- '3.11'
 target_platform:
 - win-64
 zlib:
 - '1'
 zstd:
-- '1.5'
+- '1.6'
